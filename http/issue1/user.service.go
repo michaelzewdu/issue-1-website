@@ -10,17 +10,17 @@ import (
 )
 
 // UserService is used to interact with the user services on the REST server.
-type UserService struct {
-	client *Client
-}
+type UserService service
 
-//
-// Sorting constants used by SearchUsers methods
+// SortUsersBy  holds enums used by to specify the attribute entities are sorted with
+type SortUsersBy string
+
+// FeedSorting constants used by SearchUsers methods
 const (
-	SortUsersByCreationTime SortBy = "creation_time"
-	SortUsersByUsername     SortBy = "username"
-	SortUsersByFirstName    SortBy = "first-name"
-	SortUsersByLastName     SortBy = "last-name"
+	SortUsersByCreationTime SortUsersBy = "creation_time"
+	SortUsersByUsername     SortUsersBy = "username"
+	SortUsersByFirstName    SortUsersBy = "first-name"
+	SortUsersByLastName     SortUsersBy = "last-name"
 )
 
 // ErrUserNameOccupied is returned when the the username specified is occupied
@@ -160,26 +160,24 @@ func (s *UserService) getUser(req *http.Request) (*User, error) {
 // default sorting on the REST server. To specify sorting, user SearchUsers and
 // user an empty string for the pattern.
 func (s *UserService) GetUsers(page, perPage uint) ([]*User, error) {
-	p := SearchParams{}
+	p := PaginateParams{}
 	p.Limit, p.Offset = calculateLimitOffset(page, perPage)
-	return s.SearchUsers(p)
+	return s.SearchUsers("", "", p)
 }
 
 // SearchUsersPaged is a utility wrapper for SearchUsers for easy pagination,
-func (s *UserService) SearchUsersPaged(page, perPage uint, pattern string, by SortBy, order SortOrder) ([]*User, error) {
-	p := SearchParams{
-		Pattern:   pattern,
-		SortBy:    by,
+func (s *UserService) SearchUsersPaged(page, perPage uint, pattern string, by SortUsersBy, order SortOrder) ([]*User, error) {
+	p := PaginateParams{
 		SortOrder: order,
 	}
 	p.Limit, p.Offset = calculateLimitOffset(page, perPage)
-	return s.SearchUsers(p)
+	return s.SearchUsers(pattern, by, p)
 }
 
 // SearchUsers returns a list of user according to the passed in parameters.
 // An empty pattern matches all users. If any of the fields on the passed in
-// SearchParams are omitted, it'll use the default values.
-func (s *UserService) SearchUsers(params SearchParams) ([]*User, error) {
+// PaginateParams are omitted, it'll use the default values.
+func (s *UserService) SearchUsers(pattern string, by SortUsersBy, params PaginateParams) ([]*User, error) {
 	var (
 		method = http.MethodGet
 		path   = fmt.Sprintf("/users")
@@ -191,15 +189,15 @@ func (s *UserService) SearchUsers(params SearchParams) ([]*User, error) {
 		queries.Set("limit", strconv.FormatUint(uint64(params.Limit), 10))
 		queries.Set("offset", strconv.FormatUint(uint64(params.Offset), 10))
 	}
-	if params.Pattern != "" {
-		queries.Set("pattern", url.QueryEscape(params.Pattern))
+	if pattern != "" {
+		queries.Set("pattern", url.QueryEscape(pattern))
 	}
-	if params.SortBy != "" {
+	if by != "" {
 		var qString string
 		if params.SortOrder != "" {
-			qString = fmt.Sprintf("%s_%s", params.SortBy, params.SortOrder)
+			qString = fmt.Sprintf("%s_%s", by, params.SortOrder)
 		} else {
-			qString = string(params.SortBy)
+			qString = string(by)
 		}
 		queries.Set("sort", qString)
 	}
@@ -259,7 +257,7 @@ func (s *UserService) SearchUsers(params SearchParams) ([]*User, error) {
 }
 
 // UpdateUser updates the user under the given username based on the passed in struct.
-// When changing usernames, be sure to get new tokens after this call as the one used
+// When changing username, be sure to get new tokens after this call as the one used
 // here won't work.
 func (s *UserService) UpdateUser(username string, u *User, authToken string) (*User, error) {
 	var (

@@ -32,9 +32,9 @@ type (
 	// Feed is a value object that tracks channels that a user subbed to
 	// and other settings
 	Feed struct {
-		ID            uint   `json:"id,omitempty"`
-		OwnerUsername string `json:"ownerUsername"`
-		Sorting       string `json:"defaultSorting"`
+		ID            int         `json:"id,omitempty"`
+		OwnerUsername string      `json:"ownerUsername"`
+		Sorting       FeedSorting `json:"defaultSorting"`
 		//Subscriptions []*Channel `json:"subscriptions"`
 		// hiddenPosts   []Post
 	}

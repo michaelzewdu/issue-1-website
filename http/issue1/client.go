@@ -21,6 +21,11 @@ type Client struct {
 
 	Logger      *log.Logger
 	UserService UserService
+	FeedService FeedService
+}
+
+type service struct {
+	client *Client
 }
 
 /*
@@ -47,11 +52,11 @@ var (
 
 var (
 	// ErrRESTServerError is usually returned when the response from the REST
-	// servers is unexpected and unparasable. This usually means a change in protocol
+	// servers is unexpected and un-parse-able. This usually means a change in protocol
 	// or an error in this client.
 	ErrRESTServerError = errors.New("rest server error")
 	// ErrAccessDenied is returned when server returns a 401:unauthorized either because
-	// the token was unaccepted or becasue the token doesn't give acccess to the resource.
+	// the token was unaccepted or because the token doesn't give access to the resource.
 	ErrAccessDenied = errors.New("access denied")
 	//ErrCredentialsUnaccepted is returned if the given username:password combo is wrong.
 	ErrCredentialsUnaccepted = errors.New("credentials not accepted")
@@ -60,31 +65,26 @@ var (
 	//ErrInvalidData is usually returned when the passed data is missing required fields or
 	// is malformed.
 	ErrInvalidData = errors.New("provided data was not accepted")
-	//ErrUserNotFound is returned when there's no user found under the passed in usernam.
+	//ErrUserNotFound is returned when there's no user found under the passed in username.
 	ErrUserNotFound = errors.New("user was not found")
 	//ErrPostNotFound is returned when there's no post found under the passed in id.
 	ErrPostNotFound = errors.New("post was not found")
-	// ErrUnacceptedImageType is returned when the image format passsed isn't supported by REST.
+	// ErrUnacceptedImageType is returned when the image format passed isn't supported by REST.
 	ErrUnacceptedImageType = errors.New("file mime type not accepted")
 )
 
 // SortOrder holds enums used to specify the order entities are sorted with
 type SortOrder string
 
-// SortBy  holds enums used by to specify the attribute entities are sorted with
-type SortBy string
-
 const (
-	// SortAscending sorts ascendingly.
+	// SortAscending sorts accordingly.
 	SortAscending SortOrder = "asc"
-	// SortDescending sorts descendinglt.
+	// SortDescending sorts in descending manner.
 	SortDescending SortOrder = "dsc"
 )
 
-// SearchParams is used to pass in parameters to the Search methods of issue1 services.
-type SearchParams struct {
-	Pattern   string
-	SortBy    SortBy
+// PaginateParams is used to pass in parameters to the Search methods of issue1 services.
+type PaginateParams struct {
 	SortOrder SortOrder
 	Limit     uint
 	Offset    uint
@@ -97,6 +97,7 @@ func NewClient(httpClient *http.Client, baseURL *url.URL, logger *log.Logger) *C
 		Logger:  logger,
 	}
 	c.UserService = UserService{client: c}
+	c.FeedService = FeedService{client: c}
 	return c
 }
 
@@ -155,9 +156,8 @@ func addImageToRequest(req *http.Request, image io.Reader, imageName string) err
 	return nil
 }
 
-func addJWTToRequest(req *http.Request, token string) *http.Request {
+func addJWTToRequest(req *http.Request, token string) {
 	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", token))
-	return req
 }
 
 func calculateLimitOffset(page, perPage uint) (limit, offset uint) {
@@ -244,7 +244,7 @@ type jSendFailData struct {
 	ErrorMessage string `json:"errorMessage"`
 }
 
-// UnmarshalJSON is used to unmarshall responses from the REST servers into
+// UnmarshalJSON is used to unmarshal responses from the REST servers into
 // the jSend format.
 func (j *jSendResponse) UnmarshalJSON(b []byte) error {
 	// we must use a type different from jSendResponse for the
