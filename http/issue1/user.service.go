@@ -14,6 +14,7 @@ type UserService struct {
 	client *Client
 }
 
+//
 // Sorting constants used by SearchUsers methods
 const (
 	SortUsersByCreationTime SortBy = "creation_time"
