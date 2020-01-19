@@ -166,8 +166,8 @@ func (s *FeedService) GetFeedPosts(username, token string, sorting FeedSorting, 
 	return posts, nil
 }
 
-// GetFeedPosts returns a list of posts from the given's user feed sorted according
-// to the the passed FeedSorting. If any of the fields on the passed in PaginateParams are
+// GetFeedSubscriptions returns a list of channels from the given's user feed sorted according
+// to the the passed SortSubscriptionsBy. If any of the fields on the passed in PaginateParams are
 // omitted, it'll use the default values.
 func (s *FeedService) GetFeedSubscriptions(username, token string, by SortSubscriptionsBy, order SortOrder) (map[time.Time]*Channel, error) {
 
