@@ -1,23 +1,65 @@
 package main
 
 import (
-	"github.com/slim-crown/issue-1-website/http/issue1"
+	"bufio"
+	"fmt"
 	"log"
 	"net/http"
 	"net/url"
 	"os"
+
+	"github.com/slim-crown/issue-1-website/internal/delivery/web"
+	"github.com/slim-crown/issue-1-website/pkg/issue1.REST.client/issue1"
 )
 
 func main() {
-	stdoutLogger := log.New(os.Stdout, "", log.Lmicroseconds|log.Lshortfile)
-	i1 := issue1.NewClient(
+
+	s := web.Setup{}
+
+	s.TemplatesStoragePath = "web/templates/*"
+	s.AssetStoragePath = "web/assets"
+	s.AssetServingRoute = "/assets/"
+
+	s.HostAddress = "http://localhost"
+	s.Port = "8081"
+	s.HostAddress += ":" + s.Port
+
+	s.TokenAccessLifetime = 0
+	s.TokenRefreshLifetime = 0
+	s.TokenSigningSecret = nil
+
+	s.Logger = log.New(os.Stdout, "", log.Lmicroseconds|log.Lshortfile)
+
+	s.Iss1C = issue1.NewClient(
 		http.DefaultClient,
 		&url.URL{
 			Scheme: "http",
 			Host:   "localhost:8080",
 		},
-		stdoutLogger,
+		s.Logger,
 	)
+
+	mux := web.NewMux(&s)
+
+	log.Println("server starting..")
+
+	go func() {
+		scanner := bufio.NewScanner(os.Stdin)
+		for scanner.Scan() {
+			switch scanner.Text() {
+			case "kill":
+				log.Fatalln("shutting server down...")
+			default:
+				fmt.Println("unkown command")
+			}
+		}
+	}()
+
+	log.Fatal(http.ListenAndServe(":"+s.Port, mux))
+
+	i1 := s.Iss1C
+	stdoutLogger := s.Logger
+
 	/*
 		u, err := i1.UserService.GetUser("slimmyNewNewNew")
 		stdoutLogger.Printf("\nGetUser\n - - - - value:\n%+v\n\n - - - - error:\n%+v", u, err)
