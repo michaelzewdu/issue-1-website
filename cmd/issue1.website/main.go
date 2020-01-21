@@ -7,16 +7,52 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"time"
+
+	gormRepo "github.com/slim-crown/issue-1-website/internal/repositories/gorm"
+	"github.com/slim-crown/issue-1-website/internal/services/session"
+
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 
 	"github.com/slim-crown/issue-1-website/internal/delivery/web"
-	"github.com/slim-crown/issue-1-website/pkg/issue1.REST.client/issue1"
+	issue1 "github.com/slim-crown/issue-1-website/pkg/issue1.REST.client/http.issue1"
 )
 
 func main() {
 
 	s := web.Setup{}
 
-	s.TemplatesStoragePath = "web/templates/*"
+	s.Logger = log.New(os.Stdout, "", log.Lmicroseconds|log.Lshortfile)
+
+	var err error
+	const (
+		host     = "localhost"
+		port     = "5432"
+		dbname   = "issue#1website"
+		role     = "postgres"
+		password = "password1234!@#$"
+	)
+	dataSourceName := fmt.Sprintf(
+		`host=%s port=%s dbname='%s' user='%s' password='%s' sslmode=disable`,
+		host, port, dbname, role, password)
+
+	db, err := gorm.Open("postgres", dataSourceName)
+	if err != nil {
+		s.Logger.Fatalf("database connection failed because: %s", err.Error())
+	}
+	defer db.Close()
+
+	{
+		if !db.HasTable(&session.Session{}) || !db.HasTable(&session.MapPair{}) {
+			errs := db.AutoMigrate(&session.Session{}, &session.MapPair{}).GetErrors()
+			if len(errs) > 0 {
+				log.Fatalf("migration of session failed becauses: %+v", errs)
+			}
+		}
+	}
+
+	s.TemplatesStoragePath = "web/templates"
 	s.AssetStoragePath = "web/assets"
 	s.AssetServingRoute = "/assets/"
 
@@ -24,11 +60,13 @@ func main() {
 	s.Port = "8081"
 	s.HostAddress += ":" + s.Port
 
-	s.TokenAccessLifetime = 0
-	s.TokenRefreshLifetime = 0
-	s.TokenSigningSecret = nil
+	s.CookieName = "I1Session"
 
-	s.Logger = log.New(os.Stdout, "", log.Lmicroseconds|log.Lshortfile)
+	s.TokenSigningSecret = []byte("secret")
+	s.CSRFTokenLifetime = 15 * time.Minute
+	s.SessionIdleLifetime = 7 * time.Minute
+	s.SessionHardLifetime = 30 * 24 * time.Hour
+	s.HTTPS = false
 
 	s.Iss1C = issue1.NewClient(
 		http.DefaultClient,
@@ -38,22 +76,31 @@ func main() {
 		},
 		s.Logger,
 	)
+	sessionGormRepo := gormRepo.NewSessionRepo(db)
+	s.SessionService = session.NewService(&sessionGormRepo)
 
 	mux := web.NewMux(&s)
-
-	log.Println("server starting..")
 
 	go func() {
 		scanner := bufio.NewScanner(os.Stdin)
 		for scanner.Scan() {
 			switch scanner.Text() {
-			case "kill":
+			case "k":
 				log.Fatalln("shutting server down...")
+			case "r":
+				err := s.ParseTemplates()
+				if err != nil {
+					log.Printf("error: template parsing failed because: %w\n warning: accessing routes now may cause fatal error.", err)
+				} else {
+					log.Printf("templates refreshed.")
+				}
 			default:
-				fmt.Println("unkown command")
+				fmt.Println("unknown command")
 			}
 		}
 	}()
+
+	log.Println("server running...")
 
 	log.Fatal(http.ListenAndServe(":"+s.Port, mux))
 
