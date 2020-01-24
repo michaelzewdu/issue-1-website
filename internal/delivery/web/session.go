@@ -6,10 +6,24 @@ import (
 	"net/url"
 	"time"
 
+	"github.com/dgrijalva/jwt-go"
 	"github.com/jinzhu/gorm"
 
 	"github.com/slim-crown/issue-1-website/internal/services/session"
 )
+
+type sessionValues struct {
+	restRefreshToken string
+	username         string
+	csrf             string
+}
+
+// SessionTokenClaims specifies custom JWT claim used for sessions.
+type SessionTokenClaims struct {
+	jwt.StandardClaims
+	SessionID       string `json:"sessionID,omitempty"`
+	RestAccessToken string `json:"token,omitempty"`
+}
 
 // sessionStart looks for a sessionID on the request cookies and returns the
 // session under it if found. If not found, it creates a new session and attaches

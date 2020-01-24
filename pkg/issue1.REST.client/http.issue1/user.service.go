@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
+	"time"
 )
 
 // UserService is used to interact with the user services on the REST server.
@@ -86,16 +87,16 @@ func (s *UserService) AddUser(u *User) (*User, error) {
 		}
 	}
 
-	u = new(User)
+	newUser := new(User)
 	data, ok := js.Data.(*json.RawMessage)
 	if !ok {
 		return nil, ErrRESTServerError
 	}
-	err = json.Unmarshal(*data, u)
+	err = json.Unmarshal(*data, newUser)
 	if err != nil {
 		return nil, ErrRESTServerError
 	}
-	return u, nil
+	return newUser, nil
 }
 
 // GetUser returns the user under the given username. To get private info of a
@@ -228,6 +229,7 @@ func (s *UserService) SearchUsers(pattern string, by SortUsersBy, params Paginat
 				fallthrough
 			default:
 			}
+			fallthrough
 		default:
 			return nil, ErrRESTServerError
 		}
@@ -379,11 +381,11 @@ func (s *UserService) DeleteUser(username, authToken string) error {
 	return nil
 }
 
-/*
-func (s *UserService) GetUserBookmarks(username, string, postID int, authToken string) (map[time.Time]*Post, error) {
+// GetUserBookmarks gets the posts that have been bookmarked by the user of the given auth token.
+func (s *UserService) GetUserBookmarks(username string, authToken string) (map[time.Time]*Post, error) {
 	var (
+		method = http.MethodGet
 		path   = fmt.Sprintf("/users/%s/bookmarks", username)
-		method = GET
 	)
 	req := s.client.newRequest(path, method)
 
@@ -445,7 +447,6 @@ func (s *UserService) GetUserBookmarks(username, string, postID int, authToken s
 	}
 	return *bookmarks, nil
 }
-*/
 
 // BookmarkPost adds the post under the given ID to the bookmark list of the user
 // under the given username.

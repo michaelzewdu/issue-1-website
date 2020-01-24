@@ -6,13 +6,16 @@ import (
 	"net/http"
 )
 
+// AuthService is used to interact with the auth service on the REST server.
+type AuthService service
+
 // GetAuthToken gets an JWT auth token using the provided credentials.
-func (c *Client) GetAuthToken(username, password string) (string, error) {
+func (c *AuthService) GetAuthToken(username, password string) (string, error) {
 	var (
 		path   = fmt.Sprintf("/token-auth")
 		method = http.MethodPost
 	)
-	req := c.newRequest(path, method)
+	req := c.client.newRequest(path, method)
 
 	err := addBodyToRequestAsJSON(req, struct {
 		Username string `json:"username"`
@@ -22,7 +25,7 @@ func (c *Client) GetAuthToken(username, password string) (string, error) {
 		return "", err
 	}
 
-	js, statusCode, err := c.do(req)
+	js, statusCode, err := c.client.do(req)
 	if err != nil {
 		return "", err
 	}
@@ -65,15 +68,15 @@ func (c *Client) GetAuthToken(username, password string) (string, error) {
 
 // RefreshAuthToken gets a new token using the passed in token.
 // If the passed in token is too old, it will throw ErrAccessDenied.
-func (c *Client) RefreshAuthToken(token string) (string, error) {
+func (c *AuthService) RefreshAuthToken(token string) (string, error) {
 	var (
 		path   = fmt.Sprintf("/token-auth-refresh")
 		method = http.MethodGet
 	)
-	req := c.newRequest(path, method)
+	req := c.client.newRequest(path, method)
 	addJWTToRequest(req, token)
 
-	js, statusCode, err := c.do(req)
+	js, statusCode, err := c.client.do(req)
 	if err != nil {
 		return "", err
 	}
@@ -113,15 +116,15 @@ func (c *Client) RefreshAuthToken(token string) (string, error) {
 }
 
 // Logout invalidates the passed in token from further usage.
-func (c *Client) Logout(token string) error {
+func (c *AuthService) Logout(token string) error {
 	var (
 		path   = fmt.Sprintf("/logout")
 		method = http.MethodGet
 	)
-	req := c.newRequest(path, method)
+	req := c.client.newRequest(path, method)
 	addJWTToRequest(req, token)
 
-	js, statusCode, err := c.do(req)
+	js, statusCode, err := c.client.do(req)
 	if err != nil {
 		return err
 	}

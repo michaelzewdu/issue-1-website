@@ -56,15 +56,16 @@ func main() {
 	s.AssetStoragePath = "web/assets"
 	s.AssetServingRoute = "/assets/"
 
-	s.HostAddress = "http://localhost"
+	s.HostAddress = "localhost"
 	s.Port = "8081"
 	s.HostAddress += ":" + s.Port
 
 	s.CookieName = "I1Session"
 
 	s.TokenSigningSecret = []byte("secret")
-	s.CSRFTokenLifetime = 15 * time.Minute
-	s.SessionIdleLifetime = 7 * time.Minute
+	s.CSRFTokenLifetime = 7 * time.Minute
+	s.SessionIdleLifetime = 1 * time.Minute
+	// s.SessionIdleLifetime = 7 * 24 * time.Hour
 	s.SessionHardLifetime = 30 * 24 * time.Hour
 	s.HTTPS = false
 
@@ -102,15 +103,20 @@ func main() {
 
 	log.Println("server running...")
 
-	log.Fatal(http.ListenAndServe(":"+s.Port, mux))
+	if s.HTTPS {
+		s.HostAddress = "https://" + s.HostAddress
+		log.Fatal(http.ListenAndServe(":"+s.Port, mux))
+	} else {
+		s.HostAddress = "http://" + s.HostAddress
+		//log.Fatal(http.ListenAndServe(":"+s.Port, mux))
+	}
 
 	i1 := s.Iss1C
 	stdoutLogger := s.Logger
 
-	/*
-		u, err := i1.UserService.GetUser("slimmyNewNewNew")
-		stdoutLogger.Printf("\nGetUser\n - - - - value:\n%+v\n\n - - - - error:\n%+v", u, err)
-	*/
+	u, err := i1.UserService.GetUser("slimmy")
+	stdoutLogger.Printf("\nGetUser\n - - - - value:\n%+v\n\n - - - - error:\n%+v", u, err)
+
 	/*
 		u, err := i1.UserService.AddUser(&issue1.User{
 			Username:   "loveless",
@@ -188,6 +194,9 @@ func main() {
 		err = i1.UserService.BookmarkPost("loveless", 3, token)
 		stdoutLogger.Printf("\nBookmarkPost\n - - - - error:\n%+v", err)
 
+		p, err := i1.UserService.GetUserBookmarks("loveless", token)
+		stdoutLogger.Printf("\nGetUserBookmarks\n - - - - value:\n%#v\n\n - - - - error:\n%+v", p, err)
+
 		err = i1.UserService.DeleteBookmark("loveless", 3, token)
 		stdoutLogger.Printf("\nDeleteBookmark\n - - - - error:\n%+v", err)
 	*/
@@ -230,14 +239,109 @@ func main() {
 		err = i1.FeedService.SetFeedSorting(issue1.SortNew,"loveless",token)
 		stdoutLogger.Printf("\nSetFeedSorting\n - - - - error:\n%+v", err)
 	*/
+	/*
+		token, err := i1.GetAuthToken("loveless", "password")
+		stdoutLogger.Printf("\nGetAuthToken\n - - - - value:\n%#v\n\n - - - - error:\n%+v", token, err)
 
-	token, err := i1.GetAuthToken("loveless", "password")
-	stdoutLogger.Printf("\nGetAuthToken\n - - - - value:\n%#v\n\n - - - - error:\n%+v", token, err)
+		err = i1.FeedService.SubscribeToChannel("loveless", "chromagnum", token)
+		stdoutLogger.Printf("\nSubscribeToChannel\n - - - - error:\n%+v", err)
 
-	err = i1.FeedService.SubscribeToChannel("loveless", "chromagnum", token)
-	stdoutLogger.Printf("\nSubscribeToChannel\n - - - - error:\n%+v", err)
+		err = i1.FeedService.UnsubscribeFromChannel("loveless", "chromagnum", token)
+		stdoutLogger.Printf("\nUnsubscribeFromChannel\n - - - - error:\n%+v", err)
+	*/
+	/*
+		token, err := i1.GetAuthToken("loveless", "password")
+		stdoutLogger.Printf("\nGetAuthToken\n - - - - value:\n%#v\n\n - - - - error:\n%+v", token, err)
 
-	err = i1.FeedService.UnsubscribeFromChannel("loveless", "chromagnum", token)
-	stdoutLogger.Printf("\nUnsubscribeFromChannel\n - - - - error:\n%+v", err)
+		err = i1.FeedService.SubscribeToChannel("loveless", "chromagnum", token)
+		stdoutLogger.Printf("\nSubscribeToChannel\n - - - - error:\n%+v", err)
 
+		posts, err := i1.FeedService.GetFeedPosts("loveless", issue1.SortHot,
+			issue1.PaginateParams{issue1.SortDescending,5,0,}, token)
+		stdoutLogger.Printf("\nGetFeedPosts\n - - - - value:\n%+v\n\n - - - - error:\n%+v", posts, err)
+
+		err = i1.FeedService.UnsubscribeFromChannel("loveless", "chromagnum", token)
+		stdoutLogger.Printf("\nUnsubscribeFromChannel\n - - - - error:\n%+v", err)
+	*/
+	/*
+		token, err := i1.GetAuthToken("loveless", "password")
+		stdoutLogger.Printf("\nGetAuthToken\n - - - - value:\n%#v\n\n - - - - error:\n%+v", token, err)
+
+		r, err := i1.ReleaseService.GetReleaseAuthorized(52, token)
+		stdoutLogger.Printf("\nGetRelease\n - - - - value:\n%+v\n\n - - - - error:\n%+v", *r, err)
+	*/
+	/*
+		token, err := i1.GetAuthToken("loveless", "password")
+		stdoutLogger.Printf("\nGetAuthToken\n - - - - value:\n%#v\n\n - - - - error:\n%+v", token, err)
+
+		image, err := os.Open("E:\\Files\\MuSec\\Alternative\\! My Bloody Valentine\\My Bloody Valentine [2008] Loveless\\front.jpg")
+		if err != nil {
+			stdoutLogger.Printf("hmm...error: %+v\n", err)
+			panic(err)
+		}
+		defer image.Close()
+
+		path, err := i1.ReleaseService.AddImageRelease(&issue1.Release{
+			OwnerChannel: "chromagnum",
+			Type:  "image",
+			Metadata: issue1.Metadata{
+				Title:         "Loveless Album Art",
+				ReleaseDate:   time.Now(),
+				GenreDefining: "Album Art",
+				Description:   "Loveless album album art",
+				Other: issue1.Other{
+					Authors:       []string{"my bloody valentine"},
+					Genres:        []string{"Shoegaze"},
+				},
+			},
+		}, image, "lovelessness.jpg", token)
+		stdoutLogger.Printf("\nAddImageRelease\n - - - - value:\n%s\n\n - - - - error:\n%+v", path, err)
+
+		image2, err := os.Open("C:\\Users\\cosmicbridgeman\\Pictures\\The_Hunchback_of_Notre_Dame-fPKapNhofB4.ogv_snapshot_00.01.38_[2019.02.18_12.11.46].jpg")
+		if err != nil {
+			stdoutLogger.Printf("hmm...error: %+v\n", err)
+			panic(err)
+		}
+		defer image2.Close()
+
+		path, err = i1.ReleaseService.UpdateImageRelease(path.ID,&issue1.Release{
+			Metadata: issue1.Metadata{
+				Title:         "new stuff",
+				},
+		}, image2, "kordiourie.jpg", token)
+		stdoutLogger.Printf("\nUpdateImageRelease\n - - - - value:\n%s\n\n - - - - error:\n%+v", path, err)
+
+
+		err = i1.ReleaseService.DeleteRelease(path.ID, token)
+		stdoutLogger.Printf("\nDeleteReleasev\n - - - - error:\n%+v", err)
+	*/
+	/*
+		token, err := i1.GetAuthToken("loveless", "password")
+		stdoutLogger.Printf("\nGetAuthToken\n - - - - value:\n%#v\n\n - - - - error:\n%+v", token, err)
+
+		r, err := i1.ReleaseService.AddTextRelease(&issue1.Release{
+			OwnerChannel: "chromagnum",
+			Type:         "text",
+			Content:      "1 minute and 40 seconds to midnight.",
+			Metadata: issue1.Metadata{
+				Title:         "This is Not A Test",
+				ReleaseDate:   time.Now(),
+				GenreDefining: "Atomic",
+				Description:   "Full stop.",
+				Other: issue1.Other{
+					Authors: []string{"Man"},
+					Genres:  []string{"Catastrophe"},
+				},
+			},
+		}, token)
+		stdoutLogger.Printf("\nAddTextRelease\n - - - - value:\n%s\n\n - - - - error:\n%+v", r, err)
+
+		r, err = i1.ReleaseService.UpdateRelease(r.ID, &issue1.Release{
+			Content: "1 minute and 39 seconds to midnight.",
+		}, issue1.Text, token)
+		stdoutLogger.Printf("\nUpdateRelease\n - - - - value:\n%s\n\n - - - - error:\n%+v", r, err)
+
+		err = i1.ReleaseService.DeleteRelease(r.ID, token)
+		stdoutLogger.Printf("\nDeleteRelease\n - - - - error:\n%+v", err)
+	*/
 }

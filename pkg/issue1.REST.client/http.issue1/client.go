@@ -1,3 +1,5 @@
+/*
+Package issue1 provides provides an interface to the issue#1 REST services.*/
 package issue1
 
 import (
@@ -11,6 +13,7 @@ import (
 	"mime/multipart"
 	"net"
 	"net/http"
+	"net/textproto"
 	"net/url"
 )
 
@@ -19,9 +22,11 @@ type Client struct {
 	HTTPClient *http.Client
 	BaseURL    *url.URL
 
-	Logger      *log.Logger
-	UserService UserService
-	FeedService FeedService
+	Logger         *log.Logger
+	UserService    UserService
+	FeedService    FeedService
+	ReleaseService ReleaseService
+	AuthService
 }
 
 type service struct {
@@ -64,11 +69,14 @@ var (
 	ErrConnectionError = errors.New("connection could not be made with issue1 REST")
 	//ErrInvalidData is usually returned when the passed data is missing required fields or
 	// is malformed.
+	//ErrPostNotFound is returned when there's no post found under the passed in id.
 	ErrInvalidData = errors.New("provided data was not accepted")
 	//ErrUserNotFound is returned when there's no user found under the passed in username.
 	ErrUserNotFound = errors.New("user was not found")
-	//ErrPostNotFound is returned when there's no post found under the passed in id.
+	//ErrPostNotFound is returned when there was no post found under the given id.
 	ErrPostNotFound = errors.New("post was not found")
+	//ErrReleaseNotFound is returned when there was no post found under the given id.
+	ErrReleaseNotFound = errors.New("release was not found")
 	// ErrUnacceptedImageType is returned when the image format passed isn't supported by REST.
 	ErrUnacceptedImageType = errors.New("file mime type not accepted")
 )
@@ -98,6 +106,8 @@ func NewClient(httpClient *http.Client, baseURL *url.URL, logger *log.Logger) *C
 	}
 	c.UserService = UserService{client: c}
 	c.FeedService = FeedService{client: c}
+	c.AuthService = AuthService{client: c}
+	c.ReleaseService = ReleaseService{client: c}
 	return c
 }
 
@@ -134,23 +144,60 @@ func addBodyToRequestAsJSON(req *http.Request, body interface{}) error {
 
 func addImageToRequest(req *http.Request, image io.Reader, imageName string) error {
 	buf := new(bytes.Buffer)
-	if req.Body != nil {
-		_, err := io.Copy(buf, req.Body)
-		if err != nil {
-			return err
-		}
-	}
+	//if req.Body != nil {
+	//	_, err := io.Copy(buf, req.Body)
+	//	if err != nil {
+	//		return err
+	//	}
+	//}
 	mw := multipart.NewWriter(buf)
 	defer mw.Close()
 	fw, err := mw.CreateFormFile("image", imageName)
 	if err != nil {
 		return err
 	}
-	i, err := io.Copy(fw, image)
+	_, err = io.Copy(fw, image)
 	if err != nil {
 		return err
 	}
-	fmt.Printf("image bytes wrote: %d\n", i)
+	req.Body = ioutil.NopCloser(buf)
+	req.Header.Set("Content-Type", mw.FormDataContentType())
+	return nil
+}
+
+func addJSONAndImageToRequestAsMultipart(req *http.Request, body interface{}, image io.Reader, imageName string) error {
+	buf := new(bytes.Buffer)
+	//if req.Body != nil {
+	//	_, err := io.Copy(buf, req.Body)
+	//	if err != nil {
+	//		return err
+	//	}
+	//}
+	mw := multipart.NewWriter(buf)
+	defer mw.Close()
+
+	jsonHeader := make(textproto.MIMEHeader)
+	jsonHeader.Set("Content-Type", "application/json")
+	jsonHeader.Set("Content-Disposition", `form-data; name="JSON"`)
+
+	jw, err := mw.CreatePart(jsonHeader)
+	if err != nil {
+		return err
+	}
+	err = json.NewEncoder(jw).Encode(body)
+	if err != nil {
+		return err
+	}
+
+	fw, err := mw.CreateFormFile("image", imageName)
+	if err != nil {
+		return err
+	}
+	_, err = io.Copy(fw, image)
+	if err != nil {
+		return err
+	}
+
 	req.Body = ioutil.NopCloser(buf)
 	req.Header.Set("Content-Type", mw.FormDataContentType())
 	return nil
@@ -223,6 +270,11 @@ func (c *Client) do(req *http.Request) (*jSendResponse, int, error) {
 	if resp.StatusCode == http.StatusUnauthorized {
 		return nil, resp.StatusCode, ErrAccessDenied
 	}
+
+	//buf := new(bytes.Buffer)
+	//_, err = io.Copy(buf, resp.Body)
+	//fmt.Printf("Body:\n %s", string(buf.Bytes()))
+	//err = json.NewDecoder(buf).Decode(jSend)
 
 	err = json.NewDecoder(resp.Body).Decode(jSend)
 	if err != nil {

@@ -17,12 +17,6 @@ func getFront(s *Setup) func(http.ResponseWriter, *http.Request) {
 			return
 		}
 
-		if err != nil {
-			s.Logger.Printf("server error generating session token beccause: %w", err)
-			getError(s)(w, r)
-			return
-		}
-
 		token, err := cSRFToken(
 			"",
 			s.TokenSigningSecret,
@@ -33,7 +27,12 @@ func getFront(s *Setup) func(http.ResponseWriter, *http.Request) {
 			return
 		}
 
-		sess.Set(s.sessionValues.csrf, token)
+		err = sess.Set(s.sessionValues.csrf, token)
+		if err != nil {
+			s.Logger.Printf("server error setting value on session because: %w", err)
+			getError(s)(w, r)
+			return
+		}
 
 		frontForms := Input{
 			CSRF: token,
@@ -71,7 +70,7 @@ func postLogin(s *Setup) func(http.ResponseWriter, *http.Request) {
 			loginForm.VErrors.Add("generic", "Please Try Again.")
 
 			newToken, err := cSRFToken(
-				"", //no subject for login/signup forms
+				"", //no subject for login/sign up forms
 				s.TokenSigningSecret,
 				s.CSRFTokenLifetime,
 			)
@@ -80,7 +79,12 @@ func postLogin(s *Setup) func(http.ResponseWriter, *http.Request) {
 				return
 			}
 
-			sess.Set(s.sessionValues.csrf, newToken)
+			err = sess.Set(s.sessionValues.csrf, newToken)
+			if err != nil {
+				s.Logger.Printf("server error setting value on session because: %w", err)
+				getError(s)(w, r)
+				return
+			}
 			loginForm.CSRF = newToken
 
 			s.templates.ExecuteTemplate(w, "front.layout", loginForm)
@@ -104,7 +108,7 @@ func postLogin(s *Setup) func(http.ResponseWriter, *http.Request) {
 			getError(s)(w, r)
 			return
 		}
-		sess.Set(s.sessionValues.restRefreshToken, restToken)
+		err = sess.Set(s.sessionValues.restRefreshToken, restToken)
 		if err != nil {
 			getError(s)(w, r)
 			return

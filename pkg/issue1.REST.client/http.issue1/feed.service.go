@@ -84,13 +84,13 @@ func (s *FeedService) GetFeedSorting(username, token string) (FeedSorting, error
 func (s *FeedService) GetFeedPostsPaged(page, perPage uint, username, token string, sorting FeedSorting) ([]*Post, error) {
 	p := PaginateParams{}
 	p.Limit, p.Offset = calculateLimitOffset(page, perPage)
-	return s.GetFeedPosts(username, token, sorting, p)
+	return s.GetFeedPosts(username, sorting, p, token)
 }
 
 // GetFeedPosts returns a list of posts from the given's user feed sorted according
 // to the the passed FeedSorting. If any of the fields on the passed in PaginateParams are
 // omitted, it'll use the default values.
-func (s *FeedService) GetFeedPosts(username, token string, sorting FeedSorting, params PaginateParams) ([]*Post, error) {
+func (s *FeedService) GetFeedPosts(username string, sorting FeedSorting, params PaginateParams, token string) ([]*Post, error) {
 
 	// TODO test
 
@@ -138,6 +138,7 @@ func (s *FeedService) GetFeedPosts(username, token string, sorting FeedSorting, 
 				fallthrough
 			default:
 			}
+			fallthrough
 		default:
 			return nil, ErrRESTServerError
 		}

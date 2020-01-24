@@ -85,7 +85,7 @@ func TestSessionGormRepo(t *testing.T) {
 	sess.Data = append(sess.Data,
 		session.MapPair{
 			Key:   "test",
-			Value: "testin",
+			Value: "testing",
 		})
 
 	t.Run("UpdateSession", func(t *testing.T) {
