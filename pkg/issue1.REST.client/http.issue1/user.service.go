@@ -321,16 +321,16 @@ func (s *UserService) UpdateUser(username string, u *User, authToken string) (*U
 		}
 	}
 
-	u = new(User)
+	newUser := new(User)
 	data, ok := js.Data.(*json.RawMessage)
 	if !ok {
 		return nil, ErrRESTServerError
 	}
-	err = json.Unmarshal(*data, u)
+	err = json.Unmarshal(*data, newUser)
 	if err != nil {
 		return nil, ErrRESTServerError
 	}
-	return u, nil
+	return newUser, nil
 }
 
 // DeleteUser removes the user under the given username.
