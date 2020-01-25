@@ -23,6 +23,7 @@ type Client struct {
 	BaseURL    *url.URL
 
 	Logger         *log.Logger
+	ChannelService ChannelService
 	UserService    UserService
 	FeedService    FeedService
 	ReleaseService ReleaseService
@@ -75,8 +76,8 @@ var (
 	ErrUserNotFound = errors.New("user was not found")
 	//ErrPostNotFound is returned when there was no post found under the given id.
 	ErrPostNotFound = errors.New("post was not found")
-	//ErrReleaseNotFound is returned when there was no post found under the given id.
-	ErrReleaseNotFound = errors.New("release was not found")
+	////ErrReleaseNotFound is returned when there was no post found under the given id.
+	//ErrReleaseNotFound = errors.New("release was not found")
 	// ErrUnacceptedImageType is returned when the image format passed isn't supported by REST.
 	ErrUnacceptedImageType = errors.New("file mime type not accepted")
 )
@@ -105,6 +106,7 @@ func NewClient(httpClient *http.Client, baseURL *url.URL, logger *log.Logger) *C
 		Logger:  logger,
 	}
 	c.UserService = UserService{client: c}
+	c.ChannelService = ChannelService{client: c}
 	c.FeedService = FeedService{client: c}
 	c.AuthService = AuthService{client: c}
 	c.ReleaseService = ReleaseService{client: c}

@@ -6,18 +6,19 @@ type (
 	// Channel represents a singular stream of posts that a user can subscribe to
 	// under administration by certain users.
 	Channel struct {
-		Username           string
-		Name               string
-		Description        string
-		Owner              string
-		Admins             []string
-		PostIDs            []uint
-		StickiedPostIDs    [2]uint
-		OfficialReleaseIDs []uint
-		ReleaseIDs         []uint
-		CreationTime       time.Time
+		ChannelUsername    string    `json:"channelUsername"`
+		Name               string    `json:"name,omitempty"`
+		Description        string    `json:"description,omitempty"`
+		PictureURL         string    `json:"pictureURL,omitempty"`
+		OwnerUsername      string    `json:"ownerUsername,omitempty"`
+		AdminUsernames     []string  `json:"adminUsernames,omitempty"`
+		PostIDs            []uint    `json:"postIDs,omitempty"`
+		StickiedPostIDs    []uint    `json:"stickiedPostIDs,omitempty "`
+		ReleaseIDs         []uint    `json:"releaseIDs,omitempty"`
+		OfficialReleaseIDs []uint    `json:"officialReleaseIDs,omitempty"`
+		CreationTime       time.Time `json:"creationTime,omitempty"`
 	}
-	// Comment represents standard comments users can attach
+	//Comment represents standard comments users can attach
 	// to a post or another comment.
 	// replyTo is either and id of another comment or -1 if
 	// it's a reply to original post.
@@ -41,14 +42,15 @@ type (
 	// Post is an aggregate entity of Releases along with socially interactive
 	// components such as stars, posting user and comments attached to the post
 	Post struct {
-		ID            uint
-		Title         string
-		Description   string
-		OriginChannel string
-		Poster        string
-		ContentIDs    []uint
-		Stars         map[string]uint // map of a username to the number of stars (range of 0 to 5) given
-		CreationTime  time.Time
+		ID               int            `json:"id"`
+		PostedByUsername string         `json:"PostedByUsername,omitempty"`
+		OriginChannel    string         `json:"originChannel,omitempty"`
+		Title            string         `json:"title,omitempty"`
+		Description      string         `json:"description,omitempty"`
+		ContentsID       []int          `json:"contentsID,omitempty"`
+		Stars            map[string]int `json:"stars,omitempty"`
+		CommentsID       []int          `json:"commentsID,omitempty"`
+		CreationTime     time.Time      `json:"creationTime"`
 	}
 	// Release represents an atomic work of creativity.
 	Release struct {

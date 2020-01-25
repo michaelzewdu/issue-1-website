@@ -80,7 +80,7 @@ func main() {
 	sessionGormRepo := gormRepo.NewSessionRepo(db)
 	s.SessionService = session.NewService(&sessionGormRepo)
 
-	mux := web.NewMux(&s)
+	//mux := web.NewMux(&s)
 
 	go func() {
 		scanner := bufio.NewScanner(os.Stdin)
@@ -103,13 +103,13 @@ func main() {
 
 	log.Println("server running...")
 
-	if s.HTTPS {
-		s.HostAddress = "https://" + s.HostAddress
-		log.Fatal(http.ListenAndServe(":"+s.Port, mux))
-	} else {
-		s.HostAddress = "http://" + s.HostAddress
-		//log.Fatal(http.ListenAndServe(":"+s.Port, mux))
-	}
+	//if s.HTTPS {
+	//	s.HostAddress = "https://" + s.HostAddress
+	//	log.Fatal(http.ListenAndServe(":"+s.Port, mux))
+	//} else {
+	//	s.HostAddress = "http://" + s.HostAddress
+	//	//log.Fatal(http.ListenAndServe(":"+s.Port, mux))
+	//}
 
 	i1 := s.Iss1C
 	stdoutLogger := s.Logger
@@ -344,4 +344,64 @@ func main() {
 		err = i1.ReleaseService.DeleteRelease(r.ID, token)
 		stdoutLogger.Printf("\nDeleteRelease\n - - - - error:\n%+v", err)
 	*/
+	//channels,err:= i1.ChannelService.GetChannelPosts("Isis Cane")
+	//if err == nil {
+	//	for _, u := range channels {
+	//		stdoutLogger.Printf("%v\n", u)
+	//	}
+	//}
+	token, err := i1.GetAuthToken("Isis Cane", "password")
+	stdoutLogger.Printf("\nGetAuthToken\n - - - - value:\n%#v\n\n - - - - error:\n%+v", token, err)
+
+	//c, err := i1.ChannelService.GetAdmins("Isis Cane",token)
+	//if err == nil {
+	//	for _, u := range c {
+	//		stdoutLogger.Printf("%v\n", u)
+	//	}}
+	//cS, err := i1.ChannelService.GetOwner("Isis Cane",token)
+	//stdoutLogger.Printf("%v\n", cS)
+	//ca, err := i1.ChannelService.GetChannel("Isis Cane")
+	//stdoutLogger.Printf("\nGetChannel\n - - - - value:\n%+v\n\n - - - - error:\n%+v", ca, err)
+	//cb, err := i1.ChannelService.GetChannelPost("Isis Cane",96)
+	//stdoutLogger.Printf("\nGetChannel\n - - - - value:\n%+v\n\n - - - - error:\n%+v", cb, err)
+	//cc, err := i1.ChannelService.GetChannelPosts("Isis Cane")
+	//if err == nil {
+	//	for _, u := range cc {
+	//		stdoutLogger.Printf("%v\n", u)
+	//	}
+	//}
+	//stdoutLogger.Printf("\nGetChannel\n - - - - value:\n%+v\n\n - - - - error:\n%+v", c, err)
+	//cd, err := i1.ChannelService.GetCatalog("Isis Cane",token)
+	//stdoutLogger.Printf("\nGetChannel\n - - - - value:\n%+v\n\n - - - - error:\n%+v", cd, err)
+	//ce, err := i1.ChannelService.GetReleaseInOfficialCatalog("Isis Cane",55)
+	//stdoutLogger.Printf("\nGetChannel\n - - - - value:\n%+v\n\n - - - - error:\n%+v",ce,err)
+
+	cf, err := i1.ChannelService.GetStickiedPosts("Isis Cane")
+	if err == nil {
+		for _, u := range cf {
+			stdoutLogger.Printf("%v\n", u)
+		}
+	}
+	//-
+
+	//ch, err := i1.ChannelService.UpdateChannel(
+	//	"Isis Cane",
+	//	&issue1.Channel{
+	//		Name: "i don't know what's real okay coolio!",
+	//	},
+	//	token,
+	////)
+	//stdoutLogger.Printf("\nUpdateUser\n - - - - value:\n%+v\n\n - - - - error:\n%+v", ch, err)
+	//image, err := os.Open("C:\\Users\\hp\\go\\src\\github.com\\HannaGirmaYas\\issue#1\\delivery\\web\\assets\\img\\paris.jpg")
+	//if err != nil {
+	//	stdoutLogger.Printf("hmm...error: %+v\n", err)
+	//	panic(err)
+	//}
+	//defer image.Close()
+	//path, err := i1.ChannelService.AddPicture("Isis Cane", image, "paris.jpg", token)
+	//stdoutLogger.Printf("\nAddPicture\n - - - - value:\n%s\n\n - - - - error:\n%+v", path, err)
+	//	err = i1.ChannelService.StickyPost("Isis Cane",6,token)
+	//	stdoutLogger.Printf("\nSticky Post\n - - - - value:\n%s\n\n - - - - error:\n%+v",  err)
+	//	err = i1.ChannelService.DeleteStickiedPost("Isis Cane",6,token)
+	//	stdoutLogger.Printf("\nStickied Post Delete\n - - - - value:\n%s\n\n - - - - error:\n",  err)
 }

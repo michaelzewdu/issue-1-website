@@ -254,8 +254,8 @@ func (s *FeedService) GetFeedSubscriptions(username, token string, by SortSubscr
 	for _, channel := range channels {
 		// TODO return actual channels
 		out[channel.SubscriptionTime] = &Channel{
-			Username: channel.Channelname,
-			Name:     channel.Name,
+			ChannelUsername: channel.Channelname,
+			Name:            channel.Name,
 		}
 	}
 	return out, nil
