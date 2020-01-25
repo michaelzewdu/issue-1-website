@@ -80,7 +80,7 @@ func main() {
 	sessionGormRepo := gormRepo.NewSessionRepo(db)
 	s.SessionService = session.NewService(&sessionGormRepo)
 
-	//mux := web.NewMux(&s)
+	mux := web.NewMux(&s)
 
 	go func() {
 		scanner := bufio.NewScanner(os.Stdin)
@@ -103,13 +103,13 @@ func main() {
 
 	log.Println("server running...")
 
-	//if s.HTTPS {
-	//	s.HostAddress = "https://" + s.HostAddress
-	//	log.Fatal(http.ListenAndServe(":"+s.Port, mux))
-	//} else {
-	//	s.HostAddress = "http://" + s.HostAddress
-	//	//log.Fatal(http.ListenAndServe(":"+s.Port, mux))
-	//}
+	if s.HTTPS {
+		s.HostAddress = "https://" + s.HostAddress
+		log.Fatal(http.ListenAndServe(":"+s.Port, mux))
+	} else {
+		s.HostAddress = "http://" + s.HostAddress
+		//log.Fatal(http.ListenAndServe(":"+s.Port, mux))
+	}
 
 	i1 := s.Iss1C
 	stdoutLogger := s.Logger
