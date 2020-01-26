@@ -5,10 +5,22 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
+	"strconv"
 )
 
 // ReleaseService is used to interact with the release service on the REST server.
 type ReleaseService service
+
+// SortReleasesBy  holds enums used by SearchRelease methods the attribute of Users are sorted with
+type SortReleasesBy string
+
+// Sorting constants used by SearchRelease methods
+const (
+	SortReleaseByCreationTime SortReleasesBy = "creation-time"
+	SortByChannel             SortReleasesBy = "channel"
+	SortByType                SortReleasesBy = "type"
+)
 
 // GetRelease returns the user under the given username. To be able to get an unofficial
 // release use GetReleaseAuthorized.
@@ -283,4 +295,108 @@ func (s *ReleaseService) DeleteRelease(id uint, authToken string) error {
 		}
 	}
 	return nil
+}
+
+// GetReleases returns a list of all releases. They are sorted according to the
+// default sorting on the REST server. To specify sorting, user SearchReleases and
+// user an empty string for the pattern.
+// Note: You can only search for releases found in official catalogs of channels.
+func (s *ReleaseService) GetReleases(page, perPage uint) ([]*Release, error) {
+	p := PaginateParams{}
+	p.Limit, p.Offset = calculateLimitOffset(page, perPage)
+	return s.SearchReleases("", "", p)
+}
+
+// SearchReleasesPaged is a utility wrapper for SearchReleases for easy pagination,
+// Note: You can only search for releases found in official catalogs of channels.
+func (s *ReleaseService) SearchReleasesPaged(page, perPage uint, pattern string, by SortReleasesBy, order SortOrder) ([]*Release, error) {
+	p := PaginateParams{
+		SortOrder: order,
+	}
+	p.Limit, p.Offset = calculateLimitOffset(page, perPage)
+	return s.SearchReleases(pattern, by, p)
+}
+
+// SearchReleases returns a list of releases according to the passed in parameters.
+// An empty pattern matches all releases. If any of the fields on the passed in
+// PaginateParams are omitted, it'll use the default values.
+// Note: You can only search for releases found in official catalogs of channels.
+func (s *ReleaseService) SearchReleases(pattern string, by SortReleasesBy, params PaginateParams) ([]*Release, error) {
+	var (
+		method = http.MethodGet
+		path   = fmt.Sprintf("/releases")
+	)
+
+	queries := url.Values{}
+	// use params only if not default values
+	if params.Limit != 0 || params.Offset != 0 {
+		queries.Set("limit", strconv.FormatUint(uint64(params.Limit), 10))
+		queries.Set("offset", strconv.FormatUint(uint64(params.Offset), 10))
+	}
+	if pattern != "" {
+		queries.Set("pattern", url.QueryEscape(pattern))
+	}
+	if by != "" {
+		var qString string
+		if params.SortOrder != "" {
+			qString = fmt.Sprintf("%s_%s", by, params.SortOrder)
+		} else {
+			qString = string(by)
+		}
+		queries.Set("sort", qString)
+	}
+
+	req := s.client.newRequest(path, method)
+	req.URL.RawQuery = queries.Encode()
+
+	js, statusCode, err := s.client.do(req)
+	if err != nil {
+		return nil, err
+	}
+
+	switch js.Status {
+	case "success":
+		break
+	case "fail":
+		jF, ok := js.Data.(*jSendFailData)
+		if !ok {
+			return nil, ErrRESTServerError
+		}
+		s.client.Logger.Printf("%+v", jF)
+		switch statusCode {
+		case http.StatusBadRequest:
+			switch jF.ErrorReason {
+			case "limit":
+				fallthrough
+			case "offset":
+				fallthrough
+			default:
+			}
+			fallthrough
+		default:
+			return nil, ErrRESTServerError
+		}
+	case "error":
+		return nil, ErrRESTServerError
+	default:
+		switch statusCode {
+		case http.StatusUnauthorized:
+			return nil, ErrAccessDenied
+		case http.StatusInternalServerError:
+			fallthrough
+		default:
+			return nil, ErrRESTServerError
+		}
+	}
+
+	releases := make([]*Release, 0)
+	data, ok := js.Data.(*json.RawMessage)
+	if !ok {
+		return nil, ErrRESTServerError
+	}
+	err = json.Unmarshal(*data, &releases)
+	if err != nil {
+		return nil, ErrRESTServerError
+	}
+	return releases, nil
 }

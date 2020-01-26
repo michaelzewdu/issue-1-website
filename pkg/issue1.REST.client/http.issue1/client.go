@@ -27,6 +27,7 @@ type Client struct {
 	UserService    UserService
 	FeedService    FeedService
 	ReleaseService ReleaseService
+	CommentService CommentService
 	AuthService
 }
 
@@ -60,28 +61,30 @@ var (
 	// ErrRESTServerError is usually returned when the response from the REST
 	// servers is unexpected and un-parse-able. This usually means a change in protocol
 	// or an error in this client.
-	ErrRESTServerError = errors.New("rest server error")
+	ErrRESTServerError = errors.New("http.issue1: rest server error")
 	// ErrAccessDenied is returned when server returns a 401:unauthorized either because
 	// the token was unaccepted or because the token doesn't give access to the resource.
-	ErrAccessDenied = errors.New("access denied")
+	ErrAccessDenied = errors.New("http.issue1: access denied")
 	//ErrCredentialsUnaccepted is returned if the given username:password combo is wrong.
-	ErrCredentialsUnaccepted = errors.New("credentials not accepted")
+	ErrCredentialsUnaccepted = errors.New("http.issue1: credentials not accepted")
 	//ErrConnectionError is return if there was an error sending a request to the REST server.
-	ErrConnectionError = errors.New("connection could not be made with issue1 REST")
+	ErrConnectionError = errors.New("http.issue1: connection could not be made with issue1 REST")
 	//ErrForbiddenAccess is return if there was a forbidden request is sent to the REST server.
-	ErrForbiddenAccess = errors.New("forbidden URL request")
+	ErrForbiddenAccess = errors.New("http.issue1:forbidden URL request")
 	//ErrInvalidData is usually returned when the passed data is missing required fields or
 	// is malformed.
 	//ErrPostNotFound is returned when there's no post found under the passed in id.
-	ErrInvalidData = errors.New("provided data was not accepted")
+	ErrInvalidData = errors.New("http.issue1: provided data was not accepted")
 	//ErrUserNotFound is returned when there's no user found under the passed in username.
-	ErrUserNotFound = errors.New("user was not found")
+	ErrUserNotFound = errors.New("http.issue1: user was not found")
 	//ErrPostNotFound is returned when there was no post found under the given id.
-	ErrPostNotFound = errors.New("post was not found")
-	////ErrReleaseNotFound is returned when there was no post found under the given id.
-	//ErrReleaseNotFound = errors.New("release was not found")
+	ErrPostNotFound = errors.New("http.issue1: post was not found")
+	//ErrReleaseNotFound is returned when there was no post found under the given id.
+	ErrReleaseNotFound = errors.New("http.issue1: release was not found")
+	//ErrCommentNotFound is returned when there was no comment found under the given id.
+	ErrCommentNotFound = errors.New("http.issue1: comment was not found")
 	// ErrUnacceptedImageType is returned when the image format passed isn't supported by REST.
-	ErrUnacceptedImageType = errors.New("file mime type not accepted")
+	ErrUnacceptedImageType = errors.New("http.issue1: file mime type not accepted")
 )
 
 // SortOrder holds enums used to specify the order entities are sorted with
@@ -112,6 +115,7 @@ func NewClient(httpClient *http.Client, baseURL *url.URL, logger *log.Logger) *C
 	c.FeedService = FeedService{client: c}
 	c.AuthService = AuthService{client: c}
 	c.ReleaseService = ReleaseService{client: c}
+	c.CommentService = CommentService{client: c}
 	return c
 }
 

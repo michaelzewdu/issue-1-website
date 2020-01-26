@@ -105,7 +105,7 @@ func main() {
 
 	if s.HTTPS {
 		s.HostAddress = "https://" + s.HostAddress
-		//log.Fatal(http.ListenAndServe(":"+s.Port, mux))
+		log.Fatal(http.ListenAndServe(":"+s.Port, mux))
 	} else {
 		s.HostAddress = "http://" + s.HostAddress
 		//log.Fatal(http.ListenAndServe(":"+s.Port, mux))
