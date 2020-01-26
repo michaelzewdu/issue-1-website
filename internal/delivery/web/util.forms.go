@@ -7,9 +7,6 @@ import (
 	"unicode/utf8"
 )
 
-// PhoneRX represents phone number maching pattern
-var PhoneRX = regexp.MustCompile("(^\\+[0-9]{2}|^\\+[0-9]{2}\\(0\\)|^\\(\\+[0-9]{2}\\)\\(0\\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\\-\\s]{10}$)")
-
 // EmailRX represents email address maching pattern
 var EmailRX = regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
 
@@ -20,14 +17,25 @@ type Input struct {
 	CSRF    string
 }
 
-// MinLength checks if a given minium length is satisfied
+// MinLength checks if a given minimum length is satisfied
 func (inVal *Input) MinLength(field string, d int) {
 	value := inVal.Values.Get(field)
 	if value == "" {
 		return
 	}
 	if utf8.RuneCountInString(value) < d {
-		inVal.VErrors.Add(field, fmt.Sprintf("This field is too short (minimum is %d characters)", d))
+		inVal.VErrors.Add(field, fmt.Sprintf("This field is too short (minimum allowed is %d characters)", d))
+	}
+}
+
+// MaxLength checks if a given maximum length is satisfied
+func (inVal *Input) MaxLength(field string, d int) {
+	value := inVal.Values.Get(field)
+	if value == "" {
+		return
+	}
+	if utf8.RuneCountInString(value) > d {
+		inVal.VErrors.Add(field, fmt.Sprintf("This field is too long (maximum allowed is %d characters)", d))
 	}
 }
 

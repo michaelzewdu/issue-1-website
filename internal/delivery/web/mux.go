@@ -1,7 +1,6 @@
 package web
 
 import (
-	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -26,7 +25,7 @@ func (s *Setup) ParseTemplates() error {
 	if err != nil {
 		return err
 	}
-	fmt.Printf("%s\n", temp.DefinedTemplates())
+	log.Printf("%s\n", temp.DefinedTemplates())
 	s.templates = temp
 	return nil
 }
@@ -68,6 +67,7 @@ func NewMux(s *Setup) *httprouter.Router {
 
 	mainRouter.HandlerFunc("GET", "/", getFront(s))
 	mainRouter.HandlerFunc("POST", "/login", postLogin(s))
+	mainRouter.HandlerFunc("POST", "/signup", postSignUp(s))
 	mainRouter.HandlerFunc("GET", "/home", getHome(s))
 
 	return mainRouter

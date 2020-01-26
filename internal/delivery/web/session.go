@@ -45,7 +45,8 @@ func sessionStart(s *Setup, w http.ResponseWriter, r *http.Request) (*session.Se
 		}
 		if sessionFound {
 			// TODO check if max age gets updated
-			http.SetCookie(w, cookie)
+			cookie.MaxAge = int(s.SessionHardLifetime.Seconds())
+			w.Header().Set("Set-Cookie", cookie.String())
 			return sess, nil
 		}
 	}
@@ -64,14 +65,13 @@ func sessionStart(s *Setup, w http.ResponseWriter, r *http.Request) (*session.Se
 		HttpOnly: true,
 	}
 
-	http.SetCookie(w, cookie)
-	fmt.Printf("Session: %+v\nCookie:%+v\n", sess, cookie)
+	w.Header().Set("Set-Cookie", cookie.String())
+
+	//fmt.Printf("Session: %+v\nCookie:%+v\n", sess, cookie)
 	return sess, nil
 }
 
-// sessionStart looks for a sessionID on the request cookies and returns the
-// session under it if found. If not found, it creates a new session and attaches
-// a new cookie.
+// sessionDestroy removes all cookies set by session start.
 func sessionDestroy(s *Setup, w http.ResponseWriter, r *http.Request) error {
 	// TODO test
 	cookie, err := r.Cookie(s.CookieName)
@@ -89,6 +89,7 @@ func sessionDestroy(s *Setup, w http.ResponseWriter, r *http.Request) error {
 		Expires:  time.Now(),
 		MaxAge:   -1,
 	}
-	http.SetCookie(w, cookie)
+	w.Header().Set("Set-Cookie", cookie.String())
+
 	return nil
 }
