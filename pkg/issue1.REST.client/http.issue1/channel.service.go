@@ -95,6 +95,8 @@ func (s *ChannelService) AddChannel(c *Channel) (*Channel, error) {
 		switch statusCode {
 		case http.StatusUnauthorized:
 			return nil, ErrAccessDenied
+		case http.StatusForbidden:
+			return nil, ErrForbiddenAccess
 		case http.StatusInternalServerError:
 			fallthrough
 		default:
@@ -161,6 +163,8 @@ func (s *ChannelService) getChannel(req *http.Request) (*Channel, error) {
 		switch statusCode {
 		case http.StatusUnauthorized:
 			return nil, ErrAccessDenied
+		case http.StatusForbidden:
+			return nil, ErrForbiddenAccess
 		case http.StatusInternalServerError:
 			fallthrough
 		default:
@@ -260,6 +264,8 @@ func (s *ChannelService) SearchChannels(pattern string, by SortChannelsBy, param
 		switch statusCode {
 		case http.StatusUnauthorized:
 			return nil, ErrAccessDenied
+		case http.StatusForbidden:
+			return nil, ErrForbiddenAccess
 		case http.StatusInternalServerError:
 			fallthrough
 		default:
@@ -334,6 +340,8 @@ func (s *ChannelService) UpdateChannel(channelUsername string, u *Channel, authT
 		switch statusCode {
 		case http.StatusUnauthorized:
 			return nil, ErrAccessDenied
+		case http.StatusForbidden:
+			return nil, ErrForbiddenAccess
 		case http.StatusInternalServerError:
 			fallthrough
 		default:
@@ -392,6 +400,8 @@ func (s *ChannelService) DeleteChannel(channelUsername, authToken string) error 
 		switch statusCode {
 		case http.StatusUnauthorized:
 			return ErrAccessDenied
+		case http.StatusForbidden:
+			return ErrForbiddenAccess
 		case http.StatusInternalServerError:
 			fallthrough
 		default:
@@ -450,6 +460,8 @@ func (s *ChannelService) AddPicture(channelUsername string, image io.Reader, ima
 		switch statusCode {
 		case http.StatusUnauthorized:
 			return "", ErrAccessDenied
+		case http.StatusForbidden:
+			return "", ErrForbiddenAccess
 		default:
 			return "", ErrRESTServerError
 		}
@@ -502,6 +514,8 @@ func (s *ChannelService) RemovePicture(channelUsername, authToken string) error 
 		switch statusCode {
 		case http.StatusUnauthorized:
 			return ErrAccessDenied
+		case http.StatusForbidden:
+			return ErrForbiddenAccess
 		default:
 			return ErrRESTServerError
 		}
@@ -566,6 +580,8 @@ func (s *ChannelService) AddAdmin(channelUsername string, adminUsername string, 
 		switch statusCode {
 		case http.StatusUnauthorized:
 			return ErrAccessDenied
+		case http.StatusForbidden:
+			return ErrForbiddenAccess
 		case http.StatusInternalServerError:
 			fallthrough
 		default:
@@ -630,6 +646,8 @@ func (s *ChannelService) DeleteAdmin(channelUsername string, adminUsername strin
 		switch statusCode {
 		case http.StatusUnauthorized:
 			return ErrAccessDenied
+		case http.StatusForbidden:
+			return ErrForbiddenAccess
 		case http.StatusInternalServerError:
 			fallthrough
 		default:
@@ -694,6 +712,8 @@ func (s *ChannelService) ChangeOwner(channelUsername string, ownerUsername strin
 		switch statusCode {
 		case http.StatusUnauthorized:
 			return ErrAccessDenied
+		case http.StatusForbidden:
+			return ErrForbiddenAccess
 		case http.StatusInternalServerError:
 			fallthrough
 		default:
@@ -757,6 +777,8 @@ func (s *ChannelService) DeleteReleaseFromCatalog(channelUsername string, releas
 		switch statusCode {
 		case http.StatusUnauthorized:
 			return ErrAccessDenied
+		case http.StatusForbidden:
+			return ErrForbiddenAccess
 		case http.StatusInternalServerError:
 			fallthrough
 		default:
@@ -819,6 +841,8 @@ func (s *ChannelService) DeleteReleaseFromOfficialCatalog(channelUsername string
 		switch statusCode {
 		case http.StatusUnauthorized:
 			return ErrAccessDenied
+		case http.StatusForbidden:
+			return ErrForbiddenAccess
 		case http.StatusInternalServerError:
 			fallthrough
 		default:
@@ -892,6 +916,8 @@ func (s *ChannelService) AddReleaseToOfficialCatalog(channelUsername string, rel
 		switch statusCode {
 		case http.StatusUnauthorized:
 			return ErrAccessDenied
+		case http.StatusForbidden:
+			return ErrForbiddenAccess
 		case http.StatusInternalServerError:
 			fallthrough
 		default:
@@ -970,6 +996,8 @@ func (s *ChannelService) StickyPost(channelUsername string, postID uint, authTok
 		switch statusCode {
 		case http.StatusUnauthorized:
 			return ErrAccessDenied
+		case http.StatusForbidden:
+			return ErrForbiddenAccess
 		case http.StatusInternalServerError:
 			fallthrough
 		default:
@@ -1034,6 +1062,8 @@ func (s *ChannelService) DeleteStickiedPost(channelUsername string, postID uint,
 		switch statusCode {
 		case http.StatusUnauthorized:
 			return ErrAccessDenied
+		case http.StatusForbidden:
+			return ErrForbiddenAccess
 		case http.StatusInternalServerError:
 			fallthrough
 		default:
@@ -1043,7 +1073,6 @@ func (s *ChannelService) DeleteStickiedPost(channelUsername string, postID uint,
 	return nil
 }
 
-//TODO
 //// GetChannelPosts returns the channel post under the given channelUsername.
 func (s *ChannelService) GetChannelPosts(channelUsername string) ([]*Post, error) {
 	var (
@@ -1091,6 +1120,8 @@ func (s *ChannelService) GetChannelPosts(channelUsername string) ([]*Post, error
 		switch statusCode {
 		case http.StatusUnauthorized:
 			return nil, ErrAccessDenied
+		case http.StatusForbidden:
+			return nil, ErrForbiddenAccess
 		case http.StatusInternalServerError:
 			fallthrough
 		default:
@@ -1164,6 +1195,8 @@ func (s *ChannelService) GetCatalog(channelUsername string, authToken string) ([
 		switch statusCode {
 		case http.StatusUnauthorized:
 			return nil, ErrAccessDenied
+		case http.StatusForbidden:
+			return nil, ErrForbiddenAccess
 		case http.StatusInternalServerError:
 			fallthrough
 		default:
@@ -1236,6 +1269,8 @@ func (s *ChannelService) GetOfficialCatalog(channelUsername string, authToken st
 		switch statusCode {
 		case http.StatusUnauthorized:
 			return nil, ErrAccessDenied
+		case http.StatusForbidden:
+			return nil, ErrForbiddenAccess
 		case http.StatusInternalServerError:
 			fallthrough
 		default:
@@ -1303,6 +1338,8 @@ func (s *ChannelService) GetChannelPost(channelUsername string, postId uint) (*P
 		switch statusCode {
 		case http.StatusUnauthorized:
 			return nil, ErrAccessDenied
+		case http.StatusForbidden:
+			return nil, ErrForbiddenAccess
 		case http.StatusInternalServerError:
 			fallthrough
 		default:
@@ -1367,6 +1404,8 @@ func (s *ChannelService) GetReleaseInCatalog(channelUsername string, releaseId u
 		switch statusCode {
 		case http.StatusUnauthorized:
 			return nil, ErrAccessDenied
+		case http.StatusForbidden:
+			return nil, ErrForbiddenAccess
 		case http.StatusInternalServerError:
 			fallthrough
 		default:
@@ -1431,6 +1470,8 @@ func (s *ChannelService) GetReleaseInOfficialCatalog(channelUsername string, rel
 		switch statusCode {
 		case http.StatusUnauthorized:
 			return nil, ErrAccessDenied
+		case http.StatusForbidden:
+			return nil, ErrForbiddenAccess
 		case http.StatusInternalServerError:
 			fallthrough
 		default:
@@ -1496,6 +1537,8 @@ func (s *ChannelService) GetStickiedPosts(channelUsername string) ([]*Post, erro
 		switch statusCode {
 		case http.StatusUnauthorized:
 			return nil, ErrAccessDenied
+		case http.StatusForbidden:
+			return nil, ErrForbiddenAccess
 		case http.StatusInternalServerError:
 			fallthrough
 		default:
@@ -1572,6 +1615,8 @@ func (s *ChannelService) GetAdmins(channelUsername string, authToken string) ([]
 		switch statusCode {
 		case http.StatusUnauthorized:
 			return nil, ErrAccessDenied
+		case http.StatusForbidden:
+			return nil, ErrForbiddenAccess
 		case http.StatusInternalServerError:
 			fallthrough
 		default:
@@ -1640,6 +1685,8 @@ func (s *ChannelService) GetOwner(channelUsername string, authToken string) (str
 		switch statusCode {
 		case http.StatusUnauthorized:
 			return "", ErrAccessDenied
+		case http.StatusForbidden:
+			return "", ErrForbiddenAccess
 		case http.StatusInternalServerError:
 			fallthrough
 		default:

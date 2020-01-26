@@ -68,6 +68,8 @@ var (
 	ErrCredentialsUnaccepted = errors.New("credentials not accepted")
 	//ErrConnectionError is return if there was an error sending a request to the REST server.
 	ErrConnectionError = errors.New("connection could not be made with issue1 REST")
+	//ErrForbiddenAccess is return if there was a forbidden request is sent to the REST server.
+	ErrForbiddenAccess = errors.New("forbidden URL request")
 	//ErrInvalidData is usually returned when the passed data is missing required fields or
 	// is malformed.
 	//ErrPostNotFound is returned when there's no post found under the passed in id.

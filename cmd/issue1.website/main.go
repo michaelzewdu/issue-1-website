@@ -80,7 +80,7 @@ func main() {
 	sessionGormRepo := gormRepo.NewSessionRepo(db)
 	s.SessionService = session.NewService(&sessionGormRepo)
 
-	mux := web.NewMux(&s)
+	//mux := web.NewMux(&s)
 
 	go func() {
 		scanner := bufio.NewScanner(os.Stdin)
@@ -105,7 +105,7 @@ func main() {
 
 	if s.HTTPS {
 		s.HostAddress = "https://" + s.HostAddress
-		log.Fatal(http.ListenAndServe(":"+s.Port, mux))
+		//log.Fatal(http.ListenAndServe(":"+s.Port, mux))
 	} else {
 		s.HostAddress = "http://" + s.HostAddress
 		//log.Fatal(http.ListenAndServe(":"+s.Port, mux))
@@ -353,11 +353,18 @@ func main() {
 	token, err := i1.GetAuthToken("Isis Cane", "password")
 	stdoutLogger.Printf("\nGetAuthToken\n - - - - value:\n%#v\n\n - - - - error:\n%+v", token, err)
 
-	//c, err := i1.ChannelService.GetAdmins("Isis Cane",token)
-	//if err == nil {
-	//	for _, u := range c {
-	//		stdoutLogger.Printf("%v\n", u)
-	//	}}
+	c, err := i1.ChannelService.GetAdmins("Isis Cane", token)
+	if err == nil {
+		for _, u := range c {
+			stdoutLogger.Printf("%v\n", u)
+		}
+	}
+	c, err = i1.ChannelService.GetAdmins("bob", token)
+	if err == nil {
+		for _, u := range c {
+			stdoutLogger.Printf("%v\n", u)
+		}
+	}
 	//cS, err := i1.ChannelService.GetOwner("Isis Cane",token)
 	//stdoutLogger.Printf("%v\n", cS)
 	//ca, err := i1.ChannelService.GetChannel("Isis Cane")
