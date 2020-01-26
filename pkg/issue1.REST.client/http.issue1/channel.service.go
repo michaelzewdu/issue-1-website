@@ -2,7 +2,7 @@ package issue1
 
 import (
 	"encoding/json"
-	"fmt"
+	. "fmt"
 	"io"
 	"net/http"
 	"net/url"
@@ -23,41 +23,41 @@ const (
 )
 
 // ErrPostAlreadyStickied is returned when the post provided is already a sticky post
-var ErrPostAlreadyStickied = fmt.Errorf("post already stickied")
+var ErrPostAlreadyStickied = Errorf("post already stickied")
 
 // ErrStickiedPostFull is returned when the channel has filled it's stickied post quota
-var ErrStickiedPostFull = fmt.Errorf("two posts already stickied")
+var ErrStickiedPostFull = Errorf("two posts already stickied")
 
 // ErrReleaseAlreadyExists is returned when a release already exists
-var ErrReleaseAlreadyExists = fmt.Errorf("release already exists")
+var ErrReleaseAlreadyExists = Errorf("release already exists")
 
 // ErrAdminAlreadyExists is returned when the channel channelUsername specified already has specified user as admin
-var ErrAdminAlreadyExists = fmt.Errorf("user is already an admin")
+var ErrAdminAlreadyExists = Errorf("user is already an admin")
 
 // ErrChannelNotFound is returned when the specified channel does not exist
-var ErrChannelNotFound = fmt.Errorf("channel does not exist ")
+var ErrChannelNotFound = Errorf("channel does not exist ")
 
 // ErrAdminNotFound is returned when the channel Admin channelUsername specified isn't recognized
-var ErrAdminNotFound = fmt.Errorf("admin not found")
-
-// ErrReleaseNotFound is returned when the  channel release specified isn't recognized
-var ErrReleaseNotFound = fmt.Errorf("release not found")
+var ErrAdminNotFound = Errorf("admin not found")
 
 // ErrStickiedPostNotFound is returned when the  stickied post specified isn't recognized
-var ErrStickiedPostNotFound = fmt.Errorf("stickied post not found")
+var ErrStickiedPostNotFound = Errorf("stickied post not found")
 
 // AddChannel sends a a request to create a user based on the passed in struct to the
 // REST server. Returns ErrInvalidData if the struct has unacceptable data.
-func (s *ChannelService) AddChannel(c *Channel) (*Channel, error) {
+func (s *ChannelService) AddChannel(c *Channel, authToken string) (*Channel, error) {
 	var (
 		method = http.MethodPost
-		path   = fmt.Sprintf("/channels")
+		path   = Sprintf("/channels")
 	)
 	req := s.client.newRequest(path, method)
+
 	err := addBodyToRequestAsJSON(req, c)
 	if err != nil {
 		return nil, err
 	}
+	addJWTToRequest(req, authToken)
+
 	js, statusCode, err := s.client.do(req)
 	if err != nil {
 		return nil, err
@@ -122,7 +122,7 @@ func (s *ChannelService) AddChannel(c *Channel) (*Channel, error) {
 func (s *ChannelService) GetChannelAuthorized(channelUsername string, authToken string) (*Channel, error) {
 	var (
 		method = http.MethodGet
-		path   = fmt.Sprintf("/channels/%s", channelUsername)
+		path   = Sprintf("/channels/%s", channelUsername)
 	)
 	req := s.client.newRequest(path, method)
 
@@ -140,7 +140,7 @@ func (s *ChannelService) GetChannelAuthorized(channelUsername string, authToken 
 func (s *ChannelService) GetChannel(channelUsername string) (*Channel, error) {
 	var (
 		method = http.MethodGet
-		path   = fmt.Sprintf("/channels/%s", channelUsername)
+		path   = Sprintf("/channels/%s", channelUsername)
 	)
 	req := s.client.newRequest(path, method)
 	return s.getChannel(req)
@@ -207,7 +207,7 @@ func (s *ChannelService) SearchChannelPaged(page, perPage uint, pattern string, 
 func (s *ChannelService) SearchChannels(pattern string, by SortChannelsBy, params PaginateParams) ([]*Channel, error) {
 	var (
 		method = http.MethodGet
-		path   = fmt.Sprintf("/channels")
+		path   = Sprintf("/channels")
 	)
 
 	queries := url.Values{}
@@ -222,7 +222,7 @@ func (s *ChannelService) SearchChannels(pattern string, by SortChannelsBy, param
 	if by != "" {
 		var qString string
 		if params.SortOrder != "" {
-			qString = fmt.Sprintf("%s_%s", by, params.SortOrder)
+			qString = Sprintf("%s_%s", by, params.SortOrder)
 		} else {
 			qString = string(by)
 		}
@@ -291,7 +291,7 @@ func (s *ChannelService) SearchChannels(pattern string, by SortChannelsBy, param
 func (s *ChannelService) UpdateChannel(channelUsername string, u *Channel, authToken string) (*Channel, error) {
 	var (
 		method = http.MethodPut
-		path   = fmt.Sprintf("/channels/%s", channelUsername)
+		path   = Sprintf("/channels/%s", channelUsername)
 	)
 	req := s.client.newRequest(path, method)
 
@@ -365,7 +365,7 @@ func (s *ChannelService) UpdateChannel(channelUsername string, u *Channel, authT
 func (s *ChannelService) DeleteChannel(channelUsername, authToken string) error {
 	var (
 		method = http.MethodDelete
-		path   = fmt.Sprintf("/channels/%s", channelUsername)
+		path   = Sprintf("/channels/%s", channelUsername)
 	)
 	req := s.client.newRequest(path, method)
 
@@ -416,7 +416,7 @@ func (s *ChannelService) DeleteChannel(channelUsername, authToken string) error 
 func (s *ChannelService) AddPicture(channelUsername string, image io.Reader, imageName, authToken string) (string, error) {
 	var (
 		method = http.MethodPut
-		path   = fmt.Sprintf("/channels/%s/picture", channelUsername)
+		path   = Sprintf("/channels/%s/picture", channelUsername)
 	)
 	req := s.client.newRequest(path, method)
 	addJWTToRequest(req, authToken)
@@ -484,7 +484,7 @@ func (s *ChannelService) AddPicture(channelUsername string, image io.Reader, ima
 func (s *ChannelService) RemovePicture(channelUsername, authToken string) error {
 	var (
 		method = http.MethodDelete
-		path   = fmt.Sprintf("/channels/%s/picture", channelUsername)
+		path   = Sprintf("/channels/%s/picture", channelUsername)
 	)
 	req := s.client.newRequest(path, method)
 
@@ -528,7 +528,7 @@ func (s *ChannelService) RemovePicture(channelUsername, authToken string) error 
 func (s *ChannelService) AddAdmin(channelUsername string, adminUsername string, authToken string) error {
 	var (
 		method = http.MethodPut
-		path   = fmt.Sprintf("/channels/%s/admins/%s", channelUsername, adminUsername)
+		path   = Sprintf("/channels/%s/admins/%s", channelUsername, adminUsername)
 	)
 	req := s.client.newRequest(path, method)
 
@@ -597,7 +597,7 @@ func (s *ChannelService) AddAdmin(channelUsername string, adminUsername string, 
 func (s *ChannelService) DeleteAdmin(channelUsername string, adminUsername string, authToken string) error {
 	var (
 		method = http.MethodDelete
-		path   = fmt.Sprintf("/channels/%s/admins/%s", channelUsername, adminUsername)
+		path   = Sprintf("/channels/%s/admins/%s", channelUsername, adminUsername)
 	)
 	req := s.client.newRequest(path, method)
 
@@ -663,7 +663,7 @@ func (s *ChannelService) DeleteAdmin(channelUsername string, adminUsername strin
 func (s *ChannelService) ChangeOwner(channelUsername string, ownerUsername string, authToken string) error {
 	var (
 		method = http.MethodPut
-		path   = fmt.Sprintf("/channels/%s/owners/%s", channelUsername, ownerUsername)
+		path   = Sprintf("/channels/%s/owners/%s", channelUsername, ownerUsername)
 	)
 	req := s.client.newRequest(path, method)
 
@@ -728,7 +728,7 @@ func (s *ChannelService) ChangeOwner(channelUsername string, ownerUsername strin
 func (s *ChannelService) DeleteReleaseFromCatalog(channelUsername string, releaseID uint, authToken string) error {
 	var (
 		method = http.MethodDelete
-		path   = fmt.Sprintf("/channels/%s/catalogs/%d", channelUsername, releaseID)
+		path   = Sprintf("/channels/%s/catalogs/%d", channelUsername, releaseID)
 	)
 	req := s.client.newRequest(path, method)
 
@@ -792,7 +792,7 @@ func (s *ChannelService) DeleteReleaseFromCatalog(channelUsername string, releas
 func (s *ChannelService) DeleteReleaseFromOfficialCatalog(channelUsername string, releaseID uint, authToken string) error {
 	var (
 		method = http.MethodDelete
-		path   = fmt.Sprintf("/channels/%s/official/%d", channelUsername, releaseID)
+		path   = Sprintf("/channels/%s/official/%d", channelUsername, releaseID)
 	)
 	req := s.client.newRequest(path, method)
 
@@ -856,7 +856,7 @@ func (s *ChannelService) DeleteReleaseFromOfficialCatalog(channelUsername string
 func (s *ChannelService) AddReleaseToOfficialCatalog(channelUsername string, releaseID int, postID uint, authToken string) error {
 	var (
 		method = http.MethodPut
-		path   = fmt.Sprintf("/channels/%s/official/%d", channelUsername, releaseID)
+		path   = Sprintf("/channels/%s/official/%d", channelUsername, releaseID)
 	)
 	req := s.client.newRequest(path, method)
 
@@ -931,7 +931,7 @@ func (s *ChannelService) AddReleaseToOfficialCatalog(channelUsername string, rel
 func (s *ChannelService) StickyPost(channelUsername string, postID uint, authToken string) error {
 	var (
 		method = http.MethodPut
-		path   = fmt.Sprintf("/channels/%s/Posts/%d", channelUsername, postID)
+		path   = Sprintf("/channels/%s/Posts/%d", channelUsername, postID)
 	)
 	req := s.client.newRequest(path, method)
 
@@ -1011,7 +1011,7 @@ func (s *ChannelService) StickyPost(channelUsername string, postID uint, authTok
 func (s *ChannelService) DeleteStickiedPost(channelUsername string, postID uint, authToken string) error {
 	var (
 		method = http.MethodDelete
-		path   = fmt.Sprintf("/channels/%s/stickiedPosts/%d", channelUsername, postID)
+		path   = Sprintf("/channels/%s/stickiedPosts/%d", channelUsername, postID)
 	)
 	req := s.client.newRequest(path, method)
 
@@ -1077,7 +1077,7 @@ func (s *ChannelService) DeleteStickiedPost(channelUsername string, postID uint,
 func (s *ChannelService) GetChannelPosts(channelUsername string) ([]*Post, error) {
 	var (
 		method = http.MethodGet
-		path   = fmt.Sprintf("/channels/%s/Posts", channelUsername)
+		path   = Sprintf("/channels/%s/Posts", channelUsername)
 	)
 
 	req := s.client.newRequest(path, method)
@@ -1093,6 +1093,7 @@ func (s *ChannelService) GetChannelPosts(channelUsername string) ([]*Post, error
 	case "fail":
 		jF, ok := js.Data.(*jSendFailData)
 		if !ok {
+
 			return nil, ErrRESTServerError
 		}
 		s.client.Logger.Printf("%+v", jF)
@@ -1148,7 +1149,7 @@ func (s *ChannelService) GetChannelPosts(channelUsername string) ([]*Post, error
 func (s *ChannelService) GetCatalog(channelUsername string, authToken string) ([]*Release, error) {
 	var (
 		method = http.MethodGet
-		path   = fmt.Sprintf("/channels/%s/catalog", channelUsername)
+		path   = Sprintf("/channels/%s/catalog", channelUsername)
 	)
 
 	req := s.client.newRequest(path, method)
@@ -1222,7 +1223,7 @@ func (s *ChannelService) GetCatalog(channelUsername string, authToken string) ([
 func (s *ChannelService) GetOfficialCatalog(channelUsername string, authToken string) ([]*Release, error) {
 	var (
 		method = http.MethodGet
-		path   = fmt.Sprintf("/channels/%s/official", channelUsername)
+		path   = Sprintf("/channels/%s/official", channelUsername)
 	)
 
 	req := s.client.newRequest(path, method)
@@ -1296,7 +1297,7 @@ func (s *ChannelService) GetOfficialCatalog(channelUsername string, authToken st
 func (s *ChannelService) GetChannelPost(channelUsername string, postId uint) (*Post, error) {
 	var (
 		method = http.MethodGet
-		path   = fmt.Sprintf("/channels/%s/Posts/%d", channelUsername, postId)
+		path   = Sprintf("/channels/%s/Posts/%d", channelUsername, postId)
 	)
 	req := s.client.newRequest(path, method)
 
@@ -1351,7 +1352,7 @@ func (s *ChannelService) GetChannelPost(channelUsername string, postId uint) (*P
 	if !ok {
 		return nil, ErrRESTServerError
 	}
-	err = json.Unmarshal(*data, p)
+	err = json.Unmarshal(*data, &p)
 	if err != nil {
 		return nil, ErrRESTServerError
 	}
@@ -1359,18 +1360,23 @@ func (s *ChannelService) GetChannelPost(channelUsername string, postId uint) (*P
 }
 
 // GetChannelPosts returns the channel post under the given channelUsername.
-func (s *ChannelService) GetReleaseInCatalog(channelUsername string, releaseId uint) (*Release, error) {
+func (s *ChannelService) GetReleaseInCatalog(channelUsername string, releaseId uint, authToken string) ([]*Release, error) {
 	var (
 		method = http.MethodGet
-		path   = fmt.Sprintf("/channels/%s/catalogs/%d", channelUsername, releaseId)
+		path   = Sprintf("/channels/%s/catalogs/%d", channelUsername, releaseId)
 	)
 	req := s.client.newRequest(path, method)
+
+	err := addBodyToRequestAsJSON(req, authToken)
+	if err != nil {
+		return nil, err
+	}
+	addJWTToRequest(req, authToken)
 
 	js, statusCode, err := s.client.do(req)
 	if err != nil {
 		return nil, err
 	}
-
 	switch js.Status {
 	case "success":
 		break
@@ -1412,12 +1418,12 @@ func (s *ChannelService) GetReleaseInCatalog(channelUsername string, releaseId u
 			return nil, ErrRESTServerError
 		}
 	}
-	r := new(Release)
+	r := make([]*Release, 0)
 	data, ok := js.Data.(*json.RawMessage)
 	if !ok {
 		return nil, ErrRESTServerError
 	}
-	err = json.Unmarshal(*data, r)
+	err = json.Unmarshal(*data, &r)
 	if err != nil {
 		return nil, ErrRESTServerError
 	}
@@ -1425,10 +1431,10 @@ func (s *ChannelService) GetReleaseInCatalog(channelUsername string, releaseId u
 }
 
 // GetReleaseInOfficialCatalog returns the channel releases in official under the given channelUsername.
-func (s *ChannelService) GetReleaseInOfficialCatalog(channelUsername string, releaseId uint) (*Release, error) {
+func (s *ChannelService) GetReleaseInOfficialCatalog(channelUsername string, releaseId uint) ([]*Release, error) {
 	var (
 		method = http.MethodGet
-		path   = fmt.Sprintf("/channels/%s/official/%d", channelUsername, releaseId)
+		path   = Sprintf("/channels/%s/official/%d", channelUsername, releaseId)
 	)
 	req := s.client.newRequest(path, method)
 
@@ -1443,6 +1449,7 @@ func (s *ChannelService) GetReleaseInOfficialCatalog(channelUsername string, rel
 	case "fail":
 		jF, ok := js.Data.(*jSendFailData)
 		if !ok {
+
 			return nil, ErrRESTServerError
 		}
 		s.client.Logger.Printf("%+v", jF)
@@ -1462,9 +1469,11 @@ func (s *ChannelService) GetReleaseInOfficialCatalog(channelUsername string, rel
 			}
 			fallthrough
 		default:
+
 			return nil, ErrRESTServerError
 		}
 	case "error":
+
 		return nil, ErrRESTServerError
 	default:
 		switch statusCode {
@@ -1475,26 +1484,27 @@ func (s *ChannelService) GetReleaseInOfficialCatalog(channelUsername string, rel
 		case http.StatusInternalServerError:
 			fallthrough
 		default:
+
 			return nil, ErrRESTServerError
 		}
 	}
-	r := new(Release)
+	releases := make([]*Release, 0)
 	data, ok := js.Data.(*json.RawMessage)
 	if !ok {
 		return nil, ErrRESTServerError
 	}
-	err = json.Unmarshal(*data, r)
+	err = json.Unmarshal(*data, &releases)
 	if err != nil {
 		return nil, ErrRESTServerError
 	}
-	return r, nil
+	return releases, nil
 }
 
 // GetChannelPosts returns the channel post under the given channelUsername.
 func (s *ChannelService) GetStickiedPosts(channelUsername string) ([]*Post, error) {
 	var (
 		method = http.MethodGet
-		path   = fmt.Sprintf("/channels/%s/stickiedPosts", channelUsername)
+		path   = Sprintf("/channels/%s/stickiedPosts", channelUsername)
 	)
 
 	req := s.client.newRequest(path, method)
@@ -1558,7 +1568,7 @@ func (s *ChannelService) GetStickiedPosts(channelUsername string) ([]*Post, erro
 	}
 	err = json.Unmarshal(*data, &posts)
 	if err != nil {
-		fmt.Printf("%s", err.Error())
+		Printf("%s", err.Error())
 		return nil, ErrRESTServerError
 	}
 
@@ -1569,7 +1579,7 @@ func (s *ChannelService) GetStickiedPosts(channelUsername string) ([]*Post, erro
 func (s *ChannelService) GetAdmins(channelUsername string, authToken string) ([]string, error) {
 	var (
 		method = http.MethodGet
-		path   = fmt.Sprintf("/channels/%s/admins", channelUsername)
+		path   = Sprintf("/channels/%s/admins", channelUsername)
 	)
 	req := s.client.newRequest(path, method)
 
@@ -1639,7 +1649,7 @@ func (s *ChannelService) GetAdmins(channelUsername string, authToken string) ([]
 func (s *ChannelService) GetOwner(channelUsername string, authToken string) (string, error) {
 	var (
 		method = http.MethodGet
-		path   = fmt.Sprintf("/channels/%s/owners", channelUsername)
+		path   = Sprintf("/channels/%s/owners", channelUsername)
 	)
 	req := s.client.newRequest(path, method)
 
@@ -1660,6 +1670,7 @@ func (s *ChannelService) GetOwner(channelUsername string, authToken string) (str
 	case "fail":
 		jF, ok := js.Data.(*jSendFailData)
 		if !ok {
+			s.client.Logger.Printf("tHIS0")
 			return "", ErrRESTServerError
 		}
 		s.client.Logger.Printf("%+v", jF)
@@ -1690,16 +1701,19 @@ func (s *ChannelService) GetOwner(channelUsername string, authToken string) (str
 		case http.StatusInternalServerError:
 			fallthrough
 		default:
+
 			return "", ErrRESTServerError
 		}
 	}
 	var owner string
 	data, ok := js.Data.(*json.RawMessage)
 	if !ok {
+		s.client.Logger.Printf("tH4IS")
 		return "", ErrRESTServerError
 	}
 	err = json.Unmarshal(*data, &owner)
 	if err != nil {
+
 		return "", ErrRESTServerError
 	}
 	return owner, nil

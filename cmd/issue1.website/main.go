@@ -80,7 +80,7 @@ func main() {
 	sessionGormRepo := gormRepo.NewSessionRepo(db)
 	s.SessionService = session.NewService(&sessionGormRepo)
 
-	//mux := web.NewMux(&s)
+	mux := web.NewMux(&s)
 
 	go func() {
 		scanner := bufio.NewScanner(os.Stdin)
@@ -108,7 +108,7 @@ func main() {
 		log.Fatal(http.ListenAndServe(":"+s.Port, mux))
 	} else {
 		s.HostAddress = "http://" + s.HostAddress
-		//log.Fatal(http.ListenAndServe(":"+s.Port, mux))
+		log.Fatal(http.ListenAndServe(":"+s.Port, mux))
 	}
 
 	i1 := s.Iss1C
@@ -350,45 +350,73 @@ func main() {
 	//		stdoutLogger.Printf("%v\n", u)
 	//	}
 	//}
-	token, err := i1.GetAuthToken("Isis Cane", "password")
-	stdoutLogger.Printf("\nGetAuthToken\n - - - - value:\n%#v\n\n - - - - error:\n%+v", token, err)
+	//u, err = i1.UserService.AddUser(&issue1.User{
+	//	Username:   "Isis kane",
+	//	Email:      "unod@commanda.com",
+	//	FirstName:  "Anda",
+	//	MiddleName: "A",
+	//	LastName:   "Boss",
+	//	Bio:        "i don't know what's real either",
+	//	Password:   "password",
+	//})
+	//stdoutLogger.Printf("\nAddUser\n - - - - value:\n%+v\n\n - - - - error:\n%+v", u, err)
+	//token, err := i1.GetAuthToken("Isis kane", "password")
+	//stdoutLogger.Printf("\nGetAuthToken\n - - - - value:\n%#v\n\n - - - - error:\n%+v", token, err)
+	//c, err := i1.ChannelService.AddChannel(&issue1.Channel{
+	//			ChannelUsername :"cbezdojsdnhugphos",
+	//			Name:"name",
+	//			Description:"description",
+	//	 },token)
+	//
+	//	 stdoutLogger.Printf("\nAddChannel\n - - - - value:\n%+v\n\n - - - - error:\n%+v", c, err)
 
-	c, err := i1.ChannelService.GetAdmins("Isis Cane", token)
-	if err == nil {
-		for _, u := range c {
-			stdoutLogger.Printf("%v\n", u)
-		}
-	}
-	c, err = i1.ChannelService.GetAdmins("bob", token)
-	if err == nil {
-		for _, u := range c {
-			stdoutLogger.Printf("%v\n", u)
-		}
-	}
-	//cS, err := i1.ChannelService.GetOwner("Isis Cane",token)
-	//stdoutLogger.Printf("%v\n", cS)
-	//ca, err := i1.ChannelService.GetChannel("Isis Cane")
-	//stdoutLogger.Printf("\nGetChannel\n - - - - value:\n%+v\n\n - - - - error:\n%+v", ca, err)
-	//cb, err := i1.ChannelService.GetChannelPost("Isis Cane",96)
-	//stdoutLogger.Printf("\nGetChannel\n - - - - value:\n%+v\n\n - - - - error:\n%+v", cb, err)
-	//cc, err := i1.ChannelService.GetChannelPosts("Isis Cane")
+	//ca, err := i1.ChannelService.GetOwner("Isis Kane", token)
+	//if err == nil {
+	//	for _, u := range ca {
+	//		stdoutLogger.Printf("%v\n", u)
+	//	}
+	//}
+	//c, err = i1.ChannelService.GetAdmins("bob", token)
+	//if err == nil {
+	//	for _, u := range c {
+	//		stdoutLogger.Printf("%v\n", u)
+	//	}
+	//}
+	//ca, err := i1.ChannelService.GetOwner("Isis kane",token)
+	//stdoutLogger.Printf(" %v\n",ca)
+	//cB, err := i1.ChannelService.GetChannelAuthorized("Isis kane",token)
+	//stdoutLogger.Printf("\nGetChannel\n - - - - value:\n%+v\n\n - - - - error:\n%+v", cB)
+	////cb, err := i1.ChannelService.GetChannelPosts("IsisCane",96)
+	////stdoutLogger.Printf("\nGetChannel\n - - - - value:\n%+v\n\n - - - - error:\n%+v", cb)
+	//cc, err := i1.ChannelService.GetChannelPosts("Isis kane")
 	//if err == nil {
 	//	for _, u := range cc {
 	//		stdoutLogger.Printf("%v\n", u)
 	//	}
 	//}
-	//stdoutLogger.Printf("\nGetChannel\n - - - - value:\n%+v\n\n - - - - error:\n%+v", c, err)
+
 	//cd, err := i1.ChannelService.GetCatalog("Isis Cane",token)
 	//stdoutLogger.Printf("\nGetChannel\n - - - - value:\n%+v\n\n - - - - error:\n%+v", cd, err)
-	//ce, err := i1.ChannelService.GetReleaseInOfficialCatalog("Isis Cane",55)
-	//stdoutLogger.Printf("\nGetChannel\n - - - - value:\n%+v\n\n - - - - error:\n%+v",ce,err)
-
-	cf, err := i1.ChannelService.GetStickiedPosts("Isis Cane")
-	if err == nil {
-		for _, u := range cf {
-			stdoutLogger.Printf("%v\n", u)
-		}
-	}
+	//ce, err := i1.ChannelService.GetReleaseInOfficialCatalog("Isis kane",54)
+	//
+	//if err == nil {
+	//	for _, u := range ce {
+	//		stdoutLogger.Printf("%v\n", u)
+	//	}
+	//}
+	//ce, err := i1.ChannelService.GetReleaseInCatalog("Isis kane",54,token)
+	//
+	//if err == nil {
+	//	for _, u := range ce {
+	//		stdoutLogger.Printf("%v\n", u)
+	//	}
+	//}
+	//cf, err := i1.ChannelService.GetStickiedPosts("Isis Cane")
+	//if err == nil {
+	//	for _, u := range cf {
+	//		stdoutLogger.Printf("%v\n", u)
+	//	}
+	//}
 	//-
 
 	//ch, err := i1.ChannelService.UpdateChannel(
