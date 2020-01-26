@@ -38,7 +38,7 @@ func (c *AuthService) GetAuthToken(username, password string) (string, error) {
 		break
 	case "fail":
 		switch statusCode {
-		case http.StatusUnauthorized:
+		case http.StatusForbidden:
 			return "", ErrCredentialsUnaccepted
 		case http.StatusBadRequest:
 			fallthrough
@@ -81,9 +81,6 @@ func (c *AuthService) RefreshAuthToken(token string) (string, error) {
 		return "", err
 	}
 
-	// the following ugly piece of code will return ServerError
-	// in most most cases. Most will never ever happen but that's
-	// programming for you.
 	switch js.Status {
 	case "success":
 		break
@@ -97,7 +94,12 @@ func (c *AuthService) RefreshAuthToken(token string) (string, error) {
 	case "error":
 		fallthrough
 	default:
-		return "", ErrRESTServerError
+		switch statusCode {
+		case http.StatusUnauthorized:
+			return "", ErrAccessDenied
+		default:
+			return "", ErrRESTServerError
+		}
 	}
 
 	data, ok := js.Data.(*json.RawMessage)

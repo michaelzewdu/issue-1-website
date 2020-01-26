@@ -259,7 +259,7 @@ func (c *Client) do(req *http.Request) (*jSendResponse, error) {
 func (c *Client) do(req *http.Request) (*jSendResponse, int, error) {
 	var err error
 	jSend := new(jSendResponse)
-	c.Logger.Printf("request: %s %s\n", req.Method, req.URL.String())
+	//c.Logger.Printf("request: %s %s\n", req.Method, req.URL.String())
 	/*
 		{
 			err = req.Clone(req.Context()).Write(os.Stdout)
@@ -288,8 +288,8 @@ func (c *Client) do(req *http.Request) (*jSendResponse, int, error) {
 	if err != nil {
 		return nil, -1, ErrRESTServerError
 	}
-	c.Logger.Printf("statusCode: %d\n", resp.StatusCode)
-	c.Logger.Printf("response: %+v\n", jSend)
+	//c.Logger.Printf("statusCode: %d\n", resp.StatusCode)
+	//c.Logger.Printf("response: %+v\n", jSend)
 	return jSend, resp.StatusCode, nil
 }
 

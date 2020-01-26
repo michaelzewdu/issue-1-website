@@ -83,7 +83,9 @@ func (s *Session) syncFromMapToArray() {
 }
 
 func (s *Session) syncFromArrayToMap() {
-	s.dataMap = make(map[string]string)
+	if s.dataMap == nil {
+		s.dataMap = make(map[string]string)
+	}
 	for _, mapPair := range s.Data {
 		s.dataMap[mapPair.Key] = mapPair.Value
 	}
