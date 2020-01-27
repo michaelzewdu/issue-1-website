@@ -445,4 +445,77 @@ func main() {
 	//		stdoutLogger.Printf("%v\n", u)
 	//	}
 	//}
+	/*
+		p, err := i1.PostService.AddPost(&issue1.Post{
+			PostedByUsername: "slimmy",
+			OriginChannel:    "chromagnum",
+			Title:            "Lorem ipsum dolor sit amet",
+			Description:      "consectetur adipisicing elit, sed do eiusmodtempor",
+		},tokenUser)
+		stdoutLogger.Printf("\nAddPost\n - - - - value:\n%+v\n\n - - - - error:\n%+v", p, err)
+	*/
+	/*
+		p, err := i1.PostService.GetPost(9)
+		stdoutLogger.Printf("\nGetPost\n - - - - value:\n%+v\n\n - - - - error:\n%+v", p, err)
+	*/
+
+	/*
+
+		p, err := i1.PostService.UpdatePost(7, &issue1.Post{
+			Description: "Amharic,English,French,Spanish",
+		}, token)
+		stdoutLogger.Printf("\nUpdatePost\n - - - - value:\n%+v\n\n - - - - error:\n%+v", p, err)
+	*/
+
+	/*
+		err = i1.PostService.DeletePost(7,token)
+		stdoutLogger.Printf("\nDeletePost\n - - - - error:\n%+v", err)
+	*/
+
+	/*
+		comments, err:= i1.PostService.GetPostComments(5)
+		stdoutLogger.Printf("\nGetPostComments\n - - - - value:\n%+v\n\n - - - - error:\n%+v", comments, err)
+		if err== nil{
+			for _,u:= range comments{
+				stdoutLogger.Printf("%v\n", u)
+			}
+		}
+	*/
+	/*
+		releases, err:= i1.PostService.GetPostReleases(4)
+		stdoutLogger.Printf("\nGetPostReleases\n - - - - value:\n%+v\n\n - - - - error:\n%+v", releases, err)
+		if err== nil{
+			for _,u:= range releases{
+				stdoutLogger.Printf("%v\n", u)
+			}
+		}
+	*/
+
+	/*
+		star, err := i1.PostService.GetPostStar(9,"loveless")
+		stdoutLogger.Printf("\nGetPostStar\n - - - - value:\n%+v\n\n - - - - error:\n%+v", star, err)
+	*/
+	/*
+		star, err := i1.PostService.UpdatePostStar(7, &issue1.Star{
+			Username:   "loveless",
+			NumOfStars: 3,
+		}, token)
+		stdoutLogger.Printf("\nUpdatePostStar\n - - - - value:\n%+v\n\n - - - - error:\n%+v", star, err)
+	*/
+
+	/*stars, err:= i1.PostService.GetPostStars(7)
+	stdoutLogger.Printf("\nGetPostStars\n - - - - value:\n%+v\n\n - - - - error:\n%+v", stars, err)
+	if err== nil{
+		for _,u:= range stars{
+			stdoutLogger.Printf("%v\n", u)
+		}
+	}
+	*/
+
+	/*posts, err:=i1.PostService.GetPosts(1,7)
+	if err== nil{
+		for _,u:= range posts{
+			stdoutLogger.Printf("%v\n", u)
+		}
+	}*/
 }
