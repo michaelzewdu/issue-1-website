@@ -1,45 +1,40 @@
-{{ define "login.content" }}
-<div class="modal fade" role="dialog" tabindex="-1" id="signup">
-    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Sign In</h4><button type="button" class="close" data-dismiss="modal"
-                    aria-label="Close"><span aria-hidden="true">×</span></button>
-            </div>
-            <div class="modal-body">
-                <form method="POST" action="/login">
-                    <input type="hidden" name="_csrf" value="{{ .CSRF }}" />
-                    <div class="form-group">
-                        {{with .VErrors.Get "generic" }}
-                        <label class="text-danger">{{ . }}</label>
-                        {{end}}
-                        <div class="input-group">
-                            <div class="input-group-prepend"><span class="text-primary input-group-text"><i
-                                        class="fa fa-envelope-o"></i></span></div><input class="form-control"
-                                type="text" required="" name="Username" placeholder="Username">
-                            <div class="input-group-append"></div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <!-- {{with .VErrors.Get "Password"}}
-                        <label class="text-danger">{{.}}</label>
-                        {{end}} -->
-                        <div class="input-group">
-                            <div class="input-group-prepend"><span class="text-primary input-group-text"><i
-                                        class="fa fa-lock"></i></span></div><input class="form-control" type="password"
-                                required="" autocomplete="off" name="Password" placeholder="Password">
-                            <div class="input-group-append"></div>
-                        </div>
-                    </div>
-                    <div class="form-group"><button class="btn btn-primary btn-lg text-white" style="width: 100%;"
-                            type="submit">Log in</button></div>
-                </form>
-                <hr style="background-color: #bababa;">
-                <p class="text-center">Or&nbsp;<a class="text-decoration-none" href="#">Forget password</a></p>
-                <p class="text-center">Don't have an account? &nbsp;<a class="text-decoration-none" data-dismiss="modal"
-                        data-toggle="modal" data-target="#signin" href="#">Sign Up</a></p>
+{{ define "login.form" }}
+    <form name="login-form" method="POST" action="/login">
+        <input type="hidden" name="_csrf" value="{{ .CSRF }}"/>
+        <div class="form-group">
+            {{with .VErrors.Get "generic" }}
+                <label class="text-danger">{{ . }}</label>
+            {{end}}
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="text-primary input-group-text">
+                        <i class="fa fa-envelope-o"></i>
+                    </span>
+                </div>
+                <input class="form-control"
+                       type="text" required="" name="Username" placeholder="Username">
+                <div class="input-group-append"></div>
             </div>
         </div>
-    </div>
-</div>
+        <div class="form-group">
+            <!-- {{with .VErrors.Get "Password"}}
+                        <label class="text-danger">{{.}}</label>
+                        {{end}} -->
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="text-primary input-group-text">
+                        <i class="fa fa-lock"></i>
+                    </span>
+                </div>
+                <input class="form-control" type="password"
+                       required="" autocomplete="off" name="Password" placeholder="Password">
+                <div class="input-group-append"></div>
+            </div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary btn-lg text-white" style="width: 100%;"
+                    type="submit">Log in
+            </button>
+        </div>
+    </form>
 {{ end }}

@@ -1,0 +1,47 @@
+{{define "navbar" }}
+    <nav class="navbar navbar-light navbar-expand-md navbar-transparency" style="padding:0; margin: 0;width: 100%;">
+        <div class="containerd" style="padding:0; margin: 0;width: 100%;">
+            <div style="float: left; width: 50%; height: 3%;padding: 0%;"><img src="../assets/img/logintemp.png"><a
+                        class="navbar-brand" href="#"
+                        style="margin-left: 16px;vertical-align: top;padding-top: 2%;font-size: x-large;">Issue #1</a>
+                <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div style="float: right;height: auto;height: 3%; margin-right: 3%;" class="collapse navbar-collapse"
+                 id="navcol-1" style="padding:0; margin: 0;width: 100%;">
+                <ul class="nav navbar-nav ml-auto">
+
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" href="#" data-toggle="modal" data-target="#modalSearch"
+                           style="width: 40px;">
+                            <i class="fa fa-search" style="width: 40px;font-size: 20px;"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown show">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown"
+                           aria-expanded="false" href="#">Subs&nbsp;</a>
+                        <div class="dropdown-menu " role="menu">
+                            <a class="dropdown-item" role="presentation" href="/c/{{ .Username}}">{{ .Username}}</a>
+                            {{ range $subTime, $channel := .Subs }}
+                                <a class="dropdown-item" role="presentation" href="#">{{ $channel.Name }}</a>
+                            {{ end }}
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown show">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">
+                            <i class="fa fa-user" style="color: #009977;font-size: 25px;"></i>
+                            &nbsp;{{ .Username}}
+                        </a>
+                        <div class="dropdown-menu " role="menu">
+                            <a class="dropdown-item" role="presentation" href="#">Profile and Settings</a>
+                            <a class="dropdown-item" role="presentation" href="#">Log out</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+{{end}}

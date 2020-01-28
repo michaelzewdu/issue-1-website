@@ -49,9 +49,9 @@ func (s *service) GetSession(sessionID string) (*Session, []error) {
 		return nil, errs
 	}
 	// use UpdateSession to refresh last access time
+	sess, errs = s.UpdateSession(sess)
 	sess.sessionService = s
 	sess.syncFromArrayToMap()
-	sess, errs = s.UpdateSession(sess)
 	return sess, errs
 }
 

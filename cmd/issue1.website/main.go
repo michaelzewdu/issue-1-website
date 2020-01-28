@@ -64,7 +64,7 @@ func main() {
 
 	s.TokenSigningSecret = []byte("secret")
 	s.CSRFTokenLifetime = 7 * time.Minute
-	s.SessionIdleLifetime = 1 * time.Minute
+	s.SessionIdleLifetime = 169 * time.Minute
 	// s.SessionIdleLifetime = 7 * 24 * time.Hour
 	s.SessionHardLifetime = 30 * 24 * time.Hour
 	s.HTTPS = false
@@ -101,22 +101,23 @@ func main() {
 		}
 	}()
 
-	log.Println("server running...")
+	s.Logger.Println("server running...")
 
 	if s.HTTPS {
 		s.HostAddress = "https://" + s.HostAddress
 		log.Fatal(http.ListenAndServe(":"+s.Port, mux))
 	} else {
 		s.HostAddress = "http://" + s.HostAddress
-		//log.Fatal(http.ListenAndServe(":"+s.Port, mux))
+		log.Fatal(http.ListenAndServe(":"+s.Port, mux))
 	}
 
-	i1 := s.Iss1C
-	stdoutLogger := s.Logger
+	//i1 := s.Iss1C
+	//stdoutLogger := s.Logger
 
-	u, err := i1.UserService.GetUser("slimmy")
-	stdoutLogger.Printf("\nGetUser\n - - - - value:\n%+v\n\n - - - - error:\n%+v", u, err)
-
+	/*
+		u, err := i1.UserService.GetUser("slimmy")
+		stdoutLogger.Printf("\nGetUser\n - - - - value:\n%+v\n\n - - - - error:\n%+v", u, err)
+	*/
 	/*
 		u, err := i1.UserService.AddUser(&issue1.User{
 			Username:   "loveless",
@@ -343,5 +344,212 @@ func main() {
 
 		err = i1.ReleaseService.DeleteRelease(r.ID, token)
 		stdoutLogger.Printf("\nDeleteRelease\n - - - - error:\n%+v", err)
+	*/
+	/*
+		releases, err := i1.ReleaseService.SearchReleases("", issue1.SortByType,
+			issue1.PaginateParams{
+			SortOrder: issue1.SortDescending,
+			Limit:     2,
+			Offset:    0,
+		})
+
+		stdoutLogger.Printf("\nSearchReleases\n - - - - value:\n%#v\n\n - - - - error:\n%+v", releases, err)
+		if err == nil {
+			for _, u := range releases {
+				stdoutLogger.Printf("%v\n", u)
+			}
+		}
+	*/
+	/*
+		token, err := i1.GetAuthToken("slimmy", "password")
+		stdoutLogger.Printf("\nGetAuthToken\n - - - - value:\n%#v\n\n - - - - error:\n%+v", token, err)
+
+		comment, err := i1.CommentService.AddComment(5, &issue1.Comment{
+			Content: "Where did the good things go?",
+		}, token)
+		stdoutLogger.Printf("\nAddComment\n - - - - value:\n%s\n\n - - - - error:\n%+v", comment, err)
+
+		comment, err = i1.CommentService.GetComment(comment.ID, comment.OriginPost)
+		stdoutLogger.Printf("\nGetComment\n - - - - value:\n%+v\n\n - - - - error:\n%+v", comment, err)
+
+		comment, err = i1.CommentService.UpdateComment(comment.ID, comment.OriginPost, &issue1.Comment{
+			Content: "I want peace.",
+		}, token)
+		stdoutLogger.Printf("\nUpdateComment\n - - - - value:\n%s\n\n - - - - error:\n%+v", comment, err)
+
+		reply, err := i1.CommentService.AddReply(comment.ID, comment.OriginPost, &issue1.Comment{
+			Content: "Give me a week",
+		}, token)
+		stdoutLogger.Printf("\nAddReply\n - - - - value:\n%s\n\n - - - - error:\n%+v", reply, err)
+
+		comments, err := i1.CommentService.GetCommentsPaged(1, 5, comment.OriginPost)
+		stdoutLogger.Printf("\nGetCommentsPaged\n - - - - value:\n%#v\n\n - - - - error:\n%+v", comments, err)
+		if err == nil {
+			for _, u := range comments {
+				stdoutLogger.Printf("%v\n", u)
+			}
+		}
+
+		comments, err = i1.CommentService.GetRepliesPaged(1, 5, comment.ID, comment.OriginPost)
+		stdoutLogger.Printf("\nGetRepliesPaged\n - - - - value:\n%#v\n\n - - - - error:\n%+v", comments, err)
+		if err == nil {
+			for _, u := range comments {
+				stdoutLogger.Printf("%v\n", u)
+			}
+		}
+
+		err = i1.CommentService.DeleteComment(comment.ID, comment.OriginPost, token)
+		stdoutLogger.Printf("\nDeleteRelease\n - - - - error:\n%+v", err)
+
+		err = i1.CommentService.DeleteComment(reply.ID, reply.OriginPost, token)
+		stdoutLogger.Printf("\nDeleteRelease\n - - - - error:\n%+v", err)
+	*/
+	//channels,err:= i1.ChannelService.GetChannelPosts("Isis Cane")
+	//if err == nil {
+	//	for _, u := range channels {
+	//		stdoutLogger.Printf("%v\n", u)
+	//	}
+	//}
+	//token, err := i1.GetAuthToken("Isis kane", "password")
+	//stdoutLogger.Printf("\nGetAuthToken\n - - - - value:\n%#v\n\n - - - - error:\n%+v", token, err)
+	//c, err := i1.ChannelService.AddChannel(&issue1.Channel{
+	//			ChannelUsername :"cbezdojsdnhugphos",
+	//			Name:"name",
+	//			Description:"description",
+	//	 },token)
+	//
+	//	 stdoutLogger.Printf("\nAddChannel\n - - - - value:\n%+v\n\n - - - - error:\n%+v", c, err)
+
+	//ca, err := i1.ChannelService.GetOwner("Isis Kane", token)
+	//if err == nil {
+	//	for _, u := range ca {
+	//		stdoutLogger.Printf("%v\n", u)
+	//	}
+	//}
+	//c, err = i1.ChannelService.GetAdmins("bob", token)
+	//if err == nil {
+	//	for _, u := range c {
+	//		stdoutLogger.Printf("%v\n", u)
+	//	}
+	//}
+
+	//ca, err := i1.ChannelService.GetOwner("Isis kane",token)
+	//stdoutLogger.Printf(" %v\n",ca)
+	//cB, err := i1.ChannelService.GetChannelAuthorized("Isis kane",token)
+	//stdoutLogger.Printf("\nGetChannel\n - - - - value:\n%+v\n\n - - - - error:\n%+v", cB)
+	////cb, err := i1.ChannelService.GetChannelPosts("IsisCane",96)
+	////stdoutLogger.Printf("\nGetChannel\n - - - - value:\n%+v\n\n - - - - error:\n%+v", cb)
+	//cc, err := i1.ChannelService.GetChannelPosts("Isis kane")
+	//if err == nil {
+	//	for _, u := range cc {
+	//		stdoutLogger.Printf("%v\n", u)
+	//	}
+	//}
+	/*
+		p, err := i1.PostService.AddPost(&issue1.Post{
+			PostedByUsername: "slimmy",
+			OriginChannel:    "chromagnum",
+			Title:            "Lorem ipsum dolor sit amet",
+			Description:      "consectetur adipisicing elit, sed do eiusmodtempor",
+		},tokenUser)
+		stdoutLogger.Printf("\nAddPost\n - - - - value:\n%+v\n\n - - - - error:\n%+v", p, err)
+	*/
+	/*
+		p, err := i1.PostService.GetPost(9)
+		stdoutLogger.Printf("\nGetPost\n - - - - value:\n%+v\n\n - - - - error:\n%+v", p, err)
+	*/
+
+	/*
+
+		p, err := i1.PostService.UpdatePost(7, &issue1.Post{
+			Description: "Amharic,English,French,Spanish",
+		}, token)
+		stdoutLogger.Printf("\nUpdatePost\n - - - - value:\n%+v\n\n - - - - error:\n%+v", p, err)
+	*/
+
+	/*
+		err = i1.PostService.DeletePost(7,token)
+		stdoutLogger.Printf("\nDeletePost\n - - - - error:\n%+v", err)
+	*/
+
+	/*
+		comments, err:= i1.PostService.GetPostComments(5)
+		stdoutLogger.Printf("\nGetPostComments\n - - - - value:\n%+v\n\n - - - - error:\n%+v", comments, err)
+		if err== nil{
+			for _,u:= range comments{
+				stdoutLogger.Printf("%v\n", u)
+			}
+		}
+	*/
+	/*
+		releases, err:= i1.PostService.GetPostReleases(4)
+		stdoutLogger.Printf("\nGetPostReleases\n - - - - value:\n%+v\n\n - - - - error:\n%+v", releases, err)
+		if err== nil{
+			for _,u:= range releases{
+				stdoutLogger.Printf("%v\n", u)
+			}
+		}
+	*/
+
+	/*
+		star, err := i1.PostService.GetPostStar(9,"loveless")
+		stdoutLogger.Printf("\nGetPostStar\n - - - - value:\n%+v\n\n - - - - error:\n%+v", star, err)
+	*/
+	/*
+		star, err := i1.PostService.UpdatePostStar(7, &issue1.Star{
+			Username:   "loveless",
+			NumOfStars: 3,
+		}, token)
+		stdoutLogger.Printf("\nUpdatePostStar\n - - - - value:\n%+v\n\n - - - - error:\n%+v", star, err)
+	*/
+
+	/*stars, err:= i1.PostService.GetPostStars(7)
+	stdoutLogger.Printf("\nGetPostStars\n - - - - value:\n%+v\n\n - - - - error:\n%+v", stars, err)
+	if err== nil{
+		for _,u:= range stars{
+			stdoutLogger.Printf("%v\n", u)
+		}
+	}
+	*/
+
+	/*
+		posts, err:=i1.PostService.GetPosts(1,7)
+		if err== nil{
+			for _,u:= range posts{
+				stdoutLogger.Printf("%v\n", u)
+			}
+		}
+	*/
+	/*
+		results, err := i1.SearchService.Search("fast", issue1.SortByRank,
+			issue1.PaginateParams{
+				SortOrder: issue1.SortDescending,
+				Limit:     5,
+				Offset:    0,
+			})
+
+		stdoutLogger.Printf("\nSearchReleases\n - - - - value:\n%#v\n\n - - - - error:\n%+v", results, err)
+		if err == nil {
+			stdoutLogger.Printf("--Posts")
+			for _, u := range results.Posts {
+				stdoutLogger.Printf("%v\n", u)
+			}
+			stdoutLogger.Printf("--Releases")
+			for _, u := range results.Releases {
+				stdoutLogger.Printf("%v\n", u)
+			}
+			stdoutLogger.Printf("--Users")
+			for _, u := range results.Users {
+				stdoutLogger.Printf("%v\n", u)
+			}
+			stdoutLogger.Printf("--Channels")
+			for _, u := range results.Channels {
+				stdoutLogger.Printf("%v\n", u)
+			}
+			stdoutLogger.Printf("--Comments")
+			for _, u := range results.Comments {
+				stdoutLogger.Printf("%v\n", u)
+			}
+		}
 	*/
 }

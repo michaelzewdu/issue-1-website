@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="../assets/libs/bootstrap-4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../assets/styles/Test_CardPRO-1.css">
+    <link rel="stylesheet" href="../assets/styles/Test_CardPRO.css">
+    <link rel="stylesheet" href="../assets/fonts/glyphicon.css">
+    
+</head>
+
+<body>
+    <div class="d-flex flex-column" style=" height: 83px;">
+        <nav class="navbar navbar-light navbar-expand-md navbar-transparency" style="padding:0; margin: 0;width: 100%;">
+             <div class="containerd" style="padding:0; margin: 0;width: 100%;">
+                 <div style="float: left; width: 50%; height: 3%;padding: 0%;"><img  src="../assets/img/logintemp.png"><a class="navbar-brand" href="#" style="margin-left: 16px;vertical-align: top;padding-top: 2%;font-size: x-large;">Issue #1</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button></div>
+                 <div style="float: right;height: auto;height: 3%; margin-right: 3%;"
+                     class="collapse navbar-collapse" id="navcol-1" style="padding:0; margin: 0;width: 100%;">
+                     <ul class="nav navbar-nav ml-auto">
+                         
+                         <li class="nav-item" role="presentation"><a class="nav-link active" href="#" data-toggle="modal" data-target="#modalSearch" style="width: 40px;"><i class="fa fa-search" style="width: 40px;font-size: 20px;"></i></a></li>
+                         <li class="nav-item dropdown show"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">Channels&nbsp;</a>
+                             <div class="dropdown-menu " role="menu"><a class="dropdown-item" role="presentation" href="#">My Channel</a><a class="dropdown-item" role="presentation" href="#">other channel</a><a class="dropdown-item" role="presentation" href="#">other other channel</a></div>
+                         </li>
+                         <li class="nav-item dropdown show"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><i class="fa fa-user" style="color: #009977;font-size: 25px;"></i>&nbsp;My Account</a>
+                             <div class="dropdown-menu " role="menu"><a class="dropdown-item" role="presentation" href="#">Profile and Settings</a><a class="dropdown-item" role="presentation" href="#">Log out</a></div>
+                         </li>
+                     </ul>
+             </div>
+             </div>
+             
+             
+         </nav>
+         <div class="modal fade" role="dialog" tabindex="-1" id="modalSearch">
+             <div class="modal-dialog modal-xl" role="document">
+                 <div class="modal-content">
+                     <div class="modal-header">
+                         <h4 class="modal-title">Search</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                     </div>
+                     <div class="modal-body "><input class="form-control-sm" type="text" placeholder="Search Here" name="Search Input" style="width: 80%;"><button style="margin-left: 1%;background-color: #009977;" class="btn btn-primary" type="button" >Search</button>
+                     </div>
+                 
+                     <h6 style="margin-top: 2%;margin-left: 1%;">Search by:</h6>
+                     <div style="width: 100%;margin-left: 1%;" >
+                             <div style="float: left;width: 100px;" >
+                                 <input  type="radio" name="Channel" value="Search Channel">
+                                 <span style="margin-left: 2%;">Channel&nbsp;</span>
+                             </div>
+                             <div style="float: left;width: 100px;"><input type="radio" name="Post" value="Search Post">
+                                 <span style="margin-left: 2%;">Post</span>
+                             </div>
+                             <div style="float: left;width: 100px;"><input type="radio" name="Release" style="background-color: #009977;" value="Search Release ">
+                                 <span style="margin-left: 2%;">Release</span>
+                             </div>
+                             <div style="float: left;width: 100px;"><input type="radio" name="User" style="background-color: #009977;" value="Search Release ">
+                                 <span style="margin-left: 2%;">User</span>
+                             </div>
+                             <br>
+                             <hr>
+                             <div style="float: none;  overflow-y:scroll; height:200px;"><p>The Search Result</p>
+                             </div>
+                     </div>
+                         
+                         
+                 </div>
+                 
+             </div>
+         </div>
+      
+    <div class="card" style="margin: 0;padding: 0;">
+        <div class="d-flex justify-content-center" style="height: 300px;background-image: url('../assets/img/background-1.jpg');background-repeat: no-repeat;background-size: cover;">
+            <div class="d-flex flex-column align-self-center" style=" height: 75%; width: 80%; ; text-align: center; background-color: rgba(0, 0, 0, 0.158);" >
+                <h1 style=" text-transform:uppercase ;padding: 3% 0 1% 0; font-size: x-large; color: black;" >Channel Name</h1>
+                <h3 style=" padding: 0.3%;font-size: large; color: black;" >@channelUsername</h3>
+                <p style=" padding: 0.3%;color: black;">Description Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo, animi voluptate? Eos aspernatur quae distinctio tempore voluptas itaque autem. Asperiores ducimus tempora iusto assumenda laboriosam officia! Perferendis expedita est dolorem?</p>
+                <button id="Button" onclick="subscribe(this)" class="btn btn-primary align-self-center" style="margin: 1%; width: 50%; border-color: #009977;  background-color: #009977;"  type="submit" >Subscribe</button>
+            </div>
+            
+        </div>
+        <div class="card-header">
+            
+            <ul class="nav nav-tabs nav-justified card-header-tabs text-center float-none" role="tablist" style="width: 1196px;">
+                
+                <li class="nav-item"><a class="nav-link active" id="item-1-1-tab" data-toggle="tab" role="tab" aria-controls="item-1-1" aria-selected="true" href="#item-1-1" style="margin-left: 0px;">Posts</a></li>
+                <li class="nav-item"><a class="nav-link"  id="item-1-2-tab" data-toggle="tab" role="tab" aria-controls="item-1-2" aria-selected="false" href="#item-1-2">Official Catalog</a></li>
+                <li class="nav-item"><a class="nav-link" id="item-1-3-tab" data-toggle="tab" role="tab" aria-controls="item-1-3" aria-selected="false" href="#item-1-3">Catalog</a></li>
+                <li  class="nav-item"><a class="nav-link" id="item-1-4-tab" data-toggle="tab" role="tab" aria-controls="item-1-4" aria-selected="false" href="#item-1-4">Admins</a></li>
+                <li class="nav-item"><a class="nav-link" id="item-1-5-tab" data-toggle="tab" role="tab" aria-controls="item-1-5" aria-selected="false" href="#item-1-5" ><i class="fas fa-cog" style="height: 16px;"></i></a></li>
+            </ul>
+        </div>
+        <div class="card-body d-flex" >
+            <div id="nav-tabContent" class="tab-content">
+                <div id="item-1-1" class="tab-pane fade show active" role="tabpanel" aria-labelledby="item-1-1-tab">
+                    <div flex-column>
+                        <div class="card">
+                            <div class="card-body d-flex flex-column">
+                                <div class="d-flex justify-content-end">
+                                    <span style="margin-right: 0.5%; "><a href="#"><span class="glyphicon glyphicon-pushpin"></span></a></span>
+                                    <span style="margin-right: 0.5%;"><a href="#"><span class="glyphicon glyphicon-bookmark"></span></a></span>
+                                    <span style="background-color: oldlace;visibility: hidden; "><a href="#"><span>X</span></a></span>
+                                </div>
+                                <div class="d-flex flex-row">
+                                    <img class="rounded-circle mr-3" style="height: 50px; width: 50px;" src="../assets/img/user-photo2.jpg" />
+                                    <div class="d-flex flex-column">
+                                        <h5 class="card-title">Username</h5>
+                                        <h5 class="card-title">Channelname</h5>
+                                    </div>
+                                    
+                                    
+                                </div>
+                               <div>
+                                    <p class="card-text">Description:-Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                                </div>
+                                <div>
+                                    
+                                    <div>
+                                        <!--List of Release Titles-->
+                                        <a href="#" class="card-text"><span class="badge badge-secondary" style="font-size: 1.2em; margin:0.6%;">Release Title</span></a>
+                                    </div>
+                                   
+                                </div>
+                                <p style="font-size:14px">12/12/12 12:00:00</p>
+                                <div class="d-flex justify-content-between">
+                                    <a class="card-link d-flex" href="#"><span><i class="fa fa-comments"></i>34</span></a>
+                                    <a class="card-link d-flex" href="#"><span><i class="fa fa-star"></i>43</span></a>
+                                </div>
+                                
+                            </div>
+                            
+                        </div>
+                        <div class="card">
+                            <div class="card-body d-flex flex-column">
+                                <div class="d-flex justify-content-end">
+                                    <span style="margin-right: 0.5%; "><a href="#"><span class="glyphicon glyphicon-pushpin"></span></a></span>
+                                    <span style="margin-right: 0.5%;"><a href="#"><span class="glyphicon glyphicon-bookmark"></span></a></span>
+                                    <span style="background-color: oldlace;visibility: hidden; "><a href="#"><span>X</span></a></span>
+                                </div>
+                                <div class="d-flex flex-row">
+                                    <img class="rounded-circle mr-3" style="height: 50px; width: 50px;" src="../assets/img/user-photo2.jpg" />
+                                    <div class="d-flex flex-column">
+                                        <h5 class="card-title">Username</h5>
+                                        <h5 class="card-title">Channelname</h5>
+                                    </div>
+                                    
+                                    
+                                </div>
+                               <div>
+                                    <p class="card-text">Description:-Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                                </div>
+                                <div>
+                                    
+                                    <div>
+                                        <!--List of Release Titles-->
+                                        <a href="#" class="card-text"><span class="badge badge-secondary" style="font-size: 1.2em; margin:0.6%;">Release Title</span></a>
+                                    </div>
+                                   
+                                </div>
+                                <p style="font-size:14px">12/12/12 12:00:00</p>
+                                <div class="d-flex justify-content-between">
+                                    <a class="card-link d-flex" href="#"><span><i class="fa fa-comments"></i>34</span></a>
+                                    <a class="card-link d-flex" href="#"><span><i class="fa fa-star"></i>43</span></a>
+                                </div>
+                                
+                            </div>
+                            
+                        </div>
+                        <div class="card">
+                            <div class="card-body d-flex flex-column">
+                                <div class="d-flex justify-content-end">
+                                    <span style="margin-right: 0.5%; "><a href="#"><span class="glyphicon glyphicon-pushpin"></span></a></span>
+                                    <span style="margin-right: 0.5%;"><a href="#"><span class="glyphicon glyphicon-bookmark"></span></a></span>
+                                    <span style="background-color: oldlace;visibility: hidden; "><a href="#"><span>X</span></a></span>
+                                </div>
+                                <div class="d-flex flex-row">
+                                    <img class="rounded-circle mr-3" style="height: 50px; width: 50px;" src="../assets/img/user-photo2.jpg" />
+                                    <div class="d-flex flex-column">
+                                        <h5 class="card-title">Username</h5>
+                                        <h5 class="card-title">Channelname</h5>
+                                    </div>
+                                    
+                                    
+                                </div>
+                               <div>
+                                    <p class="card-text">Description:-Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                                </div>
+                                <div>
+                                    
+                                    <div>
+                                        <!--List of Release Titles-->
+                                        <a href="#" class="card-text"><span class="badge badge-secondary" style="font-size: 1.2em; margin:0.6%;">Release Title</span></a>
+                                    </div>
+                                   
+                                </div>
+                                <p style="font-size:14px">12/12/12 12:00:00</p>
+                                <div class="d-flex justify-content-between">
+                                    <a class="card-link d-flex" href="#"><span><i class="fa fa-comments"></i>34</span></a>
+                                    <a class="card-link d-flex" href="#"><span><i class="fa fa-star"></i>43</span></a>
+                                </div>
+                                
+                            </div>
+                            
+                        </div>
+                        <div class="card">
+                            <div class="card-body d-flex flex-column">
+                                <div class="d-flex justify-content-end">
+                                    <span style="margin-right: 0.5%; "><a href="#"><span class="glyphicon glyphicon-pushpin"></span></a></span>
+                                    <span style="margin-right: 0.5%;"><a href="#"><span class="glyphicon glyphicon-bookmark"></span></a></span>
+                                    <span style="background-color: oldlace;visibility: hidden; "><a href="#"><span>X</span></a></span>
+                                </div>
+                                <div class="d-flex flex-row">
+                                    <img class="rounded-circle mr-3" style="height: 50px; width: 50px;" src="../assets/img/user-photo2.jpg" />
+                                    <div class="d-flex flex-column">
+                                        <h5 class="card-title">Username</h5>
+                                        <h5 class="card-title">Channelname</h5>
+                                    </div>
+                                    
+                                    
+                                </div>
+                               <div>
+                                    <p class="card-text">Description:-Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                                </div>
+                                <div>
+                                    
+                                    <div>
+                                        <!--List of Release Titles-->
+                                        <a href="#" class="card-text"><span class="badge badge-secondary" style="font-size: 1.2em; margin:0.6%;">Release Title</span></a>
+                                    </div>
+                                   
+                                </div>
+                                <p style="font-size:14px">12/12/12 12:00:00</p>
+                                <div class="d-flex justify-content-between">
+                                    <a class="card-link d-flex" href="#"><span><i class="fa fa-comments"></i>34</span></a>
+                                    <a class="card-link d-flex" href="#"><span><i class="fa fa-star"></i>43</span></a>
+                                </div>
+                                
+                            </div>
+                            
+                        </div>
+                        <div class="card">
+                            <div class="card-body d-flex flex-column">
+                                <div class="d-flex justify-content-end">
+                                    <span style="margin-right: 0.5%; "><a href="#"><span class="glyphicon glyphicon-pushpin"></span></a></span>
+                                    <span style="margin-right: 0.5%;"><a href="#"><span class="glyphicon glyphicon-bookmark"></span></a></span>
+                                    <span style="background-color: oldlace;visibility: hidden; "><a href="#"><span>X</span></a></span>
+                                </div>
+                                <div class="d-flex flex-row">
+                                    <img class="rounded-circle mr-3" style="height: 50px; width: 50px;" src="../assets/img/user-photo2.jpg" />
+                                    <div class="d-flex flex-column">
+                                        <h5 class="card-title">Username</h5>
+                                        <h5 class="card-title">Channelname</h5>
+                                    </div>
+                                    
+                                    
+                                </div>
+                               <div>
+                                    <p class="card-text">Description:-Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                                </div>
+                                <div>
+                                    
+                                    <div>
+                                        <!--List of Release Titles-->
+                                        <a href="#" class="card-text"><span class="badge badge-secondary" style="font-size: 1.2em; margin:0.6%;">Release Title</span></a>
+                                    </div>
+                                   
+                                </div>
+                                <p style="font-size:14px">12/12/12 12:00:00</p>
+                                <div class="d-flex justify-content-between">
+                                    <a class="card-link d-flex" href="#"><span><i class="fa fa-comments"></i>34</span></a>
+                                    <a class="card-link d-flex" href="#"><span><i class="fa fa-star"></i>43</span></a>
+                                </div>
+                                
+                            </div>
+                            
+                        </div>
+
+                    </div>
+               
+                </div>
+                <div id="item-1-2" style="width:80rem" class="tab-pane fade" role="tabpanel" aria-labelledby="item-1-2-tab">
+                   <div class="d-flex flex-wrap">
+                    <div style="width: 18%;margin:0.4%;height: 14rem;">
+                        <div style="padding: 10%;width: 100%;height: 100%;padding-bottom: 10%;background-color: rgba(0,0,0,0.4);padding-left: 10%;">
+                            <div>
+                                <h1>Title</h1>
+                                <p>description</p>
+                            </div>
+                            <div>
+                                <h5>Authors</h5>
+                                <h6>author</h6>
+                            </div>
+                            <div>
+                                <h5>Genre</h5>
+                                <h6>genre</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="width: 18%;margin:0.4%;height: 14rem;">
+                        <div style="padding: 10%;width: 100%;height: 100%;padding-bottom: 10%;background-color: rgba(0,0,0,0.4);padding-left: 10%;">
+                            <div>
+                                <h1>Title</h1>
+                                <p>description</p>
+                            </div>
+                            <div>
+                                <h5>Authors</h5>
+                                <h6>author</h6>
+                            </div>
+                            <div>
+                                <h5>Genre</h5>
+                                <h6>genre</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="width: 18%;margin:0.4%;height: 14rem;">
+                        <div style="padding: 10%;width: 100%;height: 100%;padding-bottom: 10%;background-color: rgba(0,0,0,0.4);padding-left: 10%;">
+                            <div>
+                                <h1>Title</h1>
+                                <p>description</p>
+                            </div>
+                            <div>
+                                <h5>Authors</h5>
+                                <h6>author</h6>
+                            </div>
+                            <div>
+                                <h5>Genre</h5>
+                                <h6>genre</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="width: 18%;margin:0.4%;height: 14rem;">
+                        <div style="padding: 10%;width: 100%;height: 100%;padding-bottom: 10%;background-color: rgba(0,0,0,0.4);padding-left: 10%;">
+                            <div>
+                                <h1>Title</h1>
+                                <p>description</p>
+                            </div>
+                            <div>
+                                <h5>Authors</h5>
+                                <h6>author</h6>
+                            </div>
+                            <div>
+                                <h5>Genre</h5>
+                                <h6>genre</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="width: 18%;margin:0.4%;height: 14rem;">
+                        <div style="padding: 10%;width: 100%;height: 100%;padding-bottom: 10%;background-color: rgba(0,0,0,0.4);padding-left: 10%;">
+                            <div>
+                                <h1>Title</h1>
+                                <p>description</p>
+                            </div>
+                            <div>
+                                <h5>Authors</h5>
+                                <h6>author</h6>
+                            </div>
+                            <div>
+                                <h5>Genre</h5>
+                                <h6>genre</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="width: 18%;margin:0.4%;height: 14rem;">
+                        <div style="padding: 10%;width: 100%;height: 100%;padding-bottom: 10%;background-color: rgba(0,0,0,0.4);padding-left: 10%;">
+                            <div>
+                                <h1>Title</h1>
+                                <p>description</p>
+                            </div>
+                            <div>
+                                <h5>Authors</h5>
+                                <h6>author</h6>
+                            </div>
+                            <div>
+                                <h5>Genre</h5>
+                                <h6>genre</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="width: 18%;margin:0.4%;height: 14rem;">
+                        <div style="padding: 10%;width: 100%;height: 100%;padding-bottom: 10%;background-color: rgba(0,0,0,0.4);padding-left: 10%;">
+                            <div>
+                                <h1>Title</h1>
+                                <p>description</p>
+                            </div>
+                            <div>
+                                <h5>Authors</h5>
+                                <h6>author</h6>
+                            </div>
+                            <div>
+                                <h5>Genre</h5>
+                                <h6>genre</h6>
+                            </div>
+                        </div>
+                    </div>
+                   </div>
+                    
+                    
+                </div>
+                    
+                
+                   
+                    
+                    
+                <div id="item-1-3" class="tab-pane fade" style="width:80rem" role="tabpanel" aria-labelledby="item-1-3-tab">
+                    <div class="d-flex flex-wrap">
+                        
+                        <div style="width: 18%;margin:0.4%;height: 14rem;">
+                            <div style="padding: 10%;width: 100%;height: 100%;padding-bottom: 10%;background-color: rgba(0,0,0,0.4);padding-left: 10%;">
+                                <div>
+                                    <h1>Title</h1>
+                                    <p>description</p>
+                                </div>
+                                <div>
+                                    <h5>Authors</h5>
+                                    <h6>author</h6>
+                                </div>
+                                <div>
+                                    <h5>Genre</h5>
+                                    <h6>genre</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="width: 18%;margin:0.4%;height: 14rem;">
+                            <div style="padding: 10%;width: 100%;height: 100%;padding-bottom: 10%;background-color: rgba(0,0,0,0.4);padding-left: 10%;">
+                                <div>
+                                    <h1>Title</h1>
+                                    <p>description</p>
+                                </div>
+                                <div>
+                                    <h5>Authors</h5>
+                                    <h6>author</h6>
+                                </div>
+                                <div>
+                                    <h5>Genre</h5>
+                                    <h6>genre</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="width: 18%;margin:0.4%;height: 14rem;">
+                            <div style="padding: 10%;width: 100%;height: 100%;padding-bottom: 10%;background-color: rgba(0,0,0,0.4);padding-left: 10%;">
+                                <div>
+                                    <h1>Title</h1>
+                                    <p>description</p>
+                                </div>
+                                <div>
+                                    <h5>Authors</h5>
+                                    <h6>author</h6>
+                                </div>
+                                <div>
+                                    <h5>Genre</h5>
+                                    <h6>genre</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="width: 18%;margin:0.4%;height: 14rem;">
+                            <div style="padding: 10%;width: 100%;height: 100%;padding-bottom: 10%;background-color: rgba(0,0,0,0.4);padding-left: 10%;">
+                                <div>
+                                    <h1>Title</h1>
+                                    <p>description</p>
+                                </div>
+                                <div>
+                                    <h5>Authors</h5>
+                                    <h6>author</h6>
+                                </div>
+                                <div>
+                                    <h5>Genre</h5>
+                                    <h6>genre</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="width: 18%;margin:0.4%;height: 14rem;">
+                            <div style="padding: 10%;width: 100%;height: 100%;padding-bottom: 10%;background-color: rgba(0,0,0,0.4);padding-left: 10%;">
+                                <div>
+                                    <h1>Title</h1>
+                                    <p>description</p>
+                                </div>
+                                <div>
+                                    <h5>Authors</h5>
+                                    <h6>author</h6>
+                                </div>
+                                <div>
+                                    <h5>Genre</h5>
+                                    <h6>genre</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="width: 18%;margin:0.4%;height: 14rem;">
+                            <div style="padding: 10%;width: 100%;height: 100%;padding-bottom: 10%;background-color: rgba(0,0,0,0.4);padding-left: 10%;">
+                                <div>
+                                    <h1>Title</h1>
+                                    <p>description</p>
+                                </div>
+                                <div>
+                                    <h5>Authors</h5>
+                                    <h6>author</h6>
+                                </div>
+                                <div>
+                                    <h5>Genre</h5>
+                                    <h6>genre</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="width: 18%;margin:0.4%;height: 14rem;">
+                            <div style="padding: 10%;width: 100%;height: 100%;padding-bottom: 10%;background-color: rgba(0,0,0,0.4);padding-left: 10%;">
+                                <div>
+                                    <h1>Title</h1>
+                                    <p>description</p>
+                                </div>
+                                <div>
+                                    <h5>Authors</h5>
+                                    <h6>author</h6>
+                                </div>
+                                <div>
+                                    <h5>Genre</h5>
+                                    <h6>genre</h6>
+                                </div>
+                            </div>
+                        </div>
+                       </div>
+                        
+                </div>
+                   
+                <div id="item-1-4" class="tab-pane fade" role="tabpanel" aria-labelledby="item-1-4-tab">
+                    <div class="d-flex flex-column">
+                        
+                        <div style="margin: 3% 0;" class="d-flex flex-row align-self-center">
+                            <i class="fa fa-user" style="font-size:60px; color: #009977;"></i>
+                            <h4><span class="badge badge-secondary">Owner</span>UserName </h4>
+                        </div>
+                        <div style="margin: 3% 0;" class="d-flex flex-row align-self-center">
+                            <span><i class="fa fa-user" style="font-size:60px;color: #009977;"></i></span>
+                            <h4 ><span style="margin: 3% 0;" class="badge badge-secondary">Admin</span>UserName </h4>
+                            </div>
+                            
+                           
+                        <div style="margin: 3% 0;" class="d-flex flex-row align-self-center">
+                            <i class="fa fa-user" style="font-size:60px;color: #009977;"></i>
+                            <h4><span class="badge badge-secondary">Admin</span>UserName </h4>
+                        </div>
+                               
+                    </div>
+                    
+                    
+                </div>
+                
+                   
+                <div id="item-1-5" class="tab-pane fade" role="tabpanel" aria-labelledby="item-1-5-tab">
+                    <div class="container d-flex flex-column">
+                        <div class="flex-fill">
+                         <div>
+                             
+                               <form>
+                                 
+                                 <div class="d-flex input-group flex-column">
+                                     <h2  class="display-4" style="margin: 1% 0; margin-left: 10%;"><small>Edit Channel</small></h2>
+                                     <img class="rounded-circle mr-3 align-self-center"  src="../assets/img/user-photo2.jpg" alt="">
+                                     <input style="margin: 1% 0; margin-left: 5%;"class="align-self-center" type="file" id="myFile" name="filename2">    
+                                 </div>
+                                 <div class="d-flex flex-column">
+                                     <div class="align-self-center" style="width: 80%;">
+                                         <div class="input-group input-group-m mb-3">
+                                             <div class="input-group-prepend">
+                                               <span class="input-group-text">Channel UserName:</span>
+                                             </div>
+                                             <input type="text" class="form-control" placeholder="Username" >
+                                           </div>
+                                           <div class="input-group mb-3">
+                                             <div class="input-group-prepend">
+                                               <span class="input-group-text">Channel Name:</span>
+                                             </div>
+                                             <input type="text" class="form-control" placeholder="Channel Name">
+                                         </div>
+                                         <div class="input-group mb-3">
+                                             <div class="input-group-prepend">
+                                               <span class="input-group-text">Description:</span>
+                                             </div>
+                                             <input type="text" class="form-control" placeholder="Description">
+                                         </div>
+                                         
+                                         
+                                 
+                                         <div class="d-flex justify-content-end mb-3">
+                                           <button style="margin-right: 1%; background-color: #009977;"  type="submit" class="btn btn-primary">Save Changes</button>
+                                         </div>
+                                     </div>
+                                 
+                                 </div>
+                                 
+                                 
+                               </form>
+                         </div>
+                        </div>
+                         <div class="d-flex flex-column">
+                             <div class="align-self-center" style="width: 92%;margin: 3% 0%;margin-left: 7%;">
+                                 <h2  class="display-4" style="margin: 1% 0; margin-left: 10%;"><small>Stickied Posts</small></h2>
+                                 <div class="card">
+                                     <div class="card-body d-flex flex-column">
+                                         <div class="d-flex justify-content-end">
+                                             <span style="margin-right: 0.5%; visibility: hidden;"><a href="#"><span class="glyphicon glyphicon-pushpin"></span></a></span>
+                                             <span style="margin-right: 0.5%; visibility: hidden;"><a href="#"><span class="glyphicon glyphicon-bookmark"></span></a></span>
+                                             <span style="background-color: oldlace;visibility: visible; "><a href="#"><span>X</span></a></span>
+                                         </div>
+                                         <div class="d-flex flex-row">
+                                             <img class="rounded-circle mr-3" style="height: 50px; width: 50px;" src="../assets/img/user-photo2.jpg" />
+                                             <div class="d-flex flex-column">
+                                                 <h5 class="card-title">Username</h5>
+                                                 <h5 class="card-title">Channelname</h5>
+                                             </div>
+                                             
+                                             
+                                         </div>
+                                         
+                                        <div>
+                                             <p class="card-text">Description:-Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                                         </div>
+                                         <div>
+                                             
+                                             <div>
+                                                 <!--List of Release Titles-->
+                                                 <a href="#" class="card-text"><span class="badge badge-secondary" style="font-size: 1.2em; margin:0.6%;">Release Title</span></a>
+                                             </div>
+                                            
+                                         </div>
+                                         <p style="font-size:14px">12/12/12 12:00:00</p>
+                                         <div class="d-flex justify-content-between">
+                                             <a class="card-link d-flex" href="#"><span><i class="fa fa-comments"></i>34</span></a>
+                                             <a class="card-link d-flex" href="#"><span><i class="fa fa-star"></i>43</span></a>
+                                         </div>
+                                         
+                                     </div>
+                                     
+                                 </div>
+                                 <div class="card">
+                                     <div class="card-body d-flex flex-column">
+                                         <div class="d-flex justify-content-end">
+                                             <span style="margin-right: 0.5%; visibility: hidden;"><a href="#"><span class="glyphicon glyphicon-pushpin"></span></a></span>
+                                             <span style="margin-right: 0.5%; visibility: hidden;"><a href="#"><span class="glyphicon glyphicon-bookmark"></span></a></span>
+                                             <span style="background-color: oldlace;visibility: visible; "><a href="#"><span>X</span></a></span>
+                                         </div>
+                                         <div class="d-flex flex-row">
+                                             <img class="rounded-circle mr-3" style="height: 50px; width: 50px;" src="../assets/img/user-photo2.jpg" />
+                                             <div class="d-flex flex-column">
+                                                 <h5 class="card-title">Username</h5>
+                                                 <h5 class="card-title">Channelname</h5>
+                                             </div>
+                                             
+                                             
+                                         </div>
+                                         
+                                        <div>
+                                             <p class="card-text">Description:-Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                                         </div>
+                                         <div>
+                                             
+                                             <div>
+                                                 <!--List of Release Titles-->
+                                                 <a href="#" class="card-text"><span class="badge badge-secondary" style="font-size: 1.2em; margin:0.6%;">Release Title</span></a>
+                                             </div>
+                                            
+                                         </div>
+                                         <p style="font-size:14px">12/12/12 12:00:00</p>
+                                         <div class="d-flex justify-content-between">
+                                             <a class="card-link d-flex" href="#"><span><i class="fa fa-comments"></i>34</span></a>
+                                             <a class="card-link d-flex" href="#"><span><i class="fa fa-star"></i>43</span></a>
+                                         </div>
+                                         
+                                     </div>
+                                     
+                                 </div>
+                             </div>
+                             
+                         </div>  
+                         <div class="d-flex flex-column">
+                             <div class="align-self-center" style="width: 92%;margin: 3% 0%;margin-left: 7%;">
+                                 <h2  class="display-4" style="margin: 1% 0; margin-left: 10%;"><small>Channel Posts</small></h2>
+                                 <div class="card">
+                                     <div class="card-body d-flex flex-column">
+                                         <div class="d-flex justify-content-end">
+                                             <span style="margin-right: 0.5%; visibility: hidden;"><a href="#"><span class="glyphicon glyphicon-pushpin"></span></a></span>
+                                             <span style="margin-right: 0.5%; visibility: hidden;"><a href="#"><span class="glyphicon glyphicon-bookmark"></span></a></span>
+                                             <span style="background-color: oldlace;visibility: visible; "><a href="#"><span>X</span></a></span>
+                                         </div>
+                                         <div class="d-flex flex-row">
+                                             <img class="rounded-circle mr-3" style="height: 50px; width: 50px;" src="../assets/img/user-photo2.jpg" />
+                                             <div class="d-flex flex-column">
+                                                 <h5 class="card-title">Username</h5>
+                                                 <h5 class="card-title">Channelname</h5>
+                                             </div>
+                                             
+                                             
+                                         </div>
+                                         
+                                        <div>
+                                             <p class="card-text">Description:-Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                                         </div>
+                                         <div>
+                                             
+                                             <div>
+                                                 <!--List of Release Titles-->
+                                                 <a href="#" class="card-text"><span class="badge badge-secondary" style="font-size: 1.2em; margin:0.6%;">Release Title</span></a>
+                                             </div>
+                                            
+                                         </div>
+                                         <p style="font-size:14px">12/12/12 12:00:00</p>
+                                         <div class="d-flex justify-content-between">
+                                             <a class="card-link d-flex" href="#"><span><i class="fa fa-comments"></i>34</span></a>
+                                             <a class="card-link d-flex" href="#"><span><i class="fa fa-star"></i>43</span></a>
+                                         </div>
+                                         
+                                     </div>
+                                     
+                                 </div>
+                                 <div class="card">
+                                     <div class="card-body d-flex flex-column">
+                                         <div class="d-flex justify-content-end">
+                                             <span style="margin-right: 0.5%; visibility: hidden;"><a href="#"><span class="glyphicon glyphicon-pushpin"></span></a></span>
+                                             <span style="margin-right: 0.5%; visibility: hidden;"><a href="#"><span class="glyphicon glyphicon-bookmark"></span></a></span>
+                                             <span style="background-color: oldlace;visibility: visible; "><a href="#"><span>X</span></a></span>
+                                         </div>
+                                         <div class="d-flex flex-row">
+                                             <img class="rounded-circle mr-3" style="height: 50px; width: 50px;" src="../assets/img/user-photo2.jpg" />
+                                             <div class="d-flex flex-column">
+                                                 <h5 class="card-title">Username</h5>
+                                                 <h5 class="card-title">Channelname</h5>
+                                             </div>
+                                             
+                                             
+                                         </div>
+                                         
+                                        <div>
+                                             <p class="card-text">Description:-Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                                         </div>
+                                         <div>
+                                             
+                                             <div>
+                                                 <!--List of Release Titles-->
+                                                 <a href="#" class="card-text"><span class="badge badge-secondary" style="font-size: 1.2em; margin:0.6%;">Release Title</span></a>
+                                             </div>
+                                            
+                                         </div>
+                                         <p style="font-size:14px">12/12/12 12:00:00</p>
+                                         <div class="d-flex justify-content-between">
+                                             <a class="card-link d-flex" href="#"><span><i class="fa fa-comments"></i>34</span></a>
+                                             <a class="card-link d-flex" href="#"><span><i class="fa fa-star"></i>43</span></a>
+                                         </div>
+                                         
+                                     </div>
+                                     
+                                 </div>
+                             </div>
+                             
+                         </div>
+                         <div class="d-flex flex-column">
+                             <div class="align-self-center" style="width: 92%;margin: 3% 0%;margin-left: 7%;">
+                                 <h2  class="display-4" style="margin: 1% 0; margin-left: 10%;"><small>Channel Catalog</small></h2>
+                                 <div class="d-flex flex-wrap">
+                                    
+                                     <div style="width: 18%;margin:0.4%;height: 14rem;">
+                                         <div style="padding: 10%;width: 100%;height: 100%;padding-bottom: 10%;background-color: rgba(0,0,0,0.4);padding-left: 10%;">
+                                             <div class="d-flex justify-content-end"><span style="background-color:inherit ;visibility: visible; "><a href="#"><span>X</span></a></span></div>
+                                             <div>
+                                                 <h1>Title</h1>
+                                                 <p>description</p>
+                                             </div>
+                                             <div>
+                                                 <h5>Authors</h5>
+                                                 <h6>author</h6>
+                                             </div>
+                                             <div>
+                                                 <h5>Genre</h5>
+                                                 <h6>genre</h6>
+                                             </div>
+                                         </div>
+                                     </div>
+                                     <div style="width: 18%;margin:0.4%;height: 14rem;">
+                                         <div style="padding: 10%;width: 100%;height: 100%;padding-bottom: 10%;background-color: rgba(0,0,0,0.4);padding-left: 10%;">
+                                             <div>
+                                                 <h1>Title</h1>
+                                                 <p>description</p>
+                                             </div>
+                                             <div>
+                                                 <h5>Authors</h5>
+                                                 <h6>author</h6>
+                                             </div>
+                                             <div>
+                                                 <h5>Genre</h5>
+                                                 <h6>genre</h6>
+                                             </div>
+                                         </div>
+                                     </div>
+                                     <div style="width: 18%;margin:0.4%;height: 14rem;">
+                                         <div style="padding: 10%;width: 100%;height: 100%;padding-bottom: 10%;background-color: rgba(0,0,0,0.4);padding-left: 10%;">
+                                             <div>
+                                                 <h1>Title</h1>
+                                                 <p>description</p>
+                                             </div>
+                                             <div>
+                                                 <h5>Authors</h5>
+                                                 <h6>author</h6>
+                                             </div>
+                                             <div>
+                                                 <h5>Genre</h5>
+                                                 <h6>genre</h6>
+                                             </div>
+                                         </div>
+                                     </div>
+                                     <div style="width: 18%;margin:0.4%;height: 14rem;">
+                                         <div style="padding: 10%;width: 100%;height: 100%;padding-bottom: 10%;background-color: rgba(0,0,0,0.4);padding-left: 10%;">
+                                             <div>
+                                                 <h1>Title</h1>
+                                                 <p>description</p>
+                                             </div>
+                                             <div>
+                                                 <h5>Authors</h5>
+                                                 <h6>author</h6>
+                                             </div>
+                                             <div>
+                                                 <h5>Genre</h5>
+                                                 <h6>genre</h6>
+                                             </div>
+                                         </div>
+                                     </div>
+                                     <div style="width: 18%;margin:0.4%;height: 14rem;">
+                                         <div style="padding: 10%;width: 100%;height: 100%;padding-bottom: 10%;background-color: rgba(0,0,0,0.4);padding-left: 10%;">
+                                             <div>
+                                                 <h1>Title</h1>
+                                                 <p>description</p>
+                                             </div>
+                                             <div>
+                                                 <h5>Authors</h5>
+                                                 <h6>author</h6>
+                                             </div>
+                                             <div>
+                                                 <h5>Genre</h5>
+                                                 <h6>genre</h6>
+                                             </div>
+                                         </div>
+                                     </div>
+                                     <div style="width: 18%;margin:0.4%;height: 14rem;">
+                                         <div style="padding: 10%;width: 100%;height: 100%;padding-bottom: 10%;background-color: rgba(0,0,0,0.4);padding-left: 10%;">
+                                             <div>
+                                                 <h1>Title</h1>
+                                                 <p>description</p>
+                                             </div>
+                                             <div>
+                                                 <h5>Authors</h5>
+                                                 <h6>author</h6>
+                                             </div>
+                                             <div>
+                                                 <h5>Genre</h5>
+                                                 <h6>genre</h6>
+                                             </div>
+                                         </div>
+                                     </div>
+                                     <div style="width: 18%;margin:0.4%;height: 14rem;">
+                                         <div style="padding: 10%;width: 100%;height: 100%;padding-bottom: 10%;background-color: rgba(0,0,0,0.4);padding-left: 10%;">
+                                             <div>
+                                                 <h1>Title</h1>
+                                                 <p>description</p>
+                                             </div>
+                                             <div>
+                                                 <h5>Authors</h5>
+                                                 <h6>author</h6>
+                                             </div>
+                                             <div>
+                                                 <h5>Genre</h5>
+                                                 <h6>genre</h6>
+                                             </div>
+                                         </div>
+                                     </div>
+                                    </div>
+                             
+                             </div></div>  
+                             <div class="d-flex flex-column">
+                                 <div class="align-self-center" style="width: 92%;margin: 3% 0%;margin-left: 7%;">
+                                     <h2  class="display-4" style="margin: 1% 0; margin-left: 10%;"><small>Channel Official Catalog</small></h2>
+                                     <div class="d-flex flex-wrap">
+                                             
+                                         <div style="width: 18%;margin:0.4%;height: 14rem;">
+                                             <div style="padding: 10%;width: 100%;height: 100%;padding-bottom: 10%;background-color: rgba(0,0,0,0.4);padding-left: 10%;">
+                                                 <div>
+                                                     <h1>Title</h1>
+                                                     <p>description</p>
+                                                 </div>
+                                                 <div>
+                                                     <h5>Authors</h5>
+                                                     <h6>author</h6>
+                                                 </div>
+                                                 <div>
+                                                     <h5>Genre</h5>
+                                                     <h6>genre</h6>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                         <div style="width: 18%;margin:0.4%;height: 14rem;">
+                                             <div style="padding: 10%;width: 100%;height: 100%;padding-bottom: 10%;background-color: rgba(0,0,0,0.4);padding-left: 10%;">
+                                                 <div>
+                                                     <h1>Title</h1>
+                                                     <p>description</p>
+                                                 </div>
+                                                 <div>
+                                                     <h5>Authors</h5>
+                                                     <h6>author</h6>
+                                                 </div>
+                                                 <div>
+                                                     <h5>Genre</h5>
+                                                     <h6>genre</h6>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                         <div style="width: 18%;margin:0.4%;height: 14rem;">
+                                             <div style="padding: 10%;width: 100%;height: 100%;padding-bottom: 10%;background-color: rgba(0,0,0,0.4);padding-left: 10%;">
+                                                 <div>
+                                                     <h1>Title</h1>
+                                                     <p>description</p>
+                                                 </div>
+                                                 <div>
+                                                     <h5>Authors</h5>
+                                                     <h6>author</h6>
+                                                 </div>
+                                                 <div>
+                                                     <h5>Genre</h5>
+                                                     <h6>genre</h6>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                         <div style="width: 18%;margin:0.4%;height: 14rem;">
+                                             <div style="padding: 10%;width: 100%;height: 100%;padding-bottom: 10%;background-color: rgba(0,0,0,0.4);padding-left: 10%;">
+                                                 <div>
+                                                     <h1>Title</h1>
+                                                     <p>description</p>
+                                                 </div>
+                                                 <div>
+                                                     <h5>Authors</h5>
+                                                     <h6>author</h6>
+                                                 </div>
+                                                 <div>
+                                                     <h5>Genre</h5>
+                                                     <h6>genre</h6>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                         <div style="width: 18%;margin:0.4%;height: 14rem;">
+                                             <div style="padding: 10%;width: 100%;height: 100%;padding-bottom: 10%;background-color: rgba(0,0,0,0.4);padding-left: 10%;">
+                                                 <div>
+                                                     <h1>Title</h1>
+                                                     <p>description</p>
+                                                 </div>
+                                                 <div>
+                                                     <h5>Authors</h5>
+                                                     <h6>author</h6>
+                                                 </div>
+                                                 <div>
+                                                     <h5>Genre</h5>
+                                                     <h6>genre</h6>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                         <div style="width: 18%;margin:0.4%;height: 14rem;">
+                                             <div style="padding: 10%;width: 100%;height: 100%;padding-bottom: 10%;background-color: rgba(0,0,0,0.4);padding-left: 10%;">
+                                                 <div>
+                                                     <h1>Title</h1>
+                                                     <p>description</p>
+                                                 </div>
+                                                 <div>
+                                                     <h5>Authors</h5>
+                                                     <h6>author</h6>
+                                                 </div>
+                                                 <div>
+                                                     <h5>Genre</h5>
+                                                     <h6>genre</h6>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                         <div style="width: 18%;margin:0.4%;height: 14rem;">
+                                             <div style="padding: 10%;width: 100%;height: 100%;padding-bottom: 10%;background-color: rgba(0,0,0,0.4);padding-left: 10%;">
+                                                 <div>
+                                                     <h1>Title</h1>
+                                                     <p>description</p>
+                                                 </div>
+                                                 <div>
+                                                     <h5>Authors</h5>
+                                                     <h6>author</h6>
+                                                 </div>
+                                                 <div>
+                                                     <h5>Genre</h5>
+                                                     <h6>genre</h6>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                        </div>
+                                 
+                                 </div></div>  
+                         
+                     </div>
+                     </div>
+                </div>
+                    
+        
+                </div>
+    </div>
+    </div>
+    <script>
+        function subscribe(x) {
+            
+        var x = document.getElementById("Button");
+            if (x.innerHTML === "Subscribe") {
+                x.innerHTML = "Unsubscribe";
+            } else {
+            x.innerHTML = "Subscribe";
+            }
+}
+        
+    </script>
+    <script src="../assets/libs/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script src="../assets/libs/bootstrap-4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>

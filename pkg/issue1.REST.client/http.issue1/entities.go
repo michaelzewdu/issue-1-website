@@ -3,31 +3,33 @@ package issue1
 import "time"
 
 type (
+
 	// Channel represents a singular stream of posts that a user can subscribe to
 	// under administration by certain users.
 	Channel struct {
-		Username           string
-		Name               string
-		Description        string
-		Owner              string
-		Admins             []string
-		PostIDs            []uint
-		StickiedPostIDs    [2]uint
-		OfficialReleaseIDs []uint
-		ReleaseIDs         []uint
-		CreationTime       time.Time
+		ChannelUsername    string    `json:"channelUsername"`
+		Name               string    `json:"name,omitempty"`
+		Description        string    `json:"description,omitempty"`
+		PictureURL         string    `json:"pictureURL,omitempty"`
+		OwnerUsername      string    `json:"ownerUsername,omitempty"`
+		AdminUsernames     []string  `json:"adminUsernames,omitempty"`
+		PostIDs            []uint    `json:"postIDs,omitempty"`
+		StickiedPostIDs    []uint    `json:"stickiedPostIDs,omitempty "`
+		ReleaseIDs         []uint    `json:"releaseIDs,omitempty"`
+		OfficialReleaseIDs []uint    `json:"officialReleaseIDs,omitempty"`
+		CreationTime       time.Time `json:"creationTime,omitempty"`
 	}
-	// Comment represents standard comments users can attach
+	//Comment represents standard comments users can attach
 	// to a post or another comment.
 	// replyTo is either and id of another comment or -1 if
 	// it's a reply to original post.
 	Comment struct {
-		ID           uint
-		OriginPost   uint
-		Commenter    string
-		Content      string
-		ReplyTo      uint
-		CreationTime time.Time
+		ID           uint      `json:"id"`
+		OriginPost   uint      `json:"originPost,omitempty"`
+		Commenter    string    `json:"commenter"`
+		Content      string    `json:"content"`
+		ReplyTo      int       `json:"replyTo,omitempty"`
+		CreationTime time.Time `json:"creationTime,omitempty"`
 	}
 	// Feed is a value object that tracks channels that a user subbed to
 	// and other settings
@@ -38,17 +40,24 @@ type (
 		//Subscriptions []*Channel `json:"subscriptions"`
 		// hiddenPosts   []Post
 	}
+
 	// Post is an aggregate entity of Releases along with socially interactive
 	// components such as stars, posting user and comments attached to the post
 	Post struct {
-		ID            uint
-		Title         string
-		Description   string
-		OriginChannel string
-		Poster        string
-		ContentIDs    []uint
-		Stars         map[string]uint // map of a username to the number of stars (range of 0 to 5) given
-		CreationTime  time.Time
+		ID               uint            `json:"id"`
+		PostedByUsername string          `json:"PostedByUsername,omitempty"`
+		OriginChannel    string          `json:"originChannel,omitempty"`
+		Title            string          `json:"title"`
+		Description      string          `json:"description"`
+		ContentsID       []uint          `json:"contentsID"`
+		Stars            map[string]uint `json:"stars"`
+		CommentsID       []int           `json:"commentsID"`
+		CreationTime     time.Time       `json:"creationTime"`
+	}
+	//Star is a key value pair of username and number of stars
+	Star struct {
+		Username   string `json:"username,omitempty"`
+		NumOfStars uint   `json:"stars,omitempty"`
 	}
 	// Release represents an atomic work of creativity.
 	Release struct {

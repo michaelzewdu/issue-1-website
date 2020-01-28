@@ -1,7 +1,6 @@
 package web
 
 import (
-	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -18,17 +17,6 @@ type Setup struct {
 	Config
 	Dependencies
 	templates *template.Template
-}
-
-// ParseTemplates is used to refresh the templates from disk.
-func (s *Setup) ParseTemplates() error {
-	temp, err := template.ParseGlob(s.TemplatesStoragePath + "/*")
-	if err != nil {
-		return err
-	}
-	fmt.Printf("%s\n", temp.DefinedTemplates())
-	s.templates = temp
-	return nil
 }
 
 // Dependencies contains dependencies used by the handlers.
@@ -56,19 +44,25 @@ func NewMux(s *Setup) *httprouter.Router {
 
 	err := s.ParseTemplates()
 	if err != nil {
-		s.Logger.Fatalf("error: initial template parsing failed because: %w\n fatal: server start-up aborted.", err)
+		s.Logger.Printf("error: initial template parsing failed because: %v", err)
+		//s.Logger.Fatalf("fatal: server start-up aborted.")
 	}
-
 	s.sessionValues.restRefreshToken = "restRefreshToken"
 	s.sessionValues.csrf = "CSRF"
 	s.sessionValues.username = "username"
 
 	fs := http.FileServer(http.Dir(s.AssetStoragePath))
 	mainRouter.Handler("GET", s.AssetServingRoute+"*filepath", http.StripPrefix(s.AssetServingRoute, fs))
-
+	mainRouter.HandlerFunc("POST", "/channels", postChannel(s))
 	mainRouter.HandlerFunc("GET", "/", getFront(s))
 	mainRouter.HandlerFunc("POST", "/login", postLogin(s))
+	mainRouter.HandlerFunc("POST", "/signup", postSignUp(s))
 	mainRouter.HandlerFunc("GET", "/home", getHome(s))
+	mainRouter.HandlerFunc("POST", "/home-feed-posts", postFeedPosts(s))
+	mainRouter.HandlerFunc("GET", "/error", getError(s))
+	mainRouter.HandlerFunc("GET", "/404", get404(s))
+	mainRouter.HandlerFunc("GET", "/p/:postID", getPostView(s))
+	mainRouter.HandlerFunc("GET", "/c/:channelUsername", getChannelView(s))
 
 	return mainRouter
 }

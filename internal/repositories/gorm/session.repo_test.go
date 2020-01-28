@@ -42,7 +42,7 @@ func setUpGormDB(t *testing.T) *gorm.DB {
 func TestSessionGormRepo(t *testing.T) {
 	db := setUpGormDB(t)
 	defer db.Close()
-	repo := &sessionRepo{conn: db}
+	repo := &sessionRepo{db: db}
 	sess := &session.Session{
 		UUID:           "specialTestUUID01234567890ABCDEF",
 		Expires:        time.Now().Add(time.Hour),
