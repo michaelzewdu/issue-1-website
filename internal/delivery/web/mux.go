@@ -62,6 +62,8 @@ func NewMux(s *Setup) *httprouter.Router {
 	mainRouter.HandlerFunc("GET", "/error", getError(s))
 	mainRouter.HandlerFunc("GET", "/404", get404(s))
 	mainRouter.HandlerFunc("GET", "/p/:postID", getPostView(s))
+	mainRouter.HandlerFunc("POST", "/p/:postID/comment-board", postPostComments(s))
+	mainRouter.HandlerFunc("POST", "/p/:postID/add-comment", postComment(s))
 
 	return mainRouter
 }

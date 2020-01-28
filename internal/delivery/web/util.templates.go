@@ -4,13 +4,15 @@ import (
 	issue1 "github.com/slim-crown/issue-1-website/pkg/issue1.REST.client/http.issue1"
 	"html/template"
 	"log"
+	"strings"
 )
 
 // ParseTemplates is used to refresh the templates from disk.
 func (s *Setup) ParseTemplates() error {
 	funcMap := template.FuncMap{
-		"postStarCount":    postStarCount(),
-		"postCommentCount": postCommentCount(),
+		"postStarCount":      postStarCount(),
+		"postCommentCount":   postCommentCount(),
+		"PreviewTextRelease": PreviewTextRelease,
 	}
 	temp := template.New("issue1")
 	temp.Funcs(funcMap)
@@ -21,6 +23,18 @@ func (s *Setup) ParseTemplates() error {
 	log.Printf("%s\n", temp.DefinedTemplates())
 	s.templates = temp
 	return nil
+}
+func PreviewTextRelease(r *issue1.Release) (out string) {
+	ctr := 0
+	for _, line := range strings.Split(r.Content, "\n") {
+		out += line
+		ctr++
+		if ctr == 10 {
+			break
+		}
+	}
+	out += "..."
+	return out
 }
 
 func postStarCount() func(*issue1.Post) uint {
