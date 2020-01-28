@@ -31,7 +31,7 @@ func main() {
 		port     = "5432"
 		dbname   = "issue#1website"
 		role     = "postgres"
-		password = "password1234!@#$"
+		password = "ntworzit"
 	)
 	dataSourceName := fmt.Sprintf(
 		`host=%s port=%s dbname='%s' user='%s' password='%s' sslmode=disable`,
@@ -80,7 +80,7 @@ func main() {
 	sessionGormRepo := gormRepo.NewSessionRepo(db)
 	s.SessionService = session.NewService(&sessionGormRepo)
 
-	mux := web.NewMux(&s)
+	//mux := web.NewMux(&s)
 
 	go func() {
 		scanner := bufio.NewScanner(os.Stdin)
@@ -103,16 +103,16 @@ func main() {
 
 	s.Logger.Println("server running...")
 
-	if s.HTTPS {
-		s.HostAddress = "https://" + s.HostAddress
-		log.Fatal(http.ListenAndServe(":"+s.Port, mux))
-	} else {
-		s.HostAddress = "http://" + s.HostAddress
-		log.Fatal(http.ListenAndServe(":"+s.Port, mux))
-	}
+	//if s.HTTPS {
+	//	s.HostAddress = "https://" + s.HostAddress
+	//	log.Fatal(http.ListenAndServe(":"+s.Port, mux))
+	//} else {
+	//	s.HostAddress = "http://" + s.HostAddress
+	//	log.Fatal(http.ListenAndServe(":"+s.Port, mux))
+	//}
 
-	//i1 := s.Iss1C
-	//stdoutLogger := s.Logger
+	i1 := s.Iss1C
+	stdoutLogger := s.Logger
 
 	/*
 		u, err := i1.UserService.GetUser("slimmy")
@@ -472,24 +472,23 @@ func main() {
 		stdoutLogger.Printf("\nDeletePost\n - - - - error:\n%+v", err)
 	*/
 
-	/*
-		comments, err:= i1.PostService.GetPostComments(5)
-		stdoutLogger.Printf("\nGetPostComments\n - - - - value:\n%+v\n\n - - - - error:\n%+v", comments, err)
-		if err== nil{
-			for _,u:= range comments{
-				stdoutLogger.Printf("%v\n", u)
-			}
+	/* NOT USED, USING COMMENT SERVICE INSTEAD
+	comments, err:= i1.PostService.GetPostComments(5)
+	stdoutLogger.Printf("\nGetPostComments\n - - - - value:\n%+v\n\n - - - - error:\n%+v", comments, err)
+	if err== nil{
+		for _,u:= range comments{
+			stdoutLogger.Printf("%v\n", u)
 		}
+	}
 	*/
-	/*
-		releases, err:= i1.PostService.GetPostReleases(4)
-		stdoutLogger.Printf("\nGetPostReleases\n - - - - value:\n%+v\n\n - - - - error:\n%+v", releases, err)
-		if err== nil{
-			for _,u:= range releases{
-				stdoutLogger.Printf("%v\n", u)
-			}
+
+	releases, err := i1.PostService.GetPostReleases(4)
+	stdoutLogger.Printf("\nGetPostReleases\n - - - - value:\n%+v\n\n - - - - error:\n%+v", releases, err)
+	if err == nil {
+		for _, u := range releases {
+			stdoutLogger.Printf("%v\n", u)
 		}
-	*/
+	}
 
 	/*
 		star, err := i1.PostService.GetPostStar(9,"loveless")
@@ -512,10 +511,10 @@ func main() {
 	}
 	*/
 
-	/*posts, err:=i1.PostService.GetPosts(1,7)
-	if err== nil{
-		for _,u:= range posts{
+	posts, err := i1.PostService.GetPosts(1, 7)
+	if err == nil {
+		for _, u := range posts {
 			stdoutLogger.Printf("%v\n", u)
 		}
-	}*/
+	}
 }
