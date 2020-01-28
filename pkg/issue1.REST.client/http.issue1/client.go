@@ -26,6 +26,7 @@ type Client struct {
 	ChannelService ChannelService
 	UserService    UserService
 	FeedService    FeedService
+	PostService    PostService
 	ReleaseService ReleaseService
 	CommentService CommentService
 	AuthService
@@ -85,6 +86,9 @@ var (
 	ErrCommentNotFound = errors.New("http.issue1: comment was not found")
 	// ErrUnacceptedImageType is returned when the image format passed isn't supported by REST.
 	ErrUnacceptedImageType = errors.New("http.issue1: file mime type not accepted")
+
+	//ErrStarNotFound is returned when requested Star is not found
+	ErrStarNotFound = fmt.Errorf("Specified star not found")
 )
 
 // SortOrder holds enums used to specify the order entities are sorted with
@@ -116,6 +120,7 @@ func NewClient(httpClient *http.Client, baseURL *url.URL, logger *log.Logger) *C
 	c.AuthService = AuthService{client: c}
 	c.ReleaseService = ReleaseService{client: c}
 	c.CommentService = CommentService{client: c}
+	c.PostService = PostService{client: c}
 	return c
 }
 
