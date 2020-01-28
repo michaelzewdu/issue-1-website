@@ -245,7 +245,7 @@
                                 <div class="row">
                                 <!-- Contenedor Principal -->
                                 <div class="comments-container">
-                                    
+                                    <h2>List of Comments</h2>
                                     <hr>
                                     <ul id="comments-list" class="comments-list">
                                         <li>
@@ -333,26 +333,59 @@
                 </div>
             </div>
     
-            <div class="col-xs-10 col-sm-2">
-                <div class="container">
-                    <h2>Add Channel</h2>
-                    <form action="/action_page.php">
-                      <div class="form-group">
-                        <label for="username">Username:</label>
-                        <input type="username" class="form-control" id="username" placeholder="Enter username" name="username">
-                      </div>
-                      <div class="form-group">
-                        <label for="channelName">Channel Name:</label>
-                        <input type="channelName" class="form-control" id="channelName" placeholder="Enter channelName" name="channelName">
-                      </div>
-                      <div class="form-group">
-                        <label for="description">Description:</label>
-                        <input type="description" class="form-control" id="description" placeholder="Enter description" name="description">
-                      </div>
-                      <button type="submit" class="btn btn-primary">Submit</button>
-                      <button type="cancel" class="btn btn-primary">Cancel</button>
-                    </form>
-                  </div>
+            <div class="col-xs-10 col-sm-4">
+                <div class="flex flex-column flex-fill">
+                    <div>
+                    <h2>Add Release</h2>
+                      <form >
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">Title:</span>
+                          </div>
+                          <input type="text" class="form-control" placeholder="Title" readonly>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">Description:</span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Description" readonly>
+                        </div>  
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">Authors:</span>
+                          </div>
+                          <input type="text" class="form-control" placeholder="Jane Doe, John Doe, Silias Doe" readonly>
+                          
+                        </div>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">Genre Definition:</span>
+                          </div>
+                          <input type="text" class="form-control" placeholder="Cartoon,Literature" readonly>
+                        </div>
+                        
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">Genre:</span>
+                          </div>
+                         
+                            <input type="text" class="form-control" placeholder="Fantasy, Sci-Fi, Romance" readonly>
+                          
+                        </div>
+                        <div class="d-flex flex-row">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">Content Type:</span>
+                          </div>
+                          <p style="margin: 2%;">Text</p>
+                
+                        </div>
+
+                
+                        
+                      </form>
+                    </div>
+                    
+            </div>
             </div>
           </div>
            
