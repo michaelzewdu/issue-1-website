@@ -58,7 +58,7 @@ func TestGetUser(t *testing.T) {
 	})
 	stdoutLogger.Printf("\nAddUser\n - - - - value:\n%+v\n\n - - - - error:\n%+v", u, err)
 */
-/*
+
 func TestSearchUsers(t *testing.T){
 	var users[] *User
 	users, err := i1.UserService.SearchUsers(defaultUsername,SortUsersByUsername,PaginateParams{
@@ -71,15 +71,20 @@ func TestSearchUsers(t *testing.T){
 	if err == nil {
 		for _, u := range users {
 			stdoutLogger.Printf("%v\n", u)
+
 		}
 	}
-	var s []string
+	if(err!=nil){
+		t.Fatal(err)
+	}
+	/*var s []string
 	var s2 *User
 	for _, v:=range users{
 		//s=append(s,v)
 		s2+=v
 	}
 	if s[0] !=  aUser.Username{}
+*/
 
 }
 
@@ -123,16 +128,29 @@ func TestDeleteUser(t *testing.T) {
 	}
 }
 
-/*
+func TestBookmarkPost(t *testing.T) {
 	token, err := i1.GetAuthToken("loveless", "password")
 	stdoutLogger.Printf("\nGetAuthToken\n - - - - value:\n%#v\n\n - - - - error:\n%+v", token, err)
 
 	err = i1.UserService.BookmarkPost("loveless", 3, token)
 	stdoutLogger.Printf("\nBookmarkPost\n - - - - error:\n%+v", err)
 
+	if (err!=nil){
+		t.Fatal(err)
+	}
+
+}
+func TestDeleteBookmark(t *testing.T){
+	token, err := i1.GetAuthToken("loveless", "password")
+	stdoutLogger.Printf("\nGetAuthToken\n - - - - value:\n%#v\n\n - - - - error:\n%+v", token, err)
+
 	err = i1.UserService.DeleteBookmark("loveless", 3, token)
 	stdoutLogger.Printf("\nDeleteBookmark\n - - - - error:\n%+v", err)
-*/
+
+	if (err!=nil){
+		t.Fatal(err)
+	}
+}
 /*
 	token, err := i1.GetAuthToken("loveless", "password")
 	stdoutLogger.Printf("\nGetAuthToken\n - - - - value:\n%#v\n\n - - - - error:\n%+v", token, err)
