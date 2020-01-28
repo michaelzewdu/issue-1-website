@@ -19,17 +19,6 @@ type Setup struct {
 	templates *template.Template
 }
 
-// ParseTemplates is used to refresh the templates from disk.
-func (s *Setup) ParseTemplates() error {
-	temp, err := template.ParseGlob(s.TemplatesStoragePath + "/*")
-	if err != nil {
-		return err
-	}
-	log.Printf("%s\n", temp.DefinedTemplates())
-	s.templates = temp
-	return nil
-}
-
 // Dependencies contains dependencies used by the handlers.
 type Dependencies struct {
 	Iss1C          *issue1.Client
@@ -55,9 +44,9 @@ func NewMux(s *Setup) *httprouter.Router {
 
 	err := s.ParseTemplates()
 	if err != nil {
-		s.Logger.Fatalf("error: initial template parsing failed because: %w\n fatal: server start-up aborted.", err)
+		s.Logger.Printf("error: initial template parsing failed because: %v", err)
+		//s.Logger.Fatalf("fatal: server start-up aborted.")
 	}
-
 	s.sessionValues.restRefreshToken = "restRefreshToken"
 	s.sessionValues.csrf = "CSRF"
 	s.sessionValues.username = "username"
@@ -69,6 +58,10 @@ func NewMux(s *Setup) *httprouter.Router {
 	mainRouter.HandlerFunc("POST", "/login", postLogin(s))
 	mainRouter.HandlerFunc("POST", "/signup", postSignUp(s))
 	mainRouter.HandlerFunc("GET", "/home", getHome(s))
+	mainRouter.HandlerFunc("POST", "/home-feed-posts", postFeedPosts(s))
+	mainRouter.HandlerFunc("GET", "/error", getError(s))
+	mainRouter.HandlerFunc("GET", "/404", get404(s))
+	mainRouter.HandlerFunc("GET", "/p/:postID", getPostView(s))
 
 	return mainRouter
 }

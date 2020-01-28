@@ -1,0 +1,49 @@
+{{define "search" }}
+
+    <div class="modal fade" role="dialog" tabindex="-1" id="modalSearch">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Search</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body ">
+                    <input id="search-input" class="form-control-sm" type="search" placeholder="Search Here"
+                           name="Search Input" style="width: 80%;">
+                    <button style="margin-left: 1%;background-color: #009977;" class="btn btn-primary" type="button">
+                        Search
+                    </button>
+                </div>
+
+                <h6 style="margin-top: 2%;margin-left: 1%;">Sort by:</h6>
+                <div style="width: 100%;margin-left: 1%;">
+                    <div>
+                        <div style="float: left;width: 100px;">
+                            <input type="radio" name="sort-by" value="rank" checked>
+                            <span style="margin-left: 2%;">Match&nbsp;</span>
+                        </div>
+                        <div style="float: left;width: 100px;">
+                            <input type="radio" name="sort-by" value="creation_time">
+                            <span style="margin-left: 2%;">Time&nbsp;</span>
+                        </div>
+                        <div style="float: left;width: 100px;">
+                            <input type="radio" name="sort-order" value="dsc" checked>
+                            <span style="margin-left: 2%;">Descending&nbsp;</span>
+                        </div>
+                        <div style="float: left;width: 100px;">
+                            <input type="radio" name="sort-order" value="asc">
+                            <span style="margin-left: 2%;">Ascending&nbsp;</span>
+                        </div>
+                    </div>
+                    <br>
+                    <hr>
+                    <div id="search-results" style="float: none;  overflow-y:scroll; height:200px;">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{{end}}

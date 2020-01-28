@@ -1,0 +1,225 @@
+{{ define "post.view" }}
+
+    {{ template "post.content" . }}
+
+{{ end }}
+
+{{ define "post.content" }}
+    <!DOCTYPE html >
+    <html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <title>{{ .Title}}</title>
+        <link rel="stylesheet" href="../assets/libs/bootstrap-4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../assets/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../assets/styles/Fixed-navbar-starting-with-transparency-1.css">
+        <link rel="stylesheet" href="../assets/styles/Fixed-navbar-starting-with-transparency.css">
+        <link rel="stylesheet" href="../assets/styles/CDNjs-Search-Modal.css">
+        <link rel="stylesheet" href="../assets/styles/Search-Input-responsive.css">
+        <link rel="stylesheet" href="../assets/styles/Test_CardPRO-1.css">
+        <link rel="stylesheet" href="../assets/styles/Test_CardPRO.css">
+        <link rel="stylesheet" href="../assets/styles/content-view.css">
+        <link rel="stylesheet" href="../assets/styles/comment.css">
+
+    </head>
+
+    <body style="padding-top: 0px;">
+    <div class="d-flex flex-column" style=" height: 83px;">
+
+        {{template "navbar" . }}
+
+        {{template "search" . }}
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-10 col-sm-8">
+                    <div class="d-flex flex-column">
+                        <div style="height: 30rem;">
+                            <!--for image release-->
+                            <img src="../assets/img/user-photo2.jpg" style="height: 100%;width:100%;"
+                                 data-toggle="modal"
+                                 data-target="#myModal"> -->
+                            <!--for text release-->
+                            <!-- <p class="card-text" style="height:100% ;width:100% ;" data-toggle="modal" data-target="#myModal">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                             -->
+                            <div class="modal" id="myModal">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <!-- Modal body for text based -->
+                                        <!-- <div class="modal-body" style="overflow-y: scroll; max-height:85%;">
+                                          Modal body..
+                                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.
+                                        </div>
+                                   -->
+                                        <!--modal based for image-->
+                                        <img src="../assets/img/user-photo2.jpg" style="height: 100%;width:100%;">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="card post-card" style="margin-bottom: 0.3%;">
+                            <div class="card-body d-flex flex-column">
+                                <div class="d-flex justify-content-end">
+                                    <span style="margin-right: 0.5%; visibility: hidden;"><a href="#"><span
+                                                    class="glyphicon glyphicon-pushpin"></span></a></span>
+                                    <span style="margin-right: 0.5%;"><a href="#"><span
+                                                    class="glyphicon glyphicon-bookmark"></span></a></span>
+                                    <span style="background-color: oldlace;visibility: hidden; "><a
+                                                href="#"><span>X</span></a></span>
+                                </div>
+                                <div class="d-flex flex-row">
+                                    <img class="rounded-circle mr-3" style="height: 50px; width: 50px;"
+                                         src="../assets/img/user-photo2.jpg"/>
+                                    <div class="d-flex flex-column">
+                                        <h5 class="card-title">{{ .PostedByUsername}}</h5>
+                                        <h5 class="card-title">{{ .OriginChannel}}</h5>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="card-text">{{ .Title}}</p>
+                                </div>
+                                <div>
+                                    <div>
+                                        <!--List of Release titles-->
+                                        {{ range .Releases}}
+                                            <a href="#" class="card-text">
+                            <span class="badge badge-secondary"
+                                  style="font-size: 1.2em; margin:0.6%;">{{ .Title}}</span>
+                                            </a>
+                                        {{ else }}
+
+                                        {{ end }}
+                                    </div>
+                                </div>
+                                <p style="font-size:14px">{{ .CreationTime}}</p>
+                                <div class="d-flex justify-content-between">
+                                    <a class="card-link d-flex" href="#">
+                        <span>
+                            <i class="fa fa-comments"></i>
+                            {{ .Post | postCommentCount }}
+                        </span>
+                                    </a>
+                                    <a class="card-link d-flex" href="#">
+                        <span>
+                            <i class="fa fa-star"></i>
+                            {{ .Post | postStarCount }}
+                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div>
+                            <!--add comment-->
+                            {{template "comment.form" .}}
+                            <!--list of comments-->
+                            {{template "comment.board" .}}
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                {{ template "release.meta" .}}
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="../assets/libs/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script src="../assets/libs/bootstrap-4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
+    <script src="../assets/scripts/CDNjs-Search-Modal.js"></script>
+    <script src="../assets/scripts/Fixed-navbar-starting-with-transparency.js"></script>
+    </body>
+
+    </html>
+{{end}}

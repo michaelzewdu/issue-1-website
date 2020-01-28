@@ -64,7 +64,7 @@ func main() {
 
 	s.TokenSigningSecret = []byte("secret")
 	s.CSRFTokenLifetime = 7 * time.Minute
-	s.SessionIdleLifetime = 1 * time.Minute
+	s.SessionIdleLifetime = 169 * time.Minute
 	// s.SessionIdleLifetime = 7 * 24 * time.Hour
 	s.SessionHardLifetime = 30 * 24 * time.Hour
 	s.HTTPS = false
@@ -512,10 +512,44 @@ func main() {
 	}
 	*/
 
-	/*posts, err:=i1.PostService.GetPosts(1,7)
-	if err== nil{
-		for _,u:= range posts{
-			stdoutLogger.Printf("%v\n", u)
+	/*
+		posts, err:=i1.PostService.GetPosts(1,7)
+		if err== nil{
+			for _,u:= range posts{
+				stdoutLogger.Printf("%v\n", u)
+			}
 		}
-	}*/
+	*/
+	/*
+		results, err := i1.SearchService.Search("fast", issue1.SortByRank,
+			issue1.PaginateParams{
+				SortOrder: issue1.SortDescending,
+				Limit:     5,
+				Offset:    0,
+			})
+
+		stdoutLogger.Printf("\nSearchReleases\n - - - - value:\n%#v\n\n - - - - error:\n%+v", results, err)
+		if err == nil {
+			stdoutLogger.Printf("--Posts")
+			for _, u := range results.Posts {
+				stdoutLogger.Printf("%v\n", u)
+			}
+			stdoutLogger.Printf("--Releases")
+			for _, u := range results.Releases {
+				stdoutLogger.Printf("%v\n", u)
+			}
+			stdoutLogger.Printf("--Users")
+			for _, u := range results.Users {
+				stdoutLogger.Printf("%v\n", u)
+			}
+			stdoutLogger.Printf("--Channels")
+			for _, u := range results.Channels {
+				stdoutLogger.Printf("%v\n", u)
+			}
+			stdoutLogger.Printf("--Comments")
+			for _, u := range results.Comments {
+				stdoutLogger.Printf("%v\n", u)
+			}
+		}
+	*/
 }
