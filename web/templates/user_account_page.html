@@ -1,0 +1,50 @@
+{{ define "home.layout" }}
+
+    {{ template "account" . }}
+
+{{ end }}
+
+{{define "account"}}
+    <html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <title>Home</title>
+        <link rel="stylesheet" href="../assets/libs/bootstrap-4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../assets/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../assets/styles/Fixed-navbar-starting-with-transparency-1.css">
+        <link rel="stylesheet" href="../assets/styles/Fixed-navbar-starting-with-transparency.css">
+        <link rel="stylesheet" href="../assets/styles/CDNjs-Search-Modal.css">
+        <link rel="stylesheet" href="../assets/styles/Search-Input-responsive.css">
+        <link rel="stylesheet" href="../assets/styles/Test_CardPRO-1.css">
+        <link rel="stylesheet" href="../assets/styles/Test_CardPRO.css">
+        <link rel="stylesheet" href="../assets/styles/main-feed.css">
+        <link rel="stylesheet" href="../assets/fonts/glyphicon.css">
+
+    </head>
+
+    <body style="padding-top: 0px;">
+    <div class="d-flex flex-column" style=" height: 83px;">
+        {{template "navbar" .}}
+
+        {{template "search" .}}
+
+    <div class="container d-flex flex-column">
+        {{template "user.settings" .}}
+        {{template "bookmarkedposts" .}}
+    </div>
+    </div>
+</div>
+    
+
+
+    
+    <script src="../assets/libs/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script src="../assets/libs/bootstrap-4.3.1/js/bootstrap.min.js"></script>
+    <script src="../assets/scripts/CDNjs-Search-Modal.js"></script>
+    <script src="../assets/scripts/Fixed-navbar-starting-with-transparency.js"></script>
+</body>
+
+</html>
+{{end}}
