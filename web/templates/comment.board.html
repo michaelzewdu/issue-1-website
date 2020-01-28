@@ -1,99 +1,35 @@
 {{define "comment.board"}}
-    <div class="container">
-
-        <div class="row">
-            <!-- Contenedor Principal -->
-            <div class="comments-container">
-                <h2>List of Comments</h2>
-                <hr>
-                <ul id="comments-list" class="comments-list">
-                    <li>
-                        <div class="comment-main-level">
-                            <!-- Avatar -->
-                            <div class="comment-avatar"><img src="../assets/img/user-photo2.jpg"
-                                                             alt=""></div>
-                            <!-- Contenedor del Comentario -->
-                            <div class="comment-box">
-                                <div class="comment-head">
-                                    <h6 class="comment-name"><a href="#">Agustin Ortiz</a></h6>
-                                    <span>hace 20 minutos</span>
-                                    <i class="fa fa-reply"></i>
-
-                                </div>
-                                <div class="comment-content">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit
-                                    omnis animi et iure laudantium vitae, praesentium optio,
-                                    sapiente distinctio illo?
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Respuestas de los comentarios -->
-                        <ul class="comments-list reply-list">
-                            <li>
-                                <!-- Avatar -->
-                                <div class="comment-avatar"><img src="../assets/img/user-photo2.jpg"
-                                                                 alt=""></div>
-                                <!-- Contenedor del Comentario -->
-                                <div class="comment-box">
-                                    <div class="comment-head">
-                                        <h6 class="comment-name"><a href="#">Lorena Rojero</a></h6>
-                                        <span>hace 10 minutos</span>
-                                        <i class="fa fa-reply"></i>
-
-                                    </div>
-                                    <div class="comment-content">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                        Velit omnis animi et iure laudantium vitae, praesentium
-                                        optio, sapiente distinctio illo?
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li>
-                                <!-- Avatar -->
-                                <div class="comment-avatar"><img src="../assets/img/user-photo2.jpg"
-                                                                 alt=""></div>
-                                <!-- Contenedor del Comentario -->
-                                <div class="comment-box">
-                                    <div class="comment-head">
-                                        <h6 class="comment-name"><a href="#">Agustin Ortiz</a></h6>
-                                        <span>hace 10 minutos</span>
-                                        <i class="fa fa-reply"></i>
-
-                                    </div>
-                                    <div class="comment-content">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                        Velit omnis animi et iure laudantium vitae, praesentium
-                                        optio, sapiente distinctio illo?
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <div class="comment-main-level">
-                            <!-- Avatar -->
-                            <div class="comment-avatar"><img src="../assets/img/user-photo2.jpg"
-                                                             alt=""></div>
-                            <!-- Contenedor del Comentario -->
-                            <div class="comment-box">
-                                <div class="comment-head">
-                                    <h6 class="comment-name"><a href="#">Lorena Rojero</a></h6>
-                                    <span>hace 10 minutos</span>
-                                    <i class="fa fa-reply"></i>
-
-                                </div>
-                                <div class="comment-content">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit
-                                    omnis animi et iure laudantium vitae, praesentium optio,
-                                    sapiente distinctio illo?
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+    {{ range . }}
+        <li>
+            {{ template "comment.card" .}}
+            {{ if gt 1  (len .Replies) }}
+                <ul class="comments-list reply-list">
+                    {{ range   .Replies }}
+                        {{ template "comment.card" .}}
+                    {{ end}}
                 </ul>
+            {{ end}}
+        </li>
+    {{end}}
+
+{{end}}
+
+{{ define "comment.card" }}
+    <div class="comment-main-level">
+        <!-- Avatar -->
+        <div class="comment-avatar"><img src="{{ .Commenter.PictureURL}}"
+                                         alt=""></div>
+        <!-- Contenedor del Comentario -->
+        <div class="comment-box">
+            <div class="comment-head">
+                <h6 class="comment-name"><a href="#">{{ .Commenter.Username}}</a></h6>
+                <span>{{ .CreationTime }}</span>
+                <i class="fa fa-reply"></i>
+
+            </div>
+            <div class="comment-content">
+                {{.Content}}
             </div>
         </div>
     </div>
-{{end}}
+{{ end }}

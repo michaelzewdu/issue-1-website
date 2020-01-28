@@ -2,17 +2,17 @@
     <div class="col-xs-10 col-sm-4">
         <div class="flex flex-column flex-fill">
             <div>
-                <h2>Add Release</h2>
+                <h2>Meta</h2>
                 <form>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">Title:</span>
+                            <span class="input-group-text">{{ .Title}}Title:</span>
                         </div>
                         <input type="text" class="form-control" placeholder="Title" readonly>
                     </div>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">Description:</span>
+                            <span class="input-group-text">{{ .Description }}Description:</span>
                         </div>
                         <input type="text" class="form-control" placeholder="Description" readonly>
                     </div>
@@ -20,13 +20,16 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">Authors:</span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Jane Doe, John Doe, Silias Doe"
-                               readonly>
+                        <input type="text" class="form-control" placeholder="
+                        {{range .Authors}}
+                        {{ . }}
+                        {{end}}
+" readonly>
 
                     </div>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">Genre Definition:</span>
+                            <span class="input-group-text">Genre Defining: {{.GenreDefining}}</span>
                         </div>
                         <input type="text" class="form-control" placeholder="Cartoon,Literature" readonly>
                     </div>
@@ -36,14 +39,17 @@
                             <span class="input-group-text">Genre:</span>
                         </div>
 
-                        <input type="text" class="form-control" placeholder="Fantasy, Sci-Fi, Romance" readonly>
+                        <input type="text" class="form-control" placeholder="
+{{range .Genres}}
+                        {{ . }}
+                        {{end}}" readonly>
 
                     </div>
                     <div class="d-flex flex-row">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Content Type:</span>
                         </div>
-                        <p style="margin: 2%;">Text</p>
+                        <p style="margin: 2%;">{{.Type}}</p>
 
                     </div>
 
