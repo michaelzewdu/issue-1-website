@@ -1,228 +1,38 @@
-<!DOCTYPE html>
-<html>
+{{ define "home.layout" }}
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Nav Bar</title>
-    <link rel="stylesheet" href="../assets/libs/bootstrap-4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="../assets/styles/Fixed-navbar-starting-with-transparency-1.css">
-    <link rel="stylesheet" href="../assets/styles/Fixed-navbar-starting-with-transparency.css">
-    <link rel="stylesheet" href="../assets/styles/CDNjs-Search-Modal.css">
-    <link rel="stylesheet" href="../assets/styles/Search-Input-responsive.css">
-    <link rel="stylesheet" href="../assets/styles/Test_CardPRO-1.css">
-    <link rel="stylesheet" href="../assets/styles/Test_CardPRO.css">
-    <link rel="stylesheet" href="../assets/styles/content-view.css">
-    <link rel="stylesheet" href="../assets/styles/glyphicon.css">
-    
-</head>
+    {{ template "account" . }}
 
-<body style="padding-top: 0px;">
-<div class="d-flex flex-column" style=" height: 83px;">
-    <nav class="navbar navbar-light navbar-expand-md navbar-transparency" style="padding:0; margin: 0;width: 100%;">
-        <div class="containerd" style="padding:0; margin: 0;width: 100%;">
-            <div style="float: left; width: 50%; height: 3%;padding: 0%;"><img  src="../assets/img/logintemp.png"><a class="navbar-brand" href="#" style="margin-left: 16px;vertical-align: top;padding-top: 2%;font-size: x-large;">Issue #1</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button></div>
-            <div style="float: right;height: auto;height: 3%; margin-right: 3%;"
-                class="collapse navbar-collapse" id="navcol-1" style="padding:0; margin: 0;width: 100%;">
-                <ul class="nav navbar-nav ml-auto">
-                    
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#" data-toggle="modal" data-target="#modalSearch" style="width: 40px;"><i class="fa fa-search" style="width: 40px;font-size: 20px;"></i></a></li>
-                    <li class="nav-item dropdown show"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">Channels&nbsp;</a>
-                        <div class="dropdown-menu " role="menu"><a class="dropdown-item" role="presentation" href="#">My Channel</a><a class="dropdown-item" role="presentation" href="#">other channel</a><a class="dropdown-item" role="presentation" href="#">other other channel</a></div>
-                    </li>
-                    <li class="nav-item dropdown show"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><i class="fa fa-user" style="color: #009977;font-size: 25px;"></i>&nbsp;My Account</a>
-                        <div class="dropdown-menu " role="menu"><a class="dropdown-item" role="presentation" href="#">Profile and Settings</a><a class="dropdown-item" role="presentation" href="#">Log out</a></div>
-                    </li>
-                </ul>
-        </div>
-        </div>
-        
-        
-    </nav>
-    <div class="modal fade" role="dialog" tabindex="-1" id="modalSearch">
-        <div class="modal-dialog modal-xl" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Search</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                </div>
-                <div class="modal-body "><input class="form-control-sm" type="text" placeholder="Search Here" name="Search Input" style="width: 80%;"><button style="margin-left: 1%;background-color: #009977;" class="btn btn-primary" type="button" >Search</button>
-                </div>
-            
-                <h6 style="margin-top: 2%;margin-left: 1%;">Search by:</h6>
-                <div style="width: 100%;margin-left: 1%;" >
-                        <div style="float: left;width: 100px;" >
-                            <input  type="radio" name="Channel" value="Search Channel">
-                            <span style="margin-left: 2%;">Channel&nbsp;</span>
-                        </div>
-                        <div style="float: left;width: 100px;"><input type="radio" name="Post" value="Search Post">
-                            <span style="margin-left: 2%;">Post</span>
-                        </div>
-                        <div style="float: left;width: 100px;"><input type="radio" name="Release" style="background-color: #009977;" value="Search Release ">
-                            <span style="margin-left: 2%;">Release</span>
-                        </div>
-                        <div style="float: left;width: 100px;"><input type="radio" name="User" style="background-color: #009977;" value="Search Release ">
-                            <span style="margin-left: 2%;">User</span>
-                        </div>
-                        <br>
-                        <hr>
-                        <div style="float: none;  overflow-y:scroll; height:200px;"><p>The Search Result</p>
-                        </div>
-                </div>
-                    
-                    
-            </div>
-            
-        </div>
-    </div>
+{{ end }}
+
+{{define "account"}}
+    <html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <title>Home</title>
+        <link rel="stylesheet" href="../assets/libs/bootstrap-4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../assets/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../assets/styles/Fixed-navbar-starting-with-transparency-1.css">
+        <link rel="stylesheet" href="../assets/styles/Fixed-navbar-starting-with-transparency.css">
+        <link rel="stylesheet" href="../assets/styles/CDNjs-Search-Modal.css">
+        <link rel="stylesheet" href="../assets/styles/Search-Input-responsive.css">
+        <link rel="stylesheet" href="../assets/styles/Test_CardPRO-1.css">
+        <link rel="stylesheet" href="../assets/styles/Test_CardPRO.css">
+        <link rel="stylesheet" href="../assets/styles/main-feed.css">
+        <link rel="stylesheet" href="../assets/fonts/glyphicon.css">
+
+    </head>
+
+    <body style="padding-top: 0px;">
+    <div class="d-flex flex-column" style=" height: 83px;">
+        {{template "navbar" .}}
+
+        {{template "search" .}}
+
     <div class="container d-flex flex-column">
-       <div class="flex-fill">
-        <div>
-            
-              <form>
-                
-                <div class="d-flex input-group flex-column">
-                    <h2  class="display-4" style="margin: 1% 0; margin-left: 10%;"><small>Edit Profile</small></h2>
-                    <img class="rounded-circle mr-3 align-self-center"  src="../assets/img/user-photo2.jpg" alt="">
-                    <input style="margin: 1% 0; margin-left: 5%;"class="align-self-center" type="file" id="myFile" name="filename2">    
-                </div>
-                <div class="d-flex flex-column">
-                    <div class="align-self-center" style="width: 80%;">
-                        <div class="input-group input-group-m mb-3">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text">UserName:</span>
-                            </div>
-                            <input type="text" class="form-control" placeholder="Username" readonly>
-                          </div>
-                          <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text">First Name:</span>
-                            </div>
-                            <input type="text" class="form-control" placeholder="FirstName">
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text">MiddleName:</span>
-                            </div>
-                            <input type="text" class="form-control" placeholder="MiddleName">
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text">LastName:</span>
-                            </div>
-                            <input type="text" class="form-control" placeholder="LastName">
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text">Email:</span>
-                            </div>
-                            <input type="email" class="form-control" placeholder="Email">
-                        </div>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text">Password:</span>
-                            </div>
-                            <input type="password" class="form-control" placeholder="Password" readonly>
-                        </div>
-                        <div class="input-group mb-3">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text">Bio:</span>
-                          </div>
-                          <input type="text" class="form-control" placeholder="Bio">
-                        </div>
-                        
-                
-                        <div class="d-flex justify-content-end mb-3">
-                          <button style="margin-right: 1%; background-color: #009977;"  type="submit" class="btn btn-primary">Save Changes</button>
-                        </div>
-                    </div>
-                
-                </div>
-                
-                
-              </form>
-        </div>
-       </div>
-        <div class="d-flex flex-column">
-            <div class="align-self-center" style="width: 92%;margin: 3% 0%;margin-left: 7%;">
-                <h2  class="display-4" style="margin: 1% 0; margin-left: 10%;"><small>Bookmarked Posts</small></h2>
-                <div class="card">
-                    <div class="card-body d-flex flex-column">
-                        <div class="d-flex justify-content-end">
-                            <span style="margin-right: 0.5%; visibility: hidden;"><a href="#"><span class="glyphicon glyphicon-pushpin"></span></a></span>
-                            <span style="margin-right: 0.5%; visibility: hidden;"><a href="#"><span class="glyphicon glyphicon-bookmark"></span></a></span>
-                            <span style="background-color: oldlace;visibility: visible; "><a href="#"><span>X</span></a></span>
-                        </div>
-                        <div class="d-flex flex-row">
-                            <img class="rounded-circle mr-3" style="height: 50px; width: 50px;" src="../assets/img/user-photo2.jpg" />
-                            <div class="d-flex flex-column">
-                                <h5 class="card-title">Username</h5>
-                                <h5 class="card-title">Channelname</h5>
-                            </div>
-                            
-                            
-                        </div>
-                        
-                       <div>
-                            <p class="card-text">Description:-Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
-                        </div>
-                        <div>
-                            
-                            <div>
-                                <!--List of Release Titles-->
-                                <a href="#" class="card-text"><span class="badge badge-secondary" style="font-size: 1.2em; margin:0.6%;">Release Title</span></a>
-                            </div>
-                           
-                        </div>
-                        <p style="font-size:14px">12/12/12 12:00:00</p>
-                        <div class="d-flex justify-content-between">
-                            <a class="card-link d-flex" href="#"><span><i class="fa fa-comments"></i>34</span></a>
-                            <a class="card-link d-flex" href="#"><span><i class="fa fa-star"></i>43</span></a>
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-                <div class="card">
-                    <div class="card-body d-flex flex-column">
-                        <div class="d-flex justify-content-end">
-                            <span style="margin-right: 0.5%; visibility: hidden;"><a href="#"><span class="glyphicon glyphicon-pushpin"></span></a></span>
-                            <span style="margin-right: 0.5%; visibility: hidden;"><a href="#"><span class="glyphicon glyphicon-bookmark"></span></a></span>
-                            <span style="background-color: oldlace;visibility: visible; "><a href="#"><span>X</span></a></span>
-                        </div>
-                        <div class="d-flex flex-row">
-                            <img class="rounded-circle mr-3" style="height: 50px; width: 50px;" src="../assets/img/user-photo2.jpg" />
-                            <div class="d-flex flex-column">
-                                <h5 class="card-title">Username</h5>
-                                <h5 class="card-title">Channelname</h5>
-                            </div>
-                            
-                            
-                        </div>
-                        
-                       <div>
-                            <p class="card-text">Description:-Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
-                        </div>
-                        <div>
-                            
-                            <div>
-                                <!--List of Release Titles-->
-                                <a href="#" class="card-text"><span class="badge badge-secondary" style="font-size: 1.2em; margin:0.6%;">Release Title</span></a>
-                            </div>
-                           
-                        </div>
-                        <p style="font-size:14px">12/12/12 12:00:00</p>
-                        <div class="d-flex justify-content-between">
-                            <a class="card-link d-flex" href="#"><span><i class="fa fa-comments"></i>34</span></a>
-                            <a class="card-link d-flex" href="#"><span><i class="fa fa-star"></i>43</span></a>
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-        </div>   
+        {{template "user.settings" .}}
+        {{template "bookmarkedposts" .}}
     </div>
     </div>
 </div>
@@ -237,3 +47,4 @@
 </body>
 
 </html>
+{{end}}

@@ -31,7 +31,7 @@ func main() {
 		port     = "5432"
 		dbname   = "issue#1website"
 		role     = "postgres"
-		password = "password1234!@#$"
+		password = "ntworzit"
 	)
 	dataSourceName := fmt.Sprintf(
 		`host=%s port=%s dbname='%s' user='%s' password='%s' sslmode=disable`,
