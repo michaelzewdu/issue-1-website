@@ -17,25 +17,6 @@ import (
 	"net/url"
 )
 
-// Client is a type used to interact with the issue1 REST servers.
-type Client struct {
-	HTTPClient *http.Client
-	BaseURL    *url.URL
-
-	Logger         *log.Logger
-	ChannelService ChannelService
-	UserService    UserService
-	FeedService    FeedService
-	PostService    PostService
-	ReleaseService ReleaseService
-	CommentService CommentService
-	AuthService
-}
-
-type service struct {
-	client *Client
-}
-
 /*
 type BadDataError struct {
 	Field string
@@ -74,7 +55,6 @@ var (
 	ErrForbiddenAccess = errors.New("http.issue1:forbidden URL request")
 	//ErrInvalidData is usually returned when the passed data is missing required fields or
 	// is malformed.
-	//ErrPostNotFound is returned when there's no post found under the passed in id.
 	ErrInvalidData = errors.New("http.issue1: provided data was not accepted")
 	//ErrUserNotFound is returned when there's no user found under the passed in username.
 	ErrUserNotFound = errors.New("http.issue1: user was not found")
@@ -108,6 +88,26 @@ type PaginateParams struct {
 	Offset    uint
 }
 
+type service struct {
+	client *Client
+}
+
+// Client is a type used to interact with the issue1 REST servers.
+type Client struct {
+	HTTPClient *http.Client
+	BaseURL    *url.URL
+
+	Logger         *log.Logger
+	ChannelService ChannelService
+	UserService    UserService
+	FeedService    FeedService
+	PostService    PostService
+	ReleaseService ReleaseService
+	CommentService CommentService
+	SearchService  SearchService
+	AuthService
+}
+
 // NewClient returns a new issue1 client.
 func NewClient(httpClient *http.Client, baseURL *url.URL, logger *log.Logger) *Client {
 	c := &Client{HTTPClient: httpClient,
@@ -121,6 +121,7 @@ func NewClient(httpClient *http.Client, baseURL *url.URL, logger *log.Logger) *C
 	c.ReleaseService = ReleaseService{client: c}
 	c.CommentService = CommentService{client: c}
 	c.PostService = PostService{client: c}
+	c.SearchService = SearchService{client: c}
 	return c
 }
 

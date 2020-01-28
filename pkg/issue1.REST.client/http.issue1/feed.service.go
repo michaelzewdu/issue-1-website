@@ -81,7 +81,7 @@ func (s *FeedService) GetFeedSorting(username, token string) (FeedSorting, error
 }
 
 // GetFeedPostsPaged is a utility wrapper for GetFeedPosts for easy pagination.
-func (s *FeedService) GetFeedPostsPaged(page, perPage uint, username, token string, sorting FeedSorting) ([]*Post, error) {
+func (s *FeedService) GetFeedPostsPaged(page, perPage uint, sorting FeedSorting, username, token string) ([]*Post, error) {
 	p := PaginateParams{}
 	p.Limit, p.Offset = calculateLimitOffset(page, perPage)
 	return s.GetFeedPosts(username, sorting, p, token)
@@ -171,9 +171,6 @@ func (s *FeedService) GetFeedPosts(username string, sorting FeedSorting, params 
 // to the the passed SortSubscriptionsBy. If any of the fields on the passed in PaginateParams are
 // omitted, it'll use the default values.
 func (s *FeedService) GetFeedSubscriptions(username, token string, by SortSubscriptionsBy, order SortOrder) (map[time.Time]*Channel, error) {
-
-	// TODO test
-
 	var (
 		method = http.MethodGet
 		path   = fmt.Sprintf("/users/%s/feed/channels", username)
@@ -236,11 +233,7 @@ func (s *FeedService) GetFeedSubscriptions(username, token string, by SortSubscr
 		}
 	}
 
-	channels := make([]*struct {
-		Channelname      string    `json:"channelname"`
-		Name             string    `json:"name"`
-		SubscriptionTime time.Time `json:"subscriptionTime"`
-	}, 0)
+	channels := make(map[time.Time]*Channel, 0)
 
 	data, ok := js.Data.(*json.RawMessage)
 	if !ok {
@@ -250,15 +243,7 @@ func (s *FeedService) GetFeedSubscriptions(username, token string, by SortSubscr
 	if err != nil {
 		return nil, ErrRESTServerError
 	}
-	out := make(map[time.Time]*Channel, 0)
-	for _, channel := range channels {
-		// TODO return actual channels
-		out[channel.SubscriptionTime] = &Channel{
-			ChannelUsername: channel.Channelname,
-			Name:            channel.Name,
-		}
-	}
-	return out, nil
+	return channels, nil
 }
 
 // SubscribeToChannel adds the channel under the given name to the  list of the channels

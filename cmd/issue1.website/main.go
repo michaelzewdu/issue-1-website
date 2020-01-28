@@ -31,7 +31,7 @@ func main() {
 		port     = "5432"
 		dbname   = "issue#1website"
 		role     = "postgres"
-		password = "ntworzit"
+		password = "password1234!@#$"
 	)
 	dataSourceName := fmt.Sprintf(
 		`host=%s port=%s dbname='%s' user='%s' password='%s' sslmode=disable`,
@@ -64,7 +64,7 @@ func main() {
 
 	s.TokenSigningSecret = []byte("secret")
 	s.CSRFTokenLifetime = 7 * time.Minute
-	s.SessionIdleLifetime = 1 * time.Minute
+	s.SessionIdleLifetime = 169 * time.Minute
 	// s.SessionIdleLifetime = 7 * 24 * time.Hour
 	s.SessionHardLifetime = 30 * 24 * time.Hour
 	s.HTTPS = false
@@ -80,7 +80,7 @@ func main() {
 	sessionGormRepo := gormRepo.NewSessionRepo(db)
 	s.SessionService = session.NewService(&sessionGormRepo)
 
-	//mux := web.NewMux(&s)
+	mux := web.NewMux(&s)
 
 	go func() {
 		scanner := bufio.NewScanner(os.Stdin)
@@ -103,16 +103,16 @@ func main() {
 
 	s.Logger.Println("server running...")
 
-	//if s.HTTPS {
-	//	s.HostAddress = "https://" + s.HostAddress
-	//	log.Fatal(http.ListenAndServe(":"+s.Port, mux))
-	//} else {
-	//	s.HostAddress = "http://" + s.HostAddress
-	//	log.Fatal(http.ListenAndServe(":"+s.Port, mux))
-	//}
+	if s.HTTPS {
+		s.HostAddress = "https://" + s.HostAddress
+		log.Fatal(http.ListenAndServe(":"+s.Port, mux))
+	} else {
+		s.HostAddress = "http://" + s.HostAddress
+		log.Fatal(http.ListenAndServe(":"+s.Port, mux))
+	}
 
-	i1 := s.Iss1C
-	stdoutLogger := s.Logger
+	//i1 := s.Iss1C
+	//stdoutLogger := s.Logger
 
 	/*
 		u, err := i1.UserService.GetUser("slimmy")
@@ -472,23 +472,24 @@ func main() {
 		stdoutLogger.Printf("\nDeletePost\n - - - - error:\n%+v", err)
 	*/
 
-	/* NOT USED, USING COMMENT SERVICE INSTEAD
-	comments, err:= i1.PostService.GetPostComments(5)
-	stdoutLogger.Printf("\nGetPostComments\n - - - - value:\n%+v\n\n - - - - error:\n%+v", comments, err)
-	if err== nil{
-		for _,u:= range comments{
-			stdoutLogger.Printf("%v\n", u)
+	/*
+		comments, err:= i1.PostService.GetPostComments(5)
+		stdoutLogger.Printf("\nGetPostComments\n - - - - value:\n%+v\n\n - - - - error:\n%+v", comments, err)
+		if err== nil{
+			for _,u:= range comments{
+				stdoutLogger.Printf("%v\n", u)
+			}
 		}
-	}
 	*/
-
-	releases, err := i1.PostService.GetPostReleases(4)
-	stdoutLogger.Printf("\nGetPostReleases\n - - - - value:\n%+v\n\n - - - - error:\n%+v", releases, err)
-	if err == nil {
-		for _, u := range releases {
-			stdoutLogger.Printf("%v\n", u)
+	/*
+		releases, err:= i1.PostService.GetPostReleases(4)
+		stdoutLogger.Printf("\nGetPostReleases\n - - - - value:\n%+v\n\n - - - - error:\n%+v", releases, err)
+		if err== nil{
+			for _,u:= range releases{
+				stdoutLogger.Printf("%v\n", u)
+			}
 		}
-	}
+	*/
 
 	/*
 		star, err := i1.PostService.GetPostStar(9,"loveless")
@@ -511,10 +512,44 @@ func main() {
 	}
 	*/
 
-	posts, err := i1.PostService.GetPosts(1, 7)
-	if err == nil {
-		for _, u := range posts {
-			stdoutLogger.Printf("%v\n", u)
+	/*
+		posts, err:=i1.PostService.GetPosts(1,7)
+		if err== nil{
+			for _,u:= range posts{
+				stdoutLogger.Printf("%v\n", u)
+			}
 		}
-	}
+	*/
+	/*
+		results, err := i1.SearchService.Search("fast", issue1.SortByRank,
+			issue1.PaginateParams{
+				SortOrder: issue1.SortDescending,
+				Limit:     5,
+				Offset:    0,
+			})
+
+		stdoutLogger.Printf("\nSearchReleases\n - - - - value:\n%#v\n\n - - - - error:\n%+v", results, err)
+		if err == nil {
+			stdoutLogger.Printf("--Posts")
+			for _, u := range results.Posts {
+				stdoutLogger.Printf("%v\n", u)
+			}
+			stdoutLogger.Printf("--Releases")
+			for _, u := range results.Releases {
+				stdoutLogger.Printf("%v\n", u)
+			}
+			stdoutLogger.Printf("--Users")
+			for _, u := range results.Users {
+				stdoutLogger.Printf("%v\n", u)
+			}
+			stdoutLogger.Printf("--Channels")
+			for _, u := range results.Channels {
+				stdoutLogger.Printf("%v\n", u)
+			}
+			stdoutLogger.Printf("--Comments")
+			for _, u := range results.Comments {
+				stdoutLogger.Printf("%v\n", u)
+			}
+		}
+	*/
 }

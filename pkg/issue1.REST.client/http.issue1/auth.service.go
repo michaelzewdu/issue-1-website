@@ -27,6 +27,9 @@ func (c *AuthService) GetAuthToken(username, password string) (string, error) {
 
 	js, statusCode, err := c.client.do(req)
 	if err != nil {
+		if statusCode == http.StatusUnauthorized {
+			return "", ErrCredentialsUnaccepted
+		}
 		return "", err
 	}
 
@@ -38,8 +41,6 @@ func (c *AuthService) GetAuthToken(username, password string) (string, error) {
 		break
 	case "fail":
 		switch statusCode {
-		case http.StatusForbidden:
-			return "", ErrCredentialsUnaccepted
 		case http.StatusBadRequest:
 			fallthrough
 		default:
