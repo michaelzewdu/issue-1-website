@@ -1,0 +1,99 @@
+{{ define "channel.view" }}
+
+    {{ template "channelmain" . }}
+
+{{ end }}
+
+
+{{ define "channelmain" }}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Home</title>
+    <link rel="stylesheet" href="../assets/libs/bootstrap-4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/styles/Fixed-navbar-starting-with-transparency-1.css">
+    <link rel="stylesheet" href="../assets/styles/Fixed-navbar-starting-with-transparency.css">
+    <link rel="stylesheet" href="../assets/styles/CDNjs-Search-Modal.css">
+    <link rel="stylesheet" href="../assets/styles/Search-Input-responsive.css">
+    <link rel="stylesheet" href="../assets/styles/Test_CardPRO-1.css">
+    <link rel="stylesheet" href="../assets/styles/Test_CardPRO.css">
+    <link rel="stylesheet" href="../assets/styles/main-feed.css">
+    <link rel="stylesheet" href="../assets/fonts/glyphicon.css">
+
+
+</head>
+
+<body style="padding-top: 0px;">
+<div class="d-flex flex-column" style=" height: 83px;">
+    {{template "navbar" . }}
+
+    {{template "search" . }}
+
+    <div class="card" style="margin: 0;padding: 0;">
+        <div class="d-flex justify-content-center" style="height: 300px;background-image: url('../assets/img/background-1.jpg');background-repeat: no-repeat;background-size: cover;">
+            <div class="d-flex flex-column align-self-center" style=" height: 75%; width: 80%; ; text-align: center; background-color: rgba(0, 0, 0, 0.158);" >
+                <h1 style=" text-transform:uppercase ;padding: 3% 0 1% 0; font-size: x-large; color: black;" >Channel Name</h1>
+                <h3 style=" padding: 0.3%;font-size: large; color: black;" >@channelUsername</h3>
+                <p style=" padding: 0.3%;color: black;">Description Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo, animi voluptate? Eos aspernatur quae distinctio tempore voluptas itaque autem. Asperiores ducimus tempora iusto assumenda laboriosam officia! Perferendis expedita est dolorem?</p>
+                <button id="Button" onclick="subscribe(this)" class="btn btn-primary align-self-center" style="margin: 1%; width: 50%; border-color: #009977;  background-color: #009977;"  type="submit" >Subscribe</button>
+            </div>
+
+        </div>
+        <div class="card-header">
+
+            <ul class="nav nav-tabs nav-justified card-header-tabs text-center float-none" role="tablist" style="width: 1196px;">
+
+                <li class="nav-item"><a class="nav-link active" id="item-1-1-tab" data-toggle="tab" role="tab" aria-controls="item-1-1" aria-selected="true" href="#item-1-1" style="margin-left: 0px;">Posts</a></li>
+                <li class="nav-item"><a class="nav-link"  id="item-1-2-tab" data-toggle="tab" role="tab" aria-controls="item-1-2" aria-selected="false" href="#item-1-2">Official Catalog</a></li>
+                <li class="nav-item"><a class="nav-link" id="item-1-3-tab" data-toggle="tab" role="tab" aria-controls="item-1-3" aria-selected="false" href="#item-1-3">Catalog</a></li>
+                <li  class="nav-item"><a class="nav-link" id="item-1-4-tab" data-toggle="tab" role="tab" aria-controls="item-1-4" aria-selected="false" href="#item-1-4">Admins</a></li>
+                <li class="nav-item"><a class="nav-link" id="item-1-5-tab" data-toggle="tab" role="tab" aria-controls="item-1-5" aria-selected="false" href="#item-1-5" ><i class="fas fa-cog" style="height: 16px;"></i></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card-body d-flex" >
+        <div id="nav-tabContent" class="tab-content">
+            <div id="item-1-1" class="tab-pane fade show active" role="tabpanel" aria-labelledby="item-1-1-tab">
+                {{template "post.list" . }}
+
+            </div>
+            <div id="item-1-2" class="tab-pane fade show " role="tabpanel" aria-labelledby="item-1-2-tab">
+                <div class="d-flex flex-wrap">
+                    {{template "release.list" . }}
+                </div>
+            </div>
+            <div id="item-1-3" class="tab-pane fade show " role="tabpanel" aria-labelledby="item-1-3-tab">
+                <div class="d-flex flex-wrap">
+                    {{template "release.list" . }}
+                </div>
+            </div>
+            <div id="item-1-4" class="tab-pane fade show " role="tabpanel" aria-labelledby="item-1-4-tab">
+                <div class="d-flex flex-column">
+                    {{template "admin.list" . }}
+                </div>
+            </div>
+            <div id="item-1-5" class="tab-pane fade show " role="tabpanel" aria-labelledby="item-1-5-tab">
+                {{template "channal.edit" . }}
+            </div>
+</div>
+</div>
+</div>
+<script>
+    function subscribe(x) {
+
+        var x = document.getElementById("Button");
+        if (x.innerHTML === "Subscribe") {
+            x.innerHTML = "Unsubscribe";
+        } else {
+            x.innerHTML = "Subscribe";
+        }
+    }
+
+</script>
+
+</body>
+</html>
+    {{end}}

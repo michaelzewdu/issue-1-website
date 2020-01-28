@@ -53,7 +53,7 @@ func NewMux(s *Setup) *httprouter.Router {
 
 	fs := http.FileServer(http.Dir(s.AssetStoragePath))
 	mainRouter.Handler("GET", s.AssetServingRoute+"*filepath", http.StripPrefix(s.AssetServingRoute, fs))
-
+	mainRouter.HandlerFunc("POST", "/channels", postChannel(s))
 	mainRouter.HandlerFunc("GET", "/", getFront(s))
 	mainRouter.HandlerFunc("POST", "/login", postLogin(s))
 	mainRouter.HandlerFunc("POST", "/signup", postSignUp(s))
@@ -62,6 +62,7 @@ func NewMux(s *Setup) *httprouter.Router {
 	mainRouter.HandlerFunc("GET", "/error", getError(s))
 	mainRouter.HandlerFunc("GET", "/404", get404(s))
 	mainRouter.HandlerFunc("GET", "/p/:postID", getPostView(s))
+	mainRouter.HandlerFunc("GET", "/c/:channelUsername", getChannelView(s))
 
 	return mainRouter
 }

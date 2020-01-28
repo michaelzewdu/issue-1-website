@@ -1,0 +1,79 @@
+{{ define "Channel.Add.layout" }}
+
+    {{ template "channelAdd" . }}
+
+{{ end }}
+
+
+{{ define "channelAdd" }}
+    <html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <title>Home</title>
+        <link rel="stylesheet" href="../assets/libs/bootstrap-4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../assets/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="../assets/styles/Fixed-navbar-starting-with-transparency-1.css">
+        <link rel="stylesheet" href="../assets/styles/Fixed-navbar-starting-with-transparency.css">
+        <link rel="stylesheet" href="../assets/styles/CDNjs-Search-Modal.css">
+        <link rel="stylesheet" href="../assets/styles/Search-Input-responsive.css">
+        <link rel="stylesheet" href="../assets/styles/Test_CardPRO-1.css">
+        <link rel="stylesheet" href="../assets/styles/Test_CardPRO.css">
+        <link rel="stylesheet" href="../assets/styles/main-feed.css">
+        <link rel="stylesheet" href="../assets/fonts/glyphicon.css">
+        
+
+    </head>
+
+    <body style="padding-top: 0px;">
+    <div class="d-flex flex-column" style=" height: 83px;">
+        {{template "navbar" . }}
+
+        {{template "search" . }}
+
+        <div class="container mt-3">
+            <h2>Add Channel</h2>
+          <form >
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Channel Username:</span>
+              </div>
+              <input type="text" class="form-control" placeholder="benchannel123">
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Channel Name:</span>
+              </div>
+              <input type="text" class="form-control" placeholder="Ben's Channel">
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Description:</span>
+              </div>
+              <input type="text" class="form-control" placeholder="Description">
+            </div>
+            
+            <div class="d-flex justify-content-end mb-3">
+              <button style="margin-right: 1%; background-color: #009977;" type="submit" class="btn btn-primary">Cancel</button>
+              <button style="margin-right: 1%; background-color: #009977;"  type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+        </div>
+
+
+        
+
+
+    <script src="../assets/libs/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script src="../assets/libs/bootstrap-4.3.1/js/bootstrap.min.js"></script>
+    <script src="../assets/scripts/home.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
+    <script src="../assets/scripts/CDNjs-Search-Modal.js"></script>
+    <script src="../assets/scripts/Fixed-navbar-starting-with-transparency.js"></script>
+    </body>
+
+    </html>
+{{ end }}
