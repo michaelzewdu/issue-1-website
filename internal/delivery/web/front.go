@@ -1,7 +1,6 @@
 package web
 
 import (
-	"fmt"
 	issue1 "github.com/slim-crown/issue-1-website/pkg/issue1.REST.client/http.issue1"
 	"net/http"
 )
@@ -12,7 +11,7 @@ func getFront(s *Setup) http.HandlerFunc {
 		sess, err := sessionStart(s, w, r)
 		if err != nil {
 			s.Logger.Printf("server error starting session because: %v", err)
-			getError(s)(w, r)
+			showErrorPage(w, r)
 			return
 		}
 		if sess.Get(s.sessionValues.username) != "" {
@@ -25,14 +24,14 @@ func getFront(s *Setup) http.HandlerFunc {
 			s.CSRFTokenLifetime,
 		)
 		if err != nil {
-			getError(s)(w, r)
+			showErrorPage(w, r)
 			return
 		}
 
 		err = sess.Set(s.sessionValues.csrf, token)
 		if err != nil {
 			s.Logger.Printf("server error setting value on session because: %v", err)
-			getError(s)(w, r)
+			showErrorPage(w, r)
 			return
 		}
 
@@ -63,7 +62,7 @@ func postLogin(s *Setup) http.HandlerFunc {
 		sess, err := sessionStart(s, w, r)
 		if err != nil {
 			s.Logger.Printf("server error starting session because: %v", err)
-			getError(s)(w, r)
+			showErrorPage(w, r)
 			return
 		}
 
@@ -78,14 +77,14 @@ func postLogin(s *Setup) http.HandlerFunc {
 				s.CSRFTokenLifetime,
 			)
 			if err != nil {
-				getError(s)(w, r)
+				showErrorPage(w, r)
 				return
 			}
 
 			err = sess.Set(s.sessionValues.csrf, newToken)
 			if err != nil {
 				s.Logger.Printf("server error setting value on session because: %v", err)
-				getError(s)(w, r)
+				showErrorPage(w, r)
 				return
 			}
 			loginForm.CSRF = newToken
@@ -101,24 +100,24 @@ func postLogin(s *Setup) http.HandlerFunc {
 			// restart the session
 			err = sessionDestroy(s, w, r)
 			if err != nil {
-				getError(s)(w, r)
+				showErrorPage(w, r)
 				return
 			}
 			sess, err = sessionStart(s, w, r)
 			if err != nil {
 				s.Logger.Printf("server error starting session because: %v", err)
-				getError(s)(w, r)
+				showErrorPage(w, r)
 				return
 			}
 
 			err = sess.Set(s.sessionValues.username, r.FormValue("Username"))
 			if err != nil {
-				getError(s)(w, r)
+				showErrorPage(w, r)
 				return
 			}
 			err = sess.Set(s.sessionValues.restRefreshToken, restToken)
 			if err != nil {
-				getError(s)(w, r)
+				showErrorPage(w, r)
 				return
 			}
 			http.Redirect(w, r, "/home", http.StatusSeeOther)
@@ -155,7 +154,7 @@ func postSignUp(s *Setup) http.HandlerFunc {
 		sess, err := sessionStart(s, w, r)
 		if err != nil {
 			s.Logger.Printf("server error starting session because: %v", err)
-			getError(s)(w, r)
+			showErrorPage(w, r)
 			return
 		}
 
@@ -170,14 +169,14 @@ func postSignUp(s *Setup) http.HandlerFunc {
 				s.CSRFTokenLifetime,
 			)
 			if err != nil {
-				getError(s)(w, r)
+				showErrorPage(w, r)
 				return
 			}
 
 			err = sess.Set(s.sessionValues.csrf, newToken)
 			if err != nil {
 				s.Logger.Printf("server error setting value on session because: %v", err)
-				getError(s)(w, r)
+				showErrorPage(w, r)
 				return
 			}
 			signUpForm.CSRF = newToken
@@ -189,14 +188,14 @@ func postSignUp(s *Setup) http.HandlerFunc {
 
 		// Validate the form contents
 		signUpForm.Required("FirstName", "Username", "Email", "Password", "PasswordConfirm")
-		signUpForm.MatchesPattern("Email", EmailRX)
-		// todo username regex
+		signUpForm.MatchesPattern("Email", emailRX)
+		signUpForm.MatchesPattern("Username", usernameRX)
 		signUpForm.MinLength("Password", 8)
 		signUpForm.MinLength("Username", 5)
 		signUpForm.MaxLength("Username", 24)
 		signUpForm.PasswordMatches("Password", "PasswordConfirm")
 
-		// If there are any errors, redisplay the signup form.
+		// If there are any errors, redisplay the sign up form.
 		if !signUpForm.Valid() {
 			w.WriteHeader(http.StatusBadRequest)
 			_ = s.templates.ExecuteTemplate(w, "signup.form", signUpForm)
@@ -221,24 +220,24 @@ func postSignUp(s *Setup) http.HandlerFunc {
 				// restart the session
 				err = sessionDestroy(s, w, r)
 				if err != nil {
-					getError(s)(w, r)
+					showErrorPage(w, r)
 					return
 				}
 				sess, err = sessionStart(s, w, r)
 				if err != nil {
 					s.Logger.Printf("server error starting session because: %v", err)
-					getError(s)(w, r)
+					showErrorPage(w, r)
 					return
 				}
 
 				err = sess.Set(s.sessionValues.username, r.FormValue("Username"))
 				if err != nil {
-					getError(s)(w, r)
+					showErrorPage(w, r)
 					return
 				}
 				err = sess.Set(s.sessionValues.restRefreshToken, restToken)
 				if err != nil {
-					getError(s)(w, r)
+					showErrorPage(w, r)
 					return
 				}
 				http.Redirect(w, r, "/home", http.StatusSeeOther)
@@ -249,14 +248,14 @@ func postSignUp(s *Setup) http.HandlerFunc {
 				_ = s.templates.ExecuteTemplate(w, "signup.form", signUpForm)
 			default:
 				s.Logger.Printf("server error getting auth token beccause: %v", err)
-				//getError(s)(w, r)
+				//showErrorPage(w,r)
 				signUpForm.VErrors.Add("generic", "Success. Try logging in.")
 				w.WriteHeader(http.StatusInternalServerError)
 				_ = s.templates.ExecuteTemplate(w, "signup.form", signUpForm)
 			}
 		case issue1.ErrUserNameOccupied:
 			s.Logger.Printf("signup attempt on a occupied username")
-			//getError(s)(w, r)
+			//showErrorPage(w,r)
 			signUpForm.VErrors.Add("Username", "Username is occupied.")
 			w.WriteHeader(http.StatusInternalServerError)
 			_ = s.templates.ExecuteTemplate(w, "signup.form", signUpForm)
@@ -274,21 +273,13 @@ func postSignUp(s *Setup) http.HandlerFunc {
 	}
 }
 
-func getHome(s *Setup) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		sess, err := sessionStart(s, w, r)
-		if err != nil {
-			s.Logger.Printf("server error starting session because: %v", err)
-			getError(s)(w, r)
-			return
-		}
-
-		w.Write([]byte(fmt.Sprintf("Welcome home %s", sess.Get(s.sessionValues.username))))
-	}
-}
-
 func getError(s *Setup) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+	}
+}
+func get404(s *Setup) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
 	}
 }

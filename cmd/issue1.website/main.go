@@ -64,7 +64,7 @@ func main() {
 
 	s.TokenSigningSecret = []byte("secret")
 	s.CSRFTokenLifetime = 7 * time.Minute
-	s.SessionIdleLifetime = 1 * time.Minute
+	s.SessionIdleLifetime = 169 * time.Minute
 	// s.SessionIdleLifetime = 7 * 24 * time.Hour
 	s.SessionHardLifetime = 30 * 24 * time.Hour
 	s.HTTPS = false
@@ -445,4 +445,111 @@ func main() {
 	//		stdoutLogger.Printf("%v\n", u)
 	//	}
 	//}
+	/*
+		p, err := i1.PostService.AddPost(&issue1.Post{
+			PostedByUsername: "slimmy",
+			OriginChannel:    "chromagnum",
+			Title:            "Lorem ipsum dolor sit amet",
+			Description:      "consectetur adipisicing elit, sed do eiusmodtempor",
+		},tokenUser)
+		stdoutLogger.Printf("\nAddPost\n - - - - value:\n%+v\n\n - - - - error:\n%+v", p, err)
+	*/
+	/*
+		p, err := i1.PostService.GetPost(9)
+		stdoutLogger.Printf("\nGetPost\n - - - - value:\n%+v\n\n - - - - error:\n%+v", p, err)
+	*/
+
+	/*
+
+		p, err := i1.PostService.UpdatePost(7, &issue1.Post{
+			Description: "Amharic,English,French,Spanish",
+		}, token)
+		stdoutLogger.Printf("\nUpdatePost\n - - - - value:\n%+v\n\n - - - - error:\n%+v", p, err)
+	*/
+
+	/*
+		err = i1.PostService.DeletePost(7,token)
+		stdoutLogger.Printf("\nDeletePost\n - - - - error:\n%+v", err)
+	*/
+
+	/*
+		comments, err:= i1.PostService.GetPostComments(5)
+		stdoutLogger.Printf("\nGetPostComments\n - - - - value:\n%+v\n\n - - - - error:\n%+v", comments, err)
+		if err== nil{
+			for _,u:= range comments{
+				stdoutLogger.Printf("%v\n", u)
+			}
+		}
+	*/
+	/*
+		releases, err:= i1.PostService.GetPostReleases(4)
+		stdoutLogger.Printf("\nGetPostReleases\n - - - - value:\n%+v\n\n - - - - error:\n%+v", releases, err)
+		if err== nil{
+			for _,u:= range releases{
+				stdoutLogger.Printf("%v\n", u)
+			}
+		}
+	*/
+
+	/*
+		star, err := i1.PostService.GetPostStar(9,"loveless")
+		stdoutLogger.Printf("\nGetPostStar\n - - - - value:\n%+v\n\n - - - - error:\n%+v", star, err)
+	*/
+	/*
+		star, err := i1.PostService.UpdatePostStar(7, &issue1.Star{
+			Username:   "loveless",
+			NumOfStars: 3,
+		}, token)
+		stdoutLogger.Printf("\nUpdatePostStar\n - - - - value:\n%+v\n\n - - - - error:\n%+v", star, err)
+	*/
+
+	/*stars, err:= i1.PostService.GetPostStars(7)
+	stdoutLogger.Printf("\nGetPostStars\n - - - - value:\n%+v\n\n - - - - error:\n%+v", stars, err)
+	if err== nil{
+		for _,u:= range stars{
+			stdoutLogger.Printf("%v\n", u)
+		}
+	}
+	*/
+
+	/*
+		posts, err:=i1.PostService.GetPosts(1,7)
+		if err== nil{
+			for _,u:= range posts{
+				stdoutLogger.Printf("%v\n", u)
+			}
+		}
+	*/
+	/*
+		results, err := i1.SearchService.Search("fast", issue1.SortByRank,
+			issue1.PaginateParams{
+				SortOrder: issue1.SortDescending,
+				Limit:     5,
+				Offset:    0,
+			})
+
+		stdoutLogger.Printf("\nSearchReleases\n - - - - value:\n%#v\n\n - - - - error:\n%+v", results, err)
+		if err == nil {
+			stdoutLogger.Printf("--Posts")
+			for _, u := range results.Posts {
+				stdoutLogger.Printf("%v\n", u)
+			}
+			stdoutLogger.Printf("--Releases")
+			for _, u := range results.Releases {
+				stdoutLogger.Printf("%v\n", u)
+			}
+			stdoutLogger.Printf("--Users")
+			for _, u := range results.Users {
+				stdoutLogger.Printf("%v\n", u)
+			}
+			stdoutLogger.Printf("--Channels")
+			for _, u := range results.Channels {
+				stdoutLogger.Printf("%v\n", u)
+			}
+			stdoutLogger.Printf("--Comments")
+			for _, u := range results.Comments {
+				stdoutLogger.Printf("%v\n", u)
+			}
+		}
+	*/
 }

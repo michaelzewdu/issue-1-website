@@ -4,12 +4,23 @@ import (
 	"crypto/rand"
 	"encoding/base64"
 	"fmt"
+	"github.com/julienschmidt/httprouter"
+	"net/http"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
 
 	mrand "math/rand"
 )
+
+func getParametersFromRequestAsMap(r *http.Request) map[string]string {
+	params := httprouter.ParamsFromContext(r.Context())
+	vars := make(map[string]string, 0)
+	for _, param := range params {
+		vars[param.Key] = param.Value
+	}
+	return vars
+}
 
 // generateJWT generates jwt token from the given claims.
 func generateJWT(signingKey []byte, claims jwt.Claims) (string, error) {
@@ -64,6 +75,14 @@ func validCSRF(signedToken string, signingKey []byte) bool {
 	}
 
 	return true
+}
+
+func showErrorPage(w http.ResponseWriter, r *http.Request) {
+	http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+}
+
+func show404Page(w http.ResponseWriter, r *http.Request) {
+	http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
 }
 
 // GenerateRandomBytes returns securely generated random bytes.

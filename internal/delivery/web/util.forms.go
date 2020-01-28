@@ -7,8 +7,9 @@ import (
 	"unicode/utf8"
 )
 
-// EmailRX represents email address maching pattern
-var EmailRX = regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
+var emailRX = regexp.MustCompile("^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
+
+var usernameRX = regexp.MustCompile("^[a-zA-Z]?(?:[_]?[a-zA-Z0-9])*$")
 
 // Input represents form input values and validations
 type Input struct {
@@ -24,7 +25,7 @@ func (inVal *Input) MinLength(field string, d int) {
 		return
 	}
 	if utf8.RuneCountInString(value) < d {
-		inVal.VErrors.Add(field, fmt.Sprintf("This field is too short (minimum allowed is %d characters)", d))
+		inVal.VErrors.Add(field, fmt.Sprintf("This field is too short. Minimum allowed is %d characters.", d))
 	}
 }
 
@@ -35,7 +36,7 @@ func (inVal *Input) MaxLength(field string, d int) {
 		return
 	}
 	if utf8.RuneCountInString(value) > d {
-		inVal.VErrors.Add(field, fmt.Sprintf("This field is too long (maximum allowed is %d characters)", d))
+		inVal.VErrors.Add(field, fmt.Sprintf("This field is too long. Maximum allowed is %d characters.", d))
 	}
 }
 
@@ -44,7 +45,7 @@ func (inVal *Input) Required(fields ...string) {
 	for _, f := range fields {
 		value := inVal.Values.Get(f)
 		if value == "" {
-			inVal.VErrors.Add(f, "This field is required field")
+			inVal.VErrors.Add(f, "This field is required field.")
 		}
 	}
 }
@@ -56,7 +57,7 @@ func (inVal *Input) MatchesPattern(field string, pattern *regexp.Regexp) {
 		return
 	}
 	if !pattern.MatchString(value) {
-		inVal.VErrors.Add(field, "The value entered is invalid")
+		inVal.VErrors.Add(field, fmt.Sprintf("The value entered is invalid."))
 	}
 }
 
@@ -70,8 +71,8 @@ func (inVal *Input) PasswordMatches(password string, confPassword string) {
 	}
 
 	if pwd != confPwd {
-		inVal.VErrors.Add(password, "The Password and Confim Password values did not match")
-		inVal.VErrors.Add(confPassword, "The Password and Confim Password values did not match")
+		inVal.VErrors.Add(password, "The password and confirm password values did not match.")
+		inVal.VErrors.Add(confPassword, "The password and confirm password values did not match.")
 	}
 }
 

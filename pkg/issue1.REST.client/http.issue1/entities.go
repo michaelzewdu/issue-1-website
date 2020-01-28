@@ -3,6 +3,7 @@ package issue1
 import "time"
 
 type (
+
 	// Channel represents a singular stream of posts that a user can subscribe to
 	// under administration by certain users.
 	Channel struct {
@@ -39,18 +40,24 @@ type (
 		//Subscriptions []*Channel `json:"subscriptions"`
 		// hiddenPosts   []Post
 	}
+
 	// Post is an aggregate entity of Releases along with socially interactive
 	// components such as stars, posting user and comments attached to the post
 	Post struct {
-		ID               int            `json:"id"`
-		PostedByUsername string         `json:"PostedByUsername,omitempty"`
-		OriginChannel    string         `json:"originChannel,omitempty"`
-		Title            string         `json:"title,omitempty"`
-		Description      string         `json:"description,omitempty"`
-		ContentsID       []int          `json:"contentsID,omitempty"`
-		Stars            map[string]int `json:"stars,omitempty"`
-		CommentsID       []int          `json:"commentsID,omitempty"`
-		CreationTime     time.Time      `json:"creationTime"`
+		ID               uint            `json:"id"`
+		PostedByUsername string          `json:"PostedByUsername,omitempty"`
+		OriginChannel    string          `json:"originChannel,omitempty"`
+		Title            string          `json:"title"`
+		Description      string          `json:"description"`
+		ContentsID       []uint          `json:"contentsID"`
+		Stars            map[string]uint `json:"stars"`
+		CommentsID       []int           `json:"commentsID"`
+		CreationTime     time.Time       `json:"creationTime"`
+	}
+	//Star is a key value pair of username and number of stars
+	Star struct {
+		Username   string `json:"username,omitempty"`
+		NumOfStars uint   `json:"stars,omitempty"`
 	}
 	// Release represents an atomic work of creativity.
 	Release struct {
